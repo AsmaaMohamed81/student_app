@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class HexColor extends Color {
@@ -10,6 +9,5 @@ class HexColor extends Color {
     }
     return int.parse(hexColor, radix: 16);
   }
-
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }

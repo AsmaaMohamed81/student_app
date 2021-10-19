@@ -31,7 +31,7 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
             Container(
                 margin: const EdgeInsets.only(top: 10),
                 child: Text(
-                 AppLocalizations.of(context)!
+                  AppLocalizations.of(context)!
                       .translate('sorry..no_internet_connection')!,
                   style: const TextStyle(
                       fontSize: 18,
@@ -72,7 +72,7 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
                           color: Theme.of(context).primaryColor,
                           child: Container(
                               alignment: Alignment.center,
-                              child:  Text(
+                              child: Text(
                                 AppLocalizations.of(context)!
                                     .translate('refresh_screen')!,
                                 style: TextStyle(
@@ -100,7 +100,7 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
           final appBar = AppBar(
             leading: Container(),
             backgroundColor: Theme.of(context).primaryColor,
-            title: Text(
+            title: const Text(
               'محرك',
               style: TextStyle(
                   color: Color(0xffFFFFFF),
@@ -112,15 +112,15 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
           );
           _width = MediaQuery.of(context).size.width;
 
-            return WillPopScope(
+          return WillPopScope(
               onWillPop: () async => false,
               child: Scaffold(
                 appBar: appBar,
                 body: _buildBodyItem(),
               ));
-     
-        } else
+        } else {
           return child;
+        }
       },
       builder: (BuildContext context) {
         return widget.child!;

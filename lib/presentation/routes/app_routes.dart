@@ -11,11 +11,11 @@
 // import 'package:timeliner/presentation/pages/view_article.dart';
 
 import 'package:flutter/material.dart';
-import 'package:student_app/presentation/screens/splash/splash_screen.dart';
+import 'package:student_app/presentation/screens/splash_screen.dart';
 
 class AppRoutes {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
-    final args = routeSettings.arguments;
+   // final args = routeSettings.arguments;
 
     switch (routeSettings.name) {
       case '/':

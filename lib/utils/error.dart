@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 
 class Error extends StatelessWidget {
   final String errorMessage;
-
   final Function()? onRetryPressed;
-
   const Error({Key? key, required this.errorMessage, this.onRetryPressed})
       : super(key: key);
 

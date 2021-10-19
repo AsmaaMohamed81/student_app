@@ -1,12 +1,12 @@
 
+import 'package:student_app/data/api/api_consumer.dart';
 import 'package:student_app/data/models/character.dart';
-import 'package:student_app/data/networking/api_provider.dart';
 import 'package:student_app/utils/urls.dart';
 
 class CharactersRepository {
-  final ApiProvider apiProvider;
+  final ApiConsumer apiConsumer;
 
-  CharactersRepository(this.apiProvider);
+  CharactersRepository(this.apiConsumer);
   
 // final CharactersWebServices charactersWebServices;
 
@@ -19,7 +19,7 @@ class CharactersRepository {
 // }
 
   Future<List<Character>> getAllCharacters() async {
-    final response = await apiProvider.getWithDio(
+    final response = await apiConsumer.getWithDio(
         charactersUrl
        );
 

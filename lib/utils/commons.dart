@@ -42,7 +42,6 @@ class Commons {
             ));
   }
 
-
   static Widget chuckyLoading(String message) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

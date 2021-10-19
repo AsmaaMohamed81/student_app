@@ -6,11 +6,11 @@ import 'dart:async';
 
 import 'custom_exception.dart';
 
-class ApiProvider {
-// next three lines makes this class a Singleton
-  static final ApiProvider _instance = ApiProvider.internal();
-  ApiProvider.internal();
-  factory ApiProvider() => _instance;
+class ApiConsumer {
+
+  static final ApiConsumer _instance = ApiConsumer.internal();
+  ApiConsumer.internal();
+  factory ApiConsumer() => _instance;
 
   Future<dynamic> getWithHttp(String url,
       {Map<String, String>? headers}) async {
