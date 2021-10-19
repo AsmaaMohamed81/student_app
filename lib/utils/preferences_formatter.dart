@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PreferencesHelper {
+class SharedPreferencesFormatter {
   static read(String key) async {
     final p = await prefs;
     if (p.getString(key) != null) {
