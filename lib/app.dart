@@ -12,7 +12,7 @@ class StudentApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-       BlocProvider(
+        BlocProvider(
           create: (_) => di.sl<LocaleCubit>()..changeStartLang(),
         ),
       ],

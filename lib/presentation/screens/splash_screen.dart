@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/utils/hex_color.dart';
-
 import 'main_view.dart';
 
 class SplashScreen extends StatefulWidget {

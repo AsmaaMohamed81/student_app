@@ -13,7 +13,7 @@ class LocaleCubit extends Cubit<LocaleState> {
   }
 
   void changeStartLang() async {
-    String langCode = await PreferencesHelper.getString('locale', 'ar');
+    String langCode = await PreferencesHelper.getString('locale', 'en');
     emit(SelectedLocale(Locale(langCode)));
   }
 
