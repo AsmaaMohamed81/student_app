@@ -64,18 +64,20 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
                 margin: EdgeInsets.symmetric(
                     horizontal: _width * 0.25, vertical: 10),
                 child: Builder(
-                    builder: (context) => RaisedButton(
+                    builder: (context) => ElevatedButton(
                           onPressed: () {},
-                          elevation: 500,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(25.0)),
-                          color: Theme.of(context).primaryColor,
+                          style: ElevatedButton.styleFrom(
+                            elevation: 500,
+                            onPrimary: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                          ),
                           child: Container(
                               alignment: Alignment.center,
                               child: Text(
                                 AppLocalizations.of(context)!
                                     .translate('refresh_screen')!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: 'Fairuz',
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,

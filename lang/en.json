@@ -4,5 +4,8 @@
   "sorry..no_internet_connection": "Sorry...No Internet Connection",
   "check_your_router": "Check Your Router",
   "reconnect_to_network": "Reconnect To Network",
-  "refresh_screen": "Refresh Screen"
+  "refresh_screen": "Refresh Screen",
+  "place_you_learn" :"The Place You can learn Every Thing",
+  "get_started" : "Lets Get Started!",
+  "retry" : "Retry"
 }

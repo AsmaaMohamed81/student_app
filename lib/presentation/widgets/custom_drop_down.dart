@@ -142,9 +142,9 @@ class _CustomDropdownButtonFormFieldState
                       : hintColor),
         ),
         contentPadding: EdgeInsets.symmetric(
-            horizontal: widget.horizontalPadding == null
-                ? 12.0
-                : widget.horizontalPadding!,
+            horizontal: widget.horizontalPadding ?? 
+                12.0
+                ,
             vertical:
                 widget.verticalPadding == null ? 12.0 : widget.verticalPadding!),
         suffix: widget.suffix,

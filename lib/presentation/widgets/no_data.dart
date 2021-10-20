@@ -34,8 +34,7 @@ class NoData extends StatelessWidget {
                             message,
                               style: const TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  
+                                  fontWeight: FontWeight.w400,   
                                   fontSize: 15),
                             ),
                           ),

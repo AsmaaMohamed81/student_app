@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student_app/locale/app_localizations.dart';
 
 class Error extends StatelessWidget {
   final String errorMessage;
@@ -22,11 +23,14 @@ class Error extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          RaisedButton(
-            color: Colors.white,
-            child: Text('Retry', style: const TextStyle(color: Colors.black)),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white,
+            ),
+            child: Text(AppLocalizations.of(context)!.translate('retry')!,
+                style: const TextStyle(color: Colors.black)),
             onPressed: onRetryPressed,
-          )
+          ),
         ],
       ),
     );

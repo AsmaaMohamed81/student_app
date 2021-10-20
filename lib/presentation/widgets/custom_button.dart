@@ -24,8 +24,8 @@ class CustomButton extends StatelessWidget {
       {Key? key,
       required this.btnLbl,
       this.borderRadius,
-      this.horizontalMarginIsEnabled: true,
-      this.verticalMarginIsEnabled: true,
+      this.horizontalMarginIsEnabled= true,
+      this.verticalMarginIsEnabled= true,
       this.onPressedFunction,
       this.btnColor,
       this.btnLblStyle,
@@ -52,7 +52,7 @@ class CustomButton extends StatelessWidget {
           decoration: hasGradientColor
               ? BoxDecoration(
                 borderRadius:   BorderRadius.circular(35.0),
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [
                       Color(0xff1C608D),
                       Color(0xff3192D9),
