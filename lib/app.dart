@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
 import 'package:student_app/presentation/routes/app_routes.dart';
-import 'package:student_app/presentation/screens/intro_screen.dart';
 import 'package:student_app/presentation/themes/app_theme.dart';
 import 'package:student_app/utils/injection_container.dart' as di;
 import 'locale/app_localizations_setup.dart';
@@ -27,7 +26,6 @@ class StudentApp extends StatelessWidget {
               builder: () => MaterialApp(
                     title: 'Student App',
                     debugShowCheckedModeBanner: false,
-                    // home: const IntroScreen(),
                     onGenerateRoute: AppRoutes.onGenerateRoute,
                     theme: themeData(),
                     supportedLocales: AppLocalizationsSetup.supportedLocales,
