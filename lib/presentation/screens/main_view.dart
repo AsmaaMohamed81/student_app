@@ -39,7 +39,7 @@ class MainView extends StatelessWidget {
             children: <Widget>[
               Text(
                 AppLocalizations.of(context)!.translate('head_title')!,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

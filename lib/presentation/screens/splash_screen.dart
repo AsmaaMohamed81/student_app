@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -34,12 +36,16 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               orientation == Orientation.portrait
                   ? SizedBox(
-                      height: 30.h,
+                      height: 100.h,
                     )
                   : SizedBox(
                       height: 10.h,
                     ),
-              Image.asset('assets/images/logo.png', height: 370.h),
+              Image.asset('assets/images/logo.png', ),
+                orientation == Orientation.portrait
+                  ? SizedBox(
+                      height: 20.h,
+                    ) : SizedBox(),
               Align(
                   alignment: Alignment.center,
                   child: Row(
@@ -72,14 +78,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     initData().then((value) {
-      Navigator.pushNamed(context, '/intro');
+      Navigator.pushReplacementNamed(context, '/intro');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PageContainer(child: Scaffold(
       body: _buildBodyItem(),
-    );
+    ));
   }
 }
