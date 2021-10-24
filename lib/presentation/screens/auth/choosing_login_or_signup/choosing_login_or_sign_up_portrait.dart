@@ -12,6 +12,7 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
   Widget build(BuildContext context) {
     return _buildBodyItem(context);
   }
+
   Widget _buildBodyItem(BuildContext context) {
     return Stack(
       children: [
@@ -56,7 +57,7 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
                 btnLblStyle: TextStyle(color: mainAppColor, fontSize: 17.sp),
                 btnColor: Colors.white,
                 btnLbl: AppLocalizations.of(context)!.translate('sign_in')!,
-                onPressedFunction: () {},
+                onPressedFunction: () => Navigator.pushNamed(context, '/login'),
               ),
               DefaultButton(
                 borderColor: mainAppColor,

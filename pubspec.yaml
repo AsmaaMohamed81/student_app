@@ -18,6 +18,7 @@ dependencies:
   flutter_screenutil: ^5.0.0+2
   flutter_spinkit: ^5.1.0
   fluttertoast: ^8.0.8
+  font_awesome_flutter: ^9.2.0
   get_it: ^7.2.0
   http: ^0.13.3
   mask_text_input_formatter: ^2.0.0
@@ -40,7 +41,7 @@ flutter:
     - lang/en.json
     - lang/ar.json
     - assets/images/bg.png
-    - assets/images/ff.png
+    - assets/images/login_bg.png
     - assets/images/splash_bg.png
     - assets/images/intro_bg.png
     - assets/images/welcome_bg.png

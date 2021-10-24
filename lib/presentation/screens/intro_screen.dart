@@ -26,7 +26,7 @@ class IntroScreen extends StatelessWidget {
             children: <Widget>[
               orientation == Orientation.portrait
                   ? SizedBox(
-                      height: 100.h,
+                      height: 50.h,
                     )
                   : SizedBox(
                       height: 10.h,

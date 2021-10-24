@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:student_app/utils/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextFormField extends StatefulWidget {
+class PredefinedTextFormField extends StatefulWidget {
   final TextStyle? errorStyle;
   final double? radius;
   final TextStyle? textStyle;
@@ -41,7 +42,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextAlignVertical? textAlignVertical;
   final TextAlign? textAlign;
 
-  const CustomTextFormField(
+  const PredefinedTextFormField(
       {Key? key,
       this.hintTxt,
       this.textStyle,
@@ -83,28 +84,29 @@ class CustomTextFormField extends StatefulWidget {
       : super(key: key);
 
   @override
-  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
+  _PredefinedTextFormFieldState createState() =>
+      _PredefinedTextFormFieldState();
 }
 
-class _CustomTextFormFieldState extends State<CustomTextFormField> {
+class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
   bool _obsecureText = true;
   late FocusNode _focusNode;
 
   @override
   void initState() {
-    super.initState();
     _focusNode = FocusNode();
+       super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _focusNode.dispose();
+       super.dispose();
   }
 
   Widget _buildTextFormField() {
     return TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: widget.autovalidateMode,
       inputFormatters: widget.inputFormatters,
       expands: widget.expands,
       controller: widget.controller,
@@ -118,32 +120,28 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       decoration: InputDecoration(
         filled: widget.filled ? true : false,
         fillColor: widget.filledColor ?? Colors.white,
-        border: widget.borderIsEnabled
+        border: !widget.borderIsEnabled
             ? InputBorder.none
             : OutlineInputBorder(
                 borderRadius: BorderRadius.circular(
                     (widget.radius == null ? 12 : widget.radius!)),
                 borderSide: BorderSide(
-                  color: (_focusNode.hasFocus
+                  color: _focusNode.hasFocus
                       ? widget.focusColor ?? mainAppColor
-                      : widget.unfocusColor ?? hintColor),
+                      : widget.unfocusColor ?? hintColor,
                 )),
         enabledBorder: !widget.borderIsEnabled
             ? InputBorder.none
             : OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                    (widget.radius ?? 10.0)),
+                borderRadius: BorderRadius.circular((widget.radius ?? 10.0)),
                 borderSide: BorderSide(
-                  color: (_focusNode.hasFocus
-                      ? widget.focusColor ?? mainAppColor
-                      : widget.unfocusColor ?? hintColor),
-                )),
+                    color: _focusNode.hasFocus
+                        ? widget.focusColor ?? mainAppColor
+                        : widget.unfocusColor ?? hintColor),
+              ),
         contentPadding: EdgeInsets.symmetric(
-          horizontal: widget.horizontalPadding == null
-              ? 12.0
-              : widget.horizontalPadding!,
-          vertical:
-              widget.verticalPadding == null ? 12.0 : widget.verticalPadding!,
+          horizontal: widget.horizontalPadding ?? 12.0,
+          vertical: widget.verticalPadding ?? 12.0,
         ),
         suffix: widget.isPassword
             ? InkWell(
@@ -165,13 +163,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ? widget.suffixIcon
             : _focusNode.hasFocus
                 ? Image.asset(
-                    (widget.suffixIconImagePath)!,
+                    widget.suffixIconImagePath!,
                     color: mainAppColor,
                     height: 25,
                     width: 25,
                   )
                 : Image.asset(
-                    (widget.suffixIconImagePath!),
+                    widget.suffixIconImagePath!,
                     color: Colors.grey,
                     height: 25,
                     width: 25,
@@ -200,9 +198,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             fontWeight: FontWeight.bold),
         errorStyle: widget.errorStyle ?? const TextStyle(fontSize: 12.0),
         hintStyle: TextStyle(
-            color: _focusNode.hasFocus
-                ? mainAppColor
-                : widget.hintColor ?? const Color(0xffDCDCDC),
+            color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
             fontSize: 14,
             fontWeight: FontWeight.w400),
       ),
@@ -216,12 +212,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: MediaQuery.of(context).size.width,
+        width: 1.sw,
         margin: EdgeInsets.symmetric(
             horizontal: widget.horizontalMargin != null
                 ? widget.horizontalMargin!
                 : widget.defaultHorizontalMarginIsEnabled
-                    ? 20.0
+                    ? 20.w
                     : 0),
         child: _buildTextFormField());
   }

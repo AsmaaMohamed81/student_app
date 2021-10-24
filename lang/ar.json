@@ -11,5 +11,10 @@
   "retry": "إعادة المحاولة",
   "welcome": "اهلا بك !",
   "sign_in" : "تسجيل دخول",
-  "sign_up" : "تسجيل حساب جديد"
+  "sign_up" : "تسجيل حساب جديد",
+  "enter_email_or_user_name" : " أدخل الاسم أو الإيميل ",
+  "enter_password" : " أدخل كلمة المرور",
+  "forgot_your_password": " هل نسيت كلمة المرور؟ ",
+  "or" : "أو",
+  "don’t_have_account?" : "هل لديك حساب ؟"
 }

@@ -3,7 +3,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:student_app/utils/app_colors.dart';
 
 
-class CustomDropdownButtonFormField extends StatefulWidget {
+class PredefinedDropdownButtonFormField extends StatefulWidget {
   final List<DropdownMenuItem<dynamic>> items;
   final String? hint;
   final dynamic value;
@@ -37,7 +37,7 @@ class CustomDropdownButtonFormField extends StatefulWidget {
   final bool filled;
   final List<MaskTextInputFormatter>? inputFormatters;
 
-  const CustomDropdownButtonFormField(
+  const PredefinedDropdownButtonFormField(
       {Key? key,
       required this.items,
       this.borderIsEnabled = true,
@@ -73,12 +73,12 @@ class CustomDropdownButtonFormField extends StatefulWidget {
       this.inputFormatters})
       : super(key: key);
   @override
-  _CustomDropdownButtonFormFieldState createState() =>
-      _CustomDropdownButtonFormFieldState();
+  _PredefinedDropdownButtonFormFieldState createState() =>
+      _PredefinedDropdownButtonFormFieldState();
 }
 
-class _CustomDropdownButtonFormFieldState
-    extends State<CustomDropdownButtonFormField> {
+class _PredefinedDropdownButtonFormFieldState
+    extends State<PredefinedDropdownButtonFormField> {
   late FocusNode _focusNode;
 
   @override
@@ -89,9 +89,7 @@ class _CustomDropdownButtonFormFieldState
 
   @override
   void dispose() {
-    // Clean up the focus node when the Form is disposed.
     _focusNode.dispose();
-
     super.dispose();
   }
 

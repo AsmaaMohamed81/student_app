@@ -54,7 +54,7 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
                       btnColor: Colors.white,
                       btnLbl:
                           AppLocalizations.of(context)!.translate('sign_in')!,
-                      onPressedFunction: () {},
+                      onPressedFunction: () => Navigator.pushNamed(context,  '/login'),
                     ),
                   ),
                   SizedBox(
