@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/utils/app_colors.dart';
 
-
-class CustomButton extends StatelessWidget {
+class DefaultButton extends StatelessWidget {
   final bool horizontalMarginIsEnabled;
   final bool verticalMarginIsEnabled;
   final Color? btnColor;
@@ -14,29 +14,25 @@ class CustomButton extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? postfixIcon;
   final bool hasGradientColor;
-
-
   final double? height;
   final double? width;
 
-
-  const CustomButton(
-      {Key? key,
-      required this.btnLbl,
-      this.borderRadius,
-      this.horizontalMarginIsEnabled= true,
-      this.verticalMarginIsEnabled= true,
-      this.onPressedFunction,
-      this.btnColor,
-      this.btnLblStyle,
-      this.prefixIcon,
-      this.hasGradientColor = false,
-      this.postfixIcon,
-      this.borderColor,
-  
-      this.height, this.width,
-     })
-      : super(key: key);
+  const DefaultButton({
+    Key? key,
+    required this.btnLbl,
+    this.borderRadius,
+    this.horizontalMarginIsEnabled = true,
+    this.verticalMarginIsEnabled = true,
+    this.onPressedFunction,
+    this.btnColor,
+    this.btnLblStyle,
+    this.prefixIcon,
+    this.hasGradientColor = false,
+    this.postfixIcon,
+    this.borderColor,
+    this.height,
+    this.width,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +40,14 @@ class CustomButton extends StatelessWidget {
       splashColor: Colors.white,
       onTap: () => onPressedFunction!(),
       child: Container(
-        width: width,
-          height:height != null ? 50 :  height,
+          width: width,
+          height: height ?? 45.h ,
           margin: EdgeInsets.symmetric(
-              horizontal: horizontalMarginIsEnabled ? 20 : 0.0,
-              vertical: verticalMarginIsEnabled ? 10 : 0),
+              horizontal: horizontalMarginIsEnabled ? 10.w : 0.0,
+              vertical: verticalMarginIsEnabled ? 10.h : 0),
           decoration: hasGradientColor
               ? BoxDecoration(
-                borderRadius:   BorderRadius.circular(35.0),
+                  borderRadius: BorderRadius.circular(35.0),
                   gradient: const LinearGradient(
                     colors: [
                       Color(0xff1C608D),
@@ -60,8 +56,7 @@ class CustomButton extends StatelessWidget {
                     begin: Alignment.centerRight,
                     end: Alignment.centerLeft,
                   ),
-                
-                    )
+                )
               : BoxDecoration(
                   color: btnColor ?? mainAppColor,
                   border: Border.all(
@@ -72,9 +67,8 @@ class CustomButton extends StatelessWidget {
                             ? btnColor!
                             : mainAppColor,
                   ),
-                  borderRadius: borderRadius != null ? borderRadius!:
-                   BorderRadius.circular(
-                           10.0)),
+                  borderRadius: borderRadius ??
+                       BorderRadius.circular(10.0)),
           alignment: Alignment.center,
           child: prefixIcon != null
               ? Row(
@@ -83,11 +77,12 @@ class CustomButton extends StatelessWidget {
                     prefixIcon!,
                     Container(
                         alignment: Alignment.center,
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        margin:  EdgeInsets.symmetric(horizontal: 5.w),
                         child: Text(
                           btnLbl,
                           textAlign: TextAlign.center,
-                          style: btnLblStyle ?? Theme.of(context).textTheme.button,
+                          style:
+                              btnLblStyle ?? Theme.of(context).textTheme.button,
                         ))
                   ],
                 )
@@ -101,18 +96,20 @@ class CustomButton extends StatelessWidget {
                             child: Text(
                               btnLbl,
                               textAlign: TextAlign.center,
-                              style: btnLblStyle ?? Theme.of(context).textTheme.button,
+                              style: btnLblStyle ??
+                                  Theme.of(context).textTheme.button,
                             )),
                         postfixIcon!
                       ],
                     )
                   : Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      margin:  EdgeInsets.symmetric(horizontal: 5.w),
                       child: Text(
                         btnLbl,
                         textAlign: TextAlign.center,
-                        style: btnLblStyle ?? Theme.of(context).textTheme.button,
+                        style:
+                            btnLblStyle ?? Theme.of(context).textTheme.button,
                       ))),
     );
   }
