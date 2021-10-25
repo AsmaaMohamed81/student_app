@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                       ),
                     )
                   : Center(
-                      child: CircularProgressIndicator(color: mainAppColor),
+                      child: SpinKitFadingCircle(color: mainAppColor),
                     ),
               SizedBox(
                 height: 25.h,
