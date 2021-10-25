@@ -6,14 +6,15 @@ import 'package:student_app/presentation/screens/auth/login.dart';
 import 'package:student_app/presentation/screens/home.dart';
 import 'package:student_app/presentation/screens/intro_screen.dart';
 import 'package:student_app/presentation/screens/splash_screen.dart';
+import 'package:student_app/utils/strings.dart';
 
 class AppRoutes {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
     //final args = routeSettings.arguments;
     switch (routeSettings.name) {
-      case '/':
+      case initialRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
-      case '/home':
+      case homeRoute:
         return MaterialPageRoute(
             builder: (_) => BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, authState) {
@@ -26,10 +27,10 @@ class AppRoutes {
                     return const IntroScreen();
                   },
                 ));
-      case '/choosing_login_or_signup':
+      case choosingLoginOrSignUpRoute:
         return MaterialPageRoute(
             builder: (_) => const ChoosingLoginOrSignUpScreen());
-      case '/login':
+      case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       default:
         return null;

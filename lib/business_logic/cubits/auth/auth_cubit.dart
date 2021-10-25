@@ -9,10 +9,9 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepository;
   AuthCubit(this.authRepository) : super(AuthInitial());
-
   bool isLoading = false;
 
-  void getSavedCredential() async {
+  void getSavedCredentials() async {
     var userData = await SharedPreferencesFormatter.read("user");
     if (userData != null) {
       emit(Authenticated(User.fromJson(userData)));

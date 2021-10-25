@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:student_app/utils/strings.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     initData().then((value) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, homeRoute);
     });
   }
 

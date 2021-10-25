@@ -18,7 +18,7 @@ class StudentApp extends StatelessWidget {
           create: (_) => di.sl<LocaleCubit>()..changeStartLang(),
         ),
          BlocProvider(
-          create: (_) => di.sl<AuthCubit>()..getSavedCredential(),
+          create: (_) => di.sl<AuthCubit>()..getSavedCredentials(),
         ),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
@@ -27,7 +27,7 @@ class StudentApp extends StatelessWidget {
         builder: (_, localeState) {
           return ScreenUtilInit(
               designSize: const Size(360, 690),
-              builder: () => MaterialApp(
+              builder: () => MaterialApp(         
                     title: 'Student App',
                     debugShowCheckedModeBanner: false,
                     onGenerateRoute: AppRoutes.onGenerateRoute,

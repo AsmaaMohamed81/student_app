@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/hex_color.dart';
+import 'package:student_app/utils/strings.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -243,10 +244,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
           listener: (context, state) {
             if (state is Authenticated) {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/home', (Route<dynamic> route) => false);
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) => const HomeScreen(),
-              // ));
+                  homeRoute, (Route<dynamic> route) => false);
             } else if (state is UnAuthenticated) {
               Commons.showError(context, state.message);
             }
