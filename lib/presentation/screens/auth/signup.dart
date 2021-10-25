@@ -12,16 +12,23 @@ import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/hex_color.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
+class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _fisrtNameController = TextEditingController();
+
+  final TextEditingController _lastNameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmpasswordController =
+      TextEditingController();
 
   Widget _buildBodyItem(AuthState state) {
     return OrientationBuilder(builder: (context, orientation) {
@@ -36,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 alignment: Alignment.topRight,
                 child: Image.asset(
                   'assets/images/login_bg.png',
+                  height: 130.h,
                 ),
               ),
               SizedBox(
@@ -43,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               ),
               Center(
                 child: Text(
-                  AppLocalizations.of(context)!.translate("sign_in")!,
+                  AppLocalizations.of(context)!.translate("sign_up")!,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
@@ -54,42 +62,65 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               SizedBox(
                 height: 15.h,
               ),
+              Row(
+                children: [
+                  Expanded(
+                    child: PredefinedTextFormField(
+                      maxLines: 1,
+                      validationFunction: validateFirstName,
+                      hintTxt: 'First Name',
+                      controller: _fisrtNameController,
+                    ),
+                  ),
+                  Expanded(
+                    child: PredefinedTextFormField(
+                      maxLines: 1,
+                      validationFunction: validateLastName,
+                      hintTxt: 'Last Name',
+                      controller: _lastNameController,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              PredefinedTextFormField(
+                maxLines: 1,
+                validationFunction: validateUserName,
+                controller: _usernameController,
+                hintTxt: AppLocalizations.of(context)!.translate("user_name")!,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
               PredefinedTextFormField(
                 maxLines: 1,
                 validationFunction: validateUserNameOrEmail,
                 controller: _emailController,
-                hintTxt: AppLocalizations.of(context)!
-                    .translate("enter_email_or_user_name")!,
+                hintTxt: AppLocalizations.of(context)!.translate("email")!,
               ),
               SizedBox(
-                height: 15.h,
+                height: 10.h,
               ),
               PredefinedTextFormField(
                 controller: _passwordController,
-                validationFunction: validatePassword,
+                validationFunction: validatePasswordsignup,
                 hintTxt:
                     AppLocalizations.of(context)!.translate("enter_password")!,
                 isPassword: true,
                 maxLines: 1,
               ),
               SizedBox(
-                height: 15.h,
+                height: 10.h,
               ),
-              Row(
-                children: [
-                  const Spacer(),
-                  Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .translate('forgot_your_password')!,
-                        style: TextStyle(
-                            color: HexColor('7B7890'),
-                            fontSize: orientation == Orientation.portrait
-                                ? 14.sp
-                                : 25.sp),
-                      )),
-                ],
+              PredefinedTextFormField(
+                controller: _confirmpasswordController,
+                validationFunction: validateConfirmPassword,
+                hintTxt: AppLocalizations.of(context)!
+                    .translate("enter_confirm_password")!,
+                isPassword: true,
+                maxLines: 1,
               ),
               SizedBox(
                 height: 15.h,
@@ -106,13 +137,18 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         borderColor: mainAppColor,
                         horizontalMarginIsEnabled: true,
                         btnLbl:
-                            AppLocalizations.of(context)!.translate('sign_in')!,
+                            AppLocalizations.of(context)!.translate('sign_up')!,
                         onPressedFunction: () {
                           if (!BlocProvider.of<AuthCubit>(context).isLoading) {
-                            BlocProvider.of<AuthCubit>(context).login(
+                            BlocProvider.of<AuthCubit>(context).signUp(
                                 formKey: _formKey,
                                 passwordController: _passwordController,
-                                emailController: _emailController);
+                                emailController: _emailController,
+                                userNameController: _usernameController,
+                                firstNameController: _fisrtNameController,
+                                lasrNameController: _lastNameController,
+                                confirmpasswordController:
+                                    _confirmpasswordController);
                           }
                         },
                       ),
@@ -121,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                       child: CircularProgressIndicator(color: mainAppColor),
                     ),
               SizedBox(
-                height: 25.h,
+                height: 10.h,
               ),
               Center(
                 child: Text(' —————————— ' +
@@ -129,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                     '  ——————————'),
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -193,10 +229,10 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                     vertical:
                         orientation == Orientation.portrait ? 10.h : 15.h),
                 child: InkWell(
-                  onTap: () => Navigator.pushNamed(context, '/signup'),
+                  onTap: () => Navigator.pushNamed(context, '/login'),
                   child: Text.rich(TextSpan(
                       text: AppLocalizations.of(context)!
-                          .translate('don’t_have_account?')!,
+                          .translate('already_have_account?')!,
                       style: TextStyle(
                           fontSize: orientation == Orientation.portrait
                               ? 14.sp
@@ -206,7 +242,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         const TextSpan(text: '  '),
                         TextSpan(
                           text: AppLocalizations.of(context)!
-                              .translate('sign_up')!,
+                              .translate('sign_in')!,
                           style: TextStyle(
                               fontSize: orientation == Orientation.portrait
                                   ? 14.sp

@@ -10,4 +10,24 @@ class AuthRepository {
         .post(loginUrl, body: {"email": email, "password": password});
     return response;
   }
+
+  Future<dynamic> signUp(
+      {required String userName,
+      required String email,
+      required String password,
+      required String confirmPassword,
+      required String firstName,
+      required String lastName}) async {
+    final response = await apiConsumer.post(signupUrl, body: {
+      "userName": userName,
+      "email": email,
+      "password": password,
+      "confirmPassword": confirmPassword,
+      "phone": "",
+      "firstName": firstName,
+      "lastName": lastName,
+      "zoomUserId": " "
+    });
+    return response;
+  }
 }

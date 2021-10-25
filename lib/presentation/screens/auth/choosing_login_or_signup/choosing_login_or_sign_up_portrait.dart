@@ -63,7 +63,8 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
                 borderColor: mainAppColor,
                 horizontalMarginIsEnabled: false,
                 btnLbl: AppLocalizations.of(context)!.translate('sign_up')!,
-                onPressedFunction: () {},
+                onPressedFunction: () =>
+                    Navigator.pushNamed(context, '/signup'),
               )
             ],
           ),

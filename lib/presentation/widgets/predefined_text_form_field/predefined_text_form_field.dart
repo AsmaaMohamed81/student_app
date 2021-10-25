@@ -95,13 +95,13 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
   @override
   void initState() {
     _focusNode = FocusNode();
-       super.initState();
+    super.initState();
   }
 
   @override
   void dispose() {
     _focusNode.dispose();
-       super.dispose();
+    super.dispose();
   }
 
   Widget _buildTextFormField() {
@@ -128,8 +128,17 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
                 borderSide: BorderSide(
                   color: _focusNode.hasFocus
                       ? widget.focusColor ?? mainAppColor
-                      : widget.unfocusColor ?? hintColor,
+                      : widget.unfocusColor ?? mainAppColor,
                 )),
+        focusedBorder: !widget.borderIsEnabled
+            ? InputBorder.none
+            : OutlineInputBorder(
+                borderRadius: BorderRadius.circular((widget.radius ?? 10.0)),
+                borderSide: BorderSide(
+                    color: _focusNode.hasFocus
+                        ? widget.focusColor ?? mainAppColor
+                        : widget.unfocusColor ?? mainAppColor),
+              ),
         enabledBorder: !widget.borderIsEnabled
             ? InputBorder.none
             : OutlineInputBorder(
@@ -137,7 +146,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
                 borderSide: BorderSide(
                     color: _focusNode.hasFocus
                         ? widget.focusColor ?? mainAppColor
-                        : widget.unfocusColor ?? hintColor),
+                        : widget.unfocusColor ?? mainAppColor),
               ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: widget.horizontalPadding ?? 12.0,
@@ -152,7 +161,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
                 },
                 child: Icon(
                   _obsecureText ? Icons.remove_red_eye : Icons.visibility_off,
-                  color: _focusNode.hasFocus ? mainAppColor : hintColor,
+                  color: _focusNode.hasFocus ? mainAppColor : mainAppColor,
                   size: 20,
                 ),
               )
@@ -196,16 +205,19 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             color: const Color(0xff0D0D0F).withOpacity(0.5),
             fontSize: 12,
             fontWeight: FontWeight.bold),
-        errorStyle: widget.errorStyle ?? const TextStyle(fontSize: 12.0),
+        errorMaxLines: 2,
+        errorStyle:
+            widget.errorStyle ?? const TextStyle(height: .85, fontSize: 10),
         hintStyle: TextStyle(
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
-            fontSize: 14,
+            fontSize: 11,
             fontWeight: FontWeight.w400),
       ),
       keyboardType: widget.inputData,
       obscureText: widget.isPassword ? _obsecureText : false,
       validator: widget.validationFunction,
       onChanged: widget.onChangedFunction,
+      textInputAction: TextInputAction.next,
     );
   }
 

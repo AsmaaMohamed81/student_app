@@ -17,8 +17,32 @@
   "forgot_your_password": " هل نسيت كلمة المرور؟ ",
   "or" : "أو",
   "don’t_have_account?" : "هل لديك حساب ؟",
+  "already_have_account?" : "لديك حساب بالفعل ؟",
   "user_name_or_email_validation" : "من فضلك أدخل اسم المستخدم أو الإيميل  الخاص بك",
-  "password_validation":"كلمة المرور لا تقل عن 6 حروف او أرقام",
+  "password_validation":"يجب ادخال كلمه المرور اولا",
   "ok": "موافق",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "user_name":"اسم المستخدم",
+  "email": "أدخل البريد الالكتروني",
+  "enter_confirm_password": "تأكيد كلمه المرور",
+  "first_name_validation_empty": "من فضلك ادخل الاسم الاول",
+  "first_name_validation_lenght": "يجب ان يكون الاسم الاول بين 2 الي 30 حرف فقط",
+  "last_name_validation_empty": "من فضلك ادخل الاسم الاخير",
+  "last_name_validation_lenght": "يجب ان يكون الاسم الاخير بين 2 الي 30 حرف فقط",
+
+  "user_name_validation_empty": "من فضلك ادخل اسم المستخدم",
+  "user_name_validation":"من فضلك اسم المسخدم يجب ان يبدأ ب  (a-z)",
+  "user_name_validation_sample":"من فضلك مسموح فقط ب (a-z),(0-9)",
+  "user_name_valodation_length":"يجب ان يكون اسم المستخدم بين  8 الي 30 حرف فقط",
+ 
+
+  "password_validation_valid":"أدخل كلمه المرور",
+  "password_validation_symbols":"من فضلك كلمه المرور يجب انت تكون اكثر من 8 احرف وتحتوي علي رموز وارقام",
+  "confirm_password_validation": "من فضلك ادخل كلمه المرور مره ثانيه",
+  "confirm_password_validation_duplicat":"كلمه المرور ليست متشابهه.",
+  
+  "log_out":"تسجيل الخروج",
+  "arabic": "عربي",
+  "english":"انجليزي",
+  "home":"الصفحه الرئيسيه"
 }
