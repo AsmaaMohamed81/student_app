@@ -18,8 +18,8 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
     return null;
   }
 
-  String? validateUserName(String userName) {
-    if (userName.trim().isEmpty) return 'يرجى إدخال اسم المستخدم';
+  String? validateUserNameOrEmail(String? userName) {
+    if (userName!.trim().isEmpty) return AppLocalizations.of(context)!.translate('user_name_or_email_validation')!;
 
     return null;
   }
@@ -42,10 +42,10 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
     return null;
   }
 
-  String? validatePassword(String password) {
-    _password = password;
+  String? validatePassword(String? password) {
+    _password = password!;
     if (password.trim().length < 6) {
-      return 'كلمة المرور لا تقل عن 6 حروف او أرقام';
+        return AppLocalizations.of(context)!.translate('password_validation')!;
     }
 
     return null;

@@ -16,5 +16,9 @@
   "enter_password" : "Enter Password",
   "forgot_your_password": "Forgot your password?",
   "or" : "Or",
-  "don’t_have_account?" : "Don’t have account?"
+  "don’t_have_account?" : "Don’t have account?",
+  "user_name_or_email_validation" : "Please Enter User Name Or Email",
+  "password_validation":"Password must not be less than 6 letters or numbers",
+  "ok": "Ok",
+  "cancel": "Cancel"
 }

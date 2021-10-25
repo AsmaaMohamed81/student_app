@@ -16,5 +16,9 @@
   "enter_password" : " أدخل كلمة المرور",
   "forgot_your_password": " هل نسيت كلمة المرور؟ ",
   "or" : "أو",
-  "don’t_have_account?" : "هل لديك حساب ؟"
+  "don’t_have_account?" : "هل لديك حساب ؟",
+  "user_name_or_email_validation" : "من فضلك أدخل اسم المستخدم أو الإيميل  الخاص بك",
+  "password_validation":"كلمة المرور لا تقل عن 6 حروف او أرقام",
+  "ok": "موافق",
+  "cancel": "إلغاء"
 }

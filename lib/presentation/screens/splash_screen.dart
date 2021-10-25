@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     initData().then((value) {
-      Navigator.pushReplacementNamed(context, '/intro');
+      Navigator.pushReplacementNamed(context, '/home');
     });
   }
 

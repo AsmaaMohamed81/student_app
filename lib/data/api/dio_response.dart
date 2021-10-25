@@ -5,12 +5,9 @@ import 'custom_exception.dart';
 dynamic handleDioResponse(Response<dynamic> response) {
   switch (response.statusCode) {
     case 200:
-      var responseJson = json.decode(json.encode(response.data));
-      return {'status': 200, 'response': responseJson};
-    case 201:
       var responseJson = jsonDecode(response.data.toString());
-
-      return {'status': 201, 'response': responseJson};
+      print(responseJson);
+      return responseJson;
     case 400:
       throw BadRequestException(response.data.toString());
     case 401:
