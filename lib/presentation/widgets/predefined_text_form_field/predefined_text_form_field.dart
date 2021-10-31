@@ -118,6 +118,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
       style: const TextStyle(
           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
+        counterText: '',
         filled: widget.filled ? true : false,
         fillColor: widget.filledColor ?? Colors.white,
         border: !widget.borderIsEnabled
@@ -210,7 +211,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             widget.errorStyle ?? const TextStyle(height: .85, fontSize: 10),
         hintStyle: TextStyle(
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: FontWeight.w400),
       ),
       keyboardType: widget.inputData,

@@ -80,14 +80,18 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                   const Spacer(),
                   Container(
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .translate('forgot_your_password')!,
-                        style: TextStyle(
-                            color: HexColor('7B7890'),
-                            fontSize: orientation == Orientation.portrait
-                                ? 14.sp
-                                : 25.sp),
+                      child: InkWell(
+                        onTap: () =>
+                            Navigator.pushNamed(context, '/add_mail_screen'),
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .translate('forgot_your_password')!,
+                          style: TextStyle(
+                              color: HexColor('7B7890'),
+                              fontSize: orientation == Orientation.portrait
+                                  ? 14.sp
+                                  : 25.sp),
+                        ),
                       )),
                 ],
               ),

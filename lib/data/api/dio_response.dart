@@ -5,7 +5,7 @@ import 'custom_exception.dart';
 dynamic handleDioResponse(Response<dynamic> response) {
   switch (response.statusCode) {
     case 200:
-      var responseJson = jsonDecode(response.data.toString());
+      var responseJson = jsonDecode(response.toString());
       print(responseJson);
       return responseJson;
     case 400:

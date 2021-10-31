@@ -76,11 +76,11 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
   String? validateUserEmail(String? userEmail) {
     if (userEmail!.trim().isEmpty) {
-      return AppLocalizations.of(context)!.translate('email_validation');
+      return AppLocalizations.of(context)!.translate('email_validation')!;
     } else {
       if ((!isEmail(userEmail))) {
         return AppLocalizations.of(context)!
-            .translate('email_validation_example');
+            .translate('email_validation_example')!;
       }
     }
 
@@ -158,6 +158,13 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
       return 'كلمة المرور الجديدة غير متطابقة';
     }
 
+    return null;
+  }
+
+  String? validateCode(String? material) {
+    if (material!.trim().isEmpty) {
+      return " ";
+    }
     return null;
   }
 }

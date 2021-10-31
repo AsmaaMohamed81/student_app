@@ -6,6 +6,7 @@ import 'package:student_app/presentation/routes/app_routes.dart';
 import 'package:student_app/presentation/themes/app_theme.dart';
 import 'package:student_app/utils/injection_container.dart' as di;
 import 'business_logic/cubits/auth/auth_cubit.dart';
+import 'business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'locale/app_localizations_setup.dart';
 
 class StudentApp extends StatelessWidget {
@@ -17,8 +18,11 @@ class StudentApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.sl<LocaleCubit>()..changeStartLang(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (_) => di.sl<AuthCubit>()..getSavedCredential(),
+        ),
+        BlocProvider(
+          create: (_) => di.sl<ForgetPasswordCubit>(),
         ),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(

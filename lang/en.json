@@ -43,9 +43,23 @@
   "confirm_password_validation": "Please enter your password again",
   "confirm_password_validation_duplicat":"Those passwords didn't match. Try again.",
 
+  "email_validation": "please enter email",
+  "email_validation_valid":"Please Enter Valid Email Or UserName",
+  "email_validation_example":"please enter valid email address like 'example@gmail.com'",
+
   "log_out":"LogOut",
   "arabic": "Arabic",
   "english":"English",
-  "home":"Home"
+  "home":"Home",
+
+  "send":"Send",
+  "enter":"Enter ",
+  "your_email_address":"your email address ",
+  "to_reset_your_password":"to reset your password",
+  "forgot_password":"Forgot Password"
+
+
+
+
   
 }

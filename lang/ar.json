@@ -41,8 +41,22 @@
   "confirm_password_validation": "من فضلك ادخل كلمه المرور مره ثانيه",
   "confirm_password_validation_duplicat":"كلمه المرور ليست متشابهه.",
   
+  "email_validation": "أدخل بريدك الالكتروني",
+  "email_validation_example":"من فضلك يجب ان يكون البريد الاكتروني 'example@gmail.com'",
+
+
   "log_out":"تسجيل الخروج",
   "arabic": "عربي",
   "english":"انجليزي",
-  "home":"الصفحه الرئيسيه"
+  "home":"الصفحه الرئيسيه",
+
+  "send":"ارسل",
+  "enter":"ادخل ",
+  "your_email_address":"بريدك الالكتروني ",
+  "to_reset_your_password":"لاعاده ارسال كلمه المرور",
+
+  "forgot_password":"نسيت كلمه المرور"
+
+
+
 }
