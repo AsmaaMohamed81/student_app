@@ -71,7 +71,8 @@ class IntroScreen extends StatelessWidget {
                     child: Container(
                         alignment: Alignment.center,
                         child: Text(
-                          'Lets Get Started!',
+                          AppLocalizations.of(context)!
+                              .translate('get_started')!,
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Colors.white,

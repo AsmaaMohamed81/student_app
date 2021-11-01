@@ -86,9 +86,9 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       if (response['status'] == 'Success') {
         // SharedPreferencesFormatter.write(
         //     "user", User.fromJson(response['data']));
-        emit(SendVerifyCode(response['message']));
+        emit(ResetLostPassword(response['message']));
       } else {
-        emit(FailVerifyCode(response['message']));
+        emit(FailResetLostPassword(response['message']));
       }
     } else {
       emit(ForgetPasswordValidateState(true));

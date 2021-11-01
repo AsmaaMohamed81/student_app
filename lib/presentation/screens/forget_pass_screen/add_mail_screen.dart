@@ -5,7 +5,6 @@ import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_app/presentation/screens/forget_pass_screen/arguments.dart';
 import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
@@ -25,24 +24,30 @@ class AddMailScreen extends StatefulWidget {
 class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
 
-  late AppBarCustom _appBarCustom;
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _appBarCustom = AppBarCustom(
-        title: AppLocalizations.of(context)!.translate('forgot_password')!,
-        keyScafold: _scaffoldKey,
-        backarrow: () {
-          Navigator.of(context).pop();
-        });
-
     return PageContainer(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: _appBarCustom.buildAppBarRow(),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+          title: Text(
+            AppLocalizations.of(context)!.translate('forgot_password')!,
+            style: const TextStyle(fontSize: 17, color: Colors.black),
+          ),
+        ),
         body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
           listener: (context, state) {
             if (state is SentMail) {
@@ -86,15 +91,14 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
               PredefinedTextFormField(
                 hintTxt: AppLocalizations.of(context)!.translate('email'),
                 validationFunction: validateUserEmail,
+                inputData: TextInputType.emailAddress,
                 controller: _emailController,
                 maxLines: 1,
               ),
               SizedBox(
                 height: 100.h,
               ),
-              Align(
-                  alignment: Alignment.center,
-                  child: _buildSendBtn(orientation)),
+              _buildSendBtn(orientation),
             ],
           ),
         ),
@@ -131,8 +135,14 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
               btnLblStyle: orientation == Orientation.portrait
-                  ? Theme.of(context).textTheme.button
-                  : TextStyle(color: Colors.white, fontSize: 30.sp),
+                  ? TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold)
+                  : TextStyle(
+                      color: Colors.white,
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.bold),
               height: orientation == Orientation.portrait ? 45.h : 70.h,
               borderColor: mainAppColor,
               horizontalMarginIsEnabled: true,

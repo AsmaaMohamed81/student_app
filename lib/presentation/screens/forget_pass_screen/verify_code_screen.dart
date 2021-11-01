@@ -16,7 +16,7 @@ import 'package:student_app/presentation/widgets/predefined_text_form_field/vali
 
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
-import 'package:student_app/utils/urls.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
   final String? email;
@@ -25,19 +25,12 @@ class VerifyCodeScreen extends StatefulWidget {
 
   @override
   _VerifyCodeScreenState createState() => _VerifyCodeScreenState();
-
-  static const routeName = '/Arguments';
 }
 
 class _VerifyCodeScreenState extends State<VerifyCodeScreen>
     with ValidationMixin {
-  late double _height, _width;
   final _formKey = GlobalKey<FormState>();
 
-  // final ApiProvider _apiProvider = ApiProvider();
-  // late Arguments arg;
-  late AppBarCustom _appBarCustom;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final interval = const Duration(seconds: 1);
 
   final int timerMaxSeconds = 60;
@@ -48,15 +41,27 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
       '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
   Timer? timer;
   String? code, num1, num2, num3, num4;
+  TextEditingController textEditingController = TextEditingController();
+  String currentText = "";
+  bool hasError = false;
+
+  // ..text = "123456";
+
+  // ignore: close_sinks
+  StreamController<ErrorAnimationType>? errorController;
 
   @override
   void initState() {
+    errorController = StreamController<ErrorAnimationType>();
+
     startTimeout();
     super.initState();
   }
 
   @override
   void dispose() {
+    errorController!.close();
+
     super.dispose();
     timer!.cancel();
   }
@@ -65,7 +70,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
     var duration = interval;
     timer = Timer.periodic(duration, (timer) {
       setState(() {
-        print(timer.tick);
+        // print(timer.tick);
         currentSeconds = timer.tick;
         if (timer.tick >= timerMaxSeconds) timer.cancel();
       });
@@ -74,19 +79,26 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
 
   @override
   Widget build(BuildContext context) {
-    _appBarCustom = AppBarCustom(
-        title: "Verify Code",
-        keyScafold: _scaffoldKey,
-        backarrow: () {
-          Navigator.of(context).pop();
-        });
-
-    _height = MediaQuery.of(context).size.height;
-    _width = MediaQuery.of(context).size.width;
     return PageContainer(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: _appBarCustom.buildAppBarRow(),
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              )),
+          title: Text(
+            AppLocalizations.of(context)!.translate('verify_code')!,
+            style: const TextStyle(fontSize: 17, color: Colors.black),
+          ),
+        ),
         body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
           listener: (context, state) {
             if (state is SendVerifyCode) {
@@ -110,108 +122,193 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
       return SingleChildScrollView(
         child: Form(
           key: _formKey,
-          child: Column(
-            children: [
-              _buildDescText(),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: PredefinedTextFormField(
-                        horizontalMargin: 2.w,
-                        hintTxt: ' ',
-                        validationFunction: validateCode,
-                        inputData: TextInputType.number,
-                        maxLength: 1,
-                        textAlign: TextAlign.center,
-                        onChangedFunction: (text) {
-                          if (text!.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                            num1 = text;
-                          } else if (text.length == 0) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: PredefinedTextFormField(
-                        horizontalMargin: 2.w,
-                        hintTxt: ' ',
-                        validationFunction: validateCode,
-                        inputData: TextInputType.number,
-                        maxLength: 1,
-                        textAlign: TextAlign.center,
-                        onChangedFunction: (text) {
-                          if (text!.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                            num2 = text;
-                          } else if (text.isEmpty) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: PredefinedTextFormField(
-                        horizontalMargin: 2.w,
-                        hintTxt: ' ',
-                        validationFunction: validateCode,
-                        inputData: TextInputType.number,
-                        maxLength: 1,
-                        textAlign: TextAlign.center,
-                        onChangedFunction: (text) {
-                          if (text!.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                            num3 = text;
-                          } else if (text.length == 0) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: PredefinedTextFormField(
-                        horizontalMargin: 2.w,
-                        hintTxt: ' ',
-                        validationFunction: validateCode,
-                        inputData: TextInputType.number,
-                        maxLength: 1,
-                        textAlign: TextAlign.center,
-                        onChangedFunction: (text) {
-                          if (text!.length == 1) {
-                            FocusScope.of(context).nextFocus();
-                            num4 = text;
-                          } else if (text.length == 0) {
-                            FocusScope.of(context).previousFocus();
-                          }
-                        },
-                      ),
-                    ),
-                  ],
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(15.w, 20.h, 15.w, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDescText(),
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
+
+                Padding(
+                    padding: orientation == Orientation.portrait
+                        ? EdgeInsets.symmetric(
+                            vertical: 2.0.w, horizontal: 60.h)
+                        : EdgeInsets.symmetric(
+                            vertical: 2.0.w, horizontal: 300.h),
+                    child: PinCodeTextField(
+                      appContext: context,
+                      pastedTextStyle: TextStyle(
+                        color: Colors.green.shade600,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      length: 4,
+
+                      obscureText: false,
+                      // obscuringCharacter: '*',
+                      // obscuringWidget: FlutterLogo(
+                      //   size: 24,
+                      // ),
+                      blinkWhenObscuring: true,
+                      animationType: AnimationType.fade,
+                      validator: (v) {
+                        if (v!.length < 3) {
+                          return "I'm from validator";
+                        } else {
+                          return null;
+                        }
+                      },
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 50,
+                        fieldWidth: 40,
+                        selectedFillColor: Colors.white,
+                        inactiveFillColor: Colors.white,
+                        selectedColor: Colors.white,
+                        errorBorderColor: Colors.red,
+                        activeFillColor: Colors.white,
+                      ),
+                      cursorColor: Colors.black,
+                      animationDuration: Duration(milliseconds: 300),
+                      enableActiveFill: true,
+                      errorAnimationController: errorController,
+                      // controller: textEditingController,
+                      keyboardType: TextInputType.number,
+                      boxShadows: const [
+                        BoxShadow(
+                          offset: Offset(0, 1),
+                          color: Colors.black12,
+                          blurRadius: 10,
+                        )
+                      ],
+                      onCompleted: (v) {
+                        print("Completed");
+                      },
+                      // onTap: () {
+                      //   print("Pressed");
+                      // },
+                      onChanged: (value) {
+                        print(value);
+                        setState(() {
+                          currentText = value;
+                        });
+                      },
+                      beforeTextPaste: (text) {
+                        print("Allowing to paste $text");
+                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                        return true;
+                      },
+                    )),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Text(
+                    hasError ? "*Please fill up all the cells properly" : "",
+                    style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+
+                // Padding(
+                //   padding: orientation == Orientation.portrait
+                //       ? EdgeInsets.symmetric(horizontal: 70.w)
+                //       : EdgeInsets.symmetric(horizontal: 120.w),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     children: [
+                //       Expanded(
+                //         child: PredefinedTextFormField(
+                //           horizontalMargin: 2.w,
+                //           hintTxt: ' ',
+                //           validationFunction: validateCode,
+                //           inputData: TextInputType.number,
+                //           maxLength: 1,
+                //           textAlign: TextAlign.center,
+                //           onChangedFunction: (text) {
+                //             if (text!.length == 1) {
+                //               FocusScope.of(context).nextFocus();
+                //               num1 = text;
+                //             } else if (text.length == 0) {
+                //               FocusScope.of(context).previousFocus();
+                //             }
+                //           },
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: PredefinedTextFormField(
+                //           horizontalMargin: 2.w,
+                //           hintTxt: ' ',
+                //           validationFunction: validateCode,
+                //           inputData: TextInputType.number,
+                //           maxLength: 1,
+                //           textAlign: TextAlign.center,
+                //           onChangedFunction: (text) {
+                //             if (text!.length == 1) {
+                //               FocusScope.of(context).nextFocus();
+                //               num2 = text;
+                //             } else if (text.isEmpty) {
+                //               FocusScope.of(context).previousFocus();
+                //             }
+                //           },
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: PredefinedTextFormField(
+                //           horizontalMargin: 2.w,
+                //           hintTxt: ' ',
+                //           validationFunction: validateCode,
+                //           inputData: TextInputType.number,
+                //           maxLength: 1,
+                //           textAlign: TextAlign.center,
+                //           onChangedFunction: (text) {
+                //             if (text!.length == 1) {
+                //               FocusScope.of(context).nextFocus();
+                //               num3 = text;
+                //             } else if (text.length == 0) {
+                //               FocusScope.of(context).previousFocus();
+                //             }
+                //           },
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: PredefinedTextFormField(
+                //           horizontalMargin: 2.w,
+                //           hintTxt: ' ',
+                //           validationFunction: validateCode,
+                //           inputData: TextInputType.number,
+                //           maxLength: 1,
+                //           textAlign: TextAlign.center,
+                //           onChangedFunction: (text) {
+                //             if (text!.length == 1) {
+                //               FocusScope.of(context).nextFocus();
+                //               num4 = text;
+                //             } else if (text.length == 0) {
+                //               FocusScope.of(context).previousFocus();
+                //             }
+                //           },
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText(
-                      text: 'Didn’t receive the code?',
-                      color: mainAppColor,
+                      text: AppLocalizations.of(context)!
+                          .translate("donot_receive_code")!,
+                      color: textForgetPassColor,
                       fontSize: 14,
-                      // onChangedFunc: (text) {
-                      //   _userEmail = text;
-                      // },
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -224,7 +321,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                         startTimeout();
                       },
                       child: CustomText(
-                        text: 'Resend',
+                        text:
+                            AppLocalizations.of(context)!.translate('resend')!,
                         color: mainAppColor,
                         fontSize: 14,
                         // onChangedFunc: (text) {
@@ -234,21 +332,25 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "($timerText)",
-                    style: TextStyle(fontSize: 14),
-                  )),
-              SizedBox(
-                height: _height * .2,
-              ),
-              _buildSendBtn(orientation),
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    Text(
+                      "($timerText)",
+                      style:
+                          TextStyle(color: textForgetPassColor, fontSize: 14),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 100.h,
+                ),
+                _buildSendBtn(orientation),
+              ],
+            ),
           ),
         ),
       );
@@ -256,29 +358,25 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
   }
 
   Widget _buildDescText() {
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: RichText(
-          text: TextSpan(
-            // Note: Styles for TextSpans must be explicitly defined.
-            // Child text spans will inherit styles from parent
-            style: new TextStyle(
-              fontSize: 16,
-              color: mainAppColor,
-            ),
-            children: <TextSpan>[
-              new TextSpan(
-                  text:
-                      'Check your email address, we have sent you the code at '),
-              new TextSpan(
-                  text: '${widget.email}',
-                  style: new TextStyle(
-                    color: mainAppColor,
-                    fontSize: 13,
-                  )),
-            ],
-          ),
-        ));
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          fontSize: 16,
+          color: textForgetPassColor,
+        ),
+        children: <TextSpan>[
+          TextSpan(
+              text:
+                  AppLocalizations.of(context)!.translate('check_your_email')!),
+          TextSpan(
+              text: '${widget.email}',
+              style: TextStyle(
+                color: mainAppColor,
+                fontSize: 13,
+              )),
+        ],
+      ),
+    );
   }
 
   Widget _buildSendBtn(orientation) {
@@ -287,22 +385,33 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
-              btnLblStyle: orientation == Orientation.portrait
-                  ? Theme.of(context).textTheme.button
-                  : TextStyle(color: Colors.white, fontSize: 30.sp),
-              height: orientation == Orientation.portrait ? 45.h : 70.h,
-              borderColor: mainAppColor,
-              horizontalMarginIsEnabled: true,
-              btnLbl: AppLocalizations.of(context)!.translate('send')!,
-              onPressedFunction: () {
-                print(widget.email);
-                print(code);
-                if (!BlocProvider.of<ForgetPasswordCubit>(context).isLoading) {
-                  BlocProvider.of<ForgetPasswordCubit>(context).sendVeifyCode(
-                      formKey: _formKey, email: widget.email!, code: code!);
-                }
-              },
-            ),
+                btnLblStyle: orientation == Orientation.portrait
+                    ? Theme.of(context).textTheme.button
+                    : TextStyle(color: Colors.white, fontSize: 30.sp),
+                height: orientation == Orientation.portrait ? 45.h : 70.h,
+                borderColor: mainAppColor,
+                horizontalMarginIsEnabled: true,
+                btnLbl: AppLocalizations.of(context)!.translate('send')!,
+                onPressedFunction: () {
+                  print(widget.email);
+                  print(code);
+                  if (currentText.length != 4) {
+                    setState(() {
+                      hasError = true;
+                    });
+                  } else {
+                    hasError = false;
+
+                    if (!BlocProvider.of<ForgetPasswordCubit>(context)
+                        .isLoading) {
+                      BlocProvider.of<ForgetPasswordCubit>(context)
+                          .sendVeifyCode(
+                              formKey: _formKey,
+                              email: widget.email!,
+                              code: currentText);
+                    }
+                  }
+                }),
           )
         : Center(
             child: CircularProgressIndicator(color: mainAppColor),
