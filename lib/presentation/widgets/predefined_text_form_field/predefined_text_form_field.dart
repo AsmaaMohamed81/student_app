@@ -208,7 +208,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             fontWeight: FontWeight.bold),
         errorMaxLines: 2,
         errorStyle:
-            widget.errorStyle ?? const TextStyle(height: .85, fontSize: 10),
+            widget.errorStyle ?? const TextStyle(height: .85, fontSize: 11),
         hintStyle: TextStyle(
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
             fontSize: 12,

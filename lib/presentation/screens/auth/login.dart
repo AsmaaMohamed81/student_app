@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
           autovalidateMode: autovalidateMode(state),
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Align(
                 alignment: Alignment.topRight,
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               SizedBox(
                 height: 15.h,
               ),
-              !BlocProvider.of<AuthCubit>(context).isLoading
+              !BlocProvider.of<AuthCubit>(context).isLoadingLogin
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: DefaultButton(
@@ -107,7 +107,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         btnLbl:
                             AppLocalizations.of(context)!.translate('sign_in')!,
                         onPressedFunction: () {
-                          if (!BlocProvider.of<AuthCubit>(context).isLoading) {
+                          if (!BlocProvider.of<AuthCubit>(context)
+                              .isLoadingLogin) {
                             BlocProvider.of<AuthCubit>(context).login(
                                 formKey: _formKey,
                                 passwordController: _passwordController,

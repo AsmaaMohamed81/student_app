@@ -125,7 +125,7 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
               SizedBox(
                 height: 15.h,
               ),
-              !BlocProvider.of<AuthCubit>(context).isLoading
+              !BlocProvider.of<AuthCubit>(context).isLoadingSignUp
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: DefaultButton(
@@ -139,7 +139,8 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                         btnLbl:
                             AppLocalizations.of(context)!.translate('sign_up')!,
                         onPressedFunction: () {
-                          if (!BlocProvider.of<AuthCubit>(context).isLoading) {
+                          if (!BlocProvider.of<AuthCubit>(context)
+                              .isLoadingSignUp) {
                             BlocProvider.of<AuthCubit>(context).signUp(
                                 formKey: _formKey,
                                 passwordController: _passwordController,

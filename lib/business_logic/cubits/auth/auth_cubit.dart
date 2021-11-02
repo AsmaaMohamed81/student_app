@@ -10,7 +10,8 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepository authRepository;
   AuthCubit(this.authRepository) : super(AuthInitial());
 
-  bool isLoading = false;
+  bool isLoadingLogin = false;
+  bool isLoadingSignUp = false;
 
   void getSavedCredential() async {
     var userData = await SharedPreferencesFormatter.read("user");
@@ -24,11 +25,11 @@ class AuthCubit extends Cubit<AuthState> {
       required TextEditingController emailController,
       required TextEditingController passwordController}) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      changeLoadingView();
+      changeLoadingLogInView();
       final response = await authRepository.login(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      changeLoadingView();
+      changeLoadingLogInView();
       if (response['status'] == 'Success') {
         SharedPreferencesFormatter.write(
             "user", User.fromJson(response['data']));
@@ -51,7 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
     required TextEditingController confirmpasswordController,
   }) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      changeLoadingView();
+      changeLoadingSignUpView();
       final response = await authRepository.signUp(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
@@ -59,7 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
           firstName: firstNameController.text.trim(),
           lastName: lasrNameController.text.trim(),
           userName: userNameController.text.trim());
-      changeLoadingView();
+      changeLoadingSignUpView();
       if (response['status'] == 'Success') {
         SharedPreferencesFormatter.write(
             "user", User.fromJson(response['data']));
@@ -72,8 +73,13 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void changeLoadingView() {
-    isLoading = !isLoading;
-    emit(AuthLoadingState(isLoading));
+  void changeLoadingLogInView() {
+    isLoadingLogin = !isLoadingLogin;
+    emit(AuthLoadingState(isLoadingLogin));
+  }
+
+  void changeLoadingSignUpView() {
+    isLoadingSignUp = !isLoadingSignUp;
+    emit(AuthLoadingState(isLoadingSignUp));
   }
 }

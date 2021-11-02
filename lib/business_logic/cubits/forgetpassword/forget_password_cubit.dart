@@ -9,18 +9,21 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   ForgetPasswordCubit(this.forgetPasswordRepository)
       : super(ForgetPasswordInitial());
 
-  bool isLoading = false;
+  bool isLoadingsend = false;
+  bool isLoadingresend = false;
+  bool isLoadingverify = false;
+  bool isLoadingresetpass = false;
 
   Future<void> sendEmail({
     required GlobalKey<FormState> formKey,
     required String email,
   }) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      changeLoadingView();
+      changeLoadingViewsend();
       final response = await forgetPasswordRepository.sendEmail(
         email: email,
       );
-      changeLoadingView();
+      changeLoadingViewsend();
       if (response['status'] == 'Success') {
         // SharedPreferencesFormatter.write(
         //     "user", User.fromJson(response['data']));
@@ -37,17 +40,17 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     required GlobalKey<FormState> formKey,
     required String email,
   }) async {
-    changeLoadingView();
+    changeLoadingViewresend();
     final response = await forgetPasswordRepository.sendEmail(
       email: email,
     );
-    changeLoadingView();
+    changeLoadingViewresend();
     if (response['status'] == 'Success') {
       // SharedPreferencesFormatter.write(
       //     "user", User.fromJson(response['data']));
-      emit(SentMail(response['message']));
+      emit(ReSentMail(response['message']));
     } else {
-      emit(FailSendMail(response['message']));
+      emit(FailReSendMail(response['message']));
     }
   }
 
@@ -57,10 +60,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     required String code,
   }) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      changeLoadingView();
+      changeLoadingViewverify();
       final response = await forgetPasswordRepository.sendVeifyCode(
           email: email, code: code);
-      changeLoadingView();
+      changeLoadingViewverify();
       if (response['status'] == 'Success') {
         // SharedPreferencesFormatter.write(
         //     "user", User.fromJson(response['data']));
@@ -79,10 +82,10 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     required String passWord,
   }) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      changeLoadingView();
+      changeLoadingViewresetpass();
       final response = await forgetPasswordRepository.resetLostPassword(
           email: email, passWord: passWord);
-      changeLoadingView();
+      changeLoadingViewresetpass();
       if (response['status'] == 'Success') {
         // SharedPreferencesFormatter.write(
         //     "user", User.fromJson(response['data']));
@@ -95,8 +98,23 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
     }
   }
 
-  void changeLoadingView() {
-    isLoading = !isLoading;
-    emit(ForgetPasswordLoadingState(isLoading));
+  void changeLoadingViewsend() {
+    isLoadingsend = !isLoadingsend;
+    emit(ForgetPasswordLoadingState(isLoadingsend));
+  }
+
+  void changeLoadingViewresend() {
+    isLoadingresend = !isLoadingresend;
+    emit(ForgetPasswordLoadingState(isLoadingresend));
+  }
+
+  void changeLoadingViewverify() {
+    isLoadingverify = !isLoadingverify;
+    emit(ForgetPasswordLoadingState(isLoadingverify));
+  }
+
+  void changeLoadingViewresetpass() {
+    isLoadingresetpass = !isLoadingresetpass;
+    emit(ForgetPasswordLoadingState(isLoadingresetpass));
   }
 }

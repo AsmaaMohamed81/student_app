@@ -130,7 +130,7 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
   }
 
   Widget _buildSendBtn(orientation) {
-    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoading
+    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoadingsend
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -148,7 +148,8 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
               horizontalMarginIsEnabled: true,
               btnLbl: AppLocalizations.of(context)!.translate('send')!,
               onPressedFunction: () {
-                if (!BlocProvider.of<ForgetPasswordCubit>(context).isLoading) {
+                if (!BlocProvider.of<ForgetPasswordCubit>(context)
+                    .isLoadingsend) {
                   BlocProvider.of<ForgetPasswordCubit>(context).sendEmail(
                       formKey: _formKey, email: _emailController.text.trim());
                 }

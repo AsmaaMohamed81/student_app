@@ -96,7 +96,8 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
   String? validatePassword(String? password) {
     _password = password!;
     if (password.isEmpty) {
-      return AppLocalizations.of(context)!.translate('password_validation')!;
+      return AppLocalizations.of(context)!
+          .translate('password_validation_valid')!;
     }
 
     return null;
@@ -112,8 +113,9 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
     RegExp regex = RegExp(pattern);
     print(password);
-    if (password.isEmpty) {
-      return AppLocalizations.of(context)!.translate('password_validation');
+    if (password.trim().isEmpty) {
+      return AppLocalizations.of(context)!
+          .translate('password_validation_valid');
     } else {
       if (password.length < 8) {
         return AppLocalizations.of(context)!

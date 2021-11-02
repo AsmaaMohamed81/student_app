@@ -27,6 +27,18 @@ class FailSendMail extends ForgetPasswordState {
   FailSendMail(this.message);
 }
 
+class ReSentMail extends ForgetPasswordState {
+  final String message;
+
+  ReSentMail(this.message);
+}
+
+class FailReSendMail extends ForgetPasswordState {
+  final String message;
+
+  FailReSendMail(this.message);
+}
+
 class FailVerifyCode extends ForgetPasswordState {
   final String message;
 

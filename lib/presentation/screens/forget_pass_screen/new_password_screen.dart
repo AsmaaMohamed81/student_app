@@ -119,7 +119,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
   }
 
   Widget _buildSendBtn(orientation) {
-    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoading
+    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoadingresetpass
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -133,7 +133,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
                 onPressedFunction: () {
                   print("${widget.email}${_passwordController.text.trim()}");
                   if (!BlocProvider.of<ForgetPasswordCubit>(context)
-                      .isLoading) {
+                      .isLoadingresetpass) {
                     BlocProvider.of<ForgetPasswordCubit>(context)
                         .resetLLostPassword(
                             formKey: _formKey,

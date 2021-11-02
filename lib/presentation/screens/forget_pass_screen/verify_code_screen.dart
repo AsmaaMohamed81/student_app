@@ -107,6 +107,10 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                   arguments: widget.email);
             } else if (state is FailVerifyCode) {
               Commons.showError(context, state.message);
+            } else if (state is ReSentMail) {
+              Commons.showToast(context, message: state.message);
+            } else if (state is FailReSendMail) {
+              Commons.showError(context, state.message);
             }
           },
           builder: (context, state) {
@@ -154,7 +158,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
                       validator: (v) {
-                        if (v!.length < 3) {
+                        if (v!.length < 4) {
                           return "I'm from validator";
                         } else {
                           return null;
@@ -165,12 +169,17 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                         borderRadius: BorderRadius.circular(5),
                         fieldHeight: 50,
                         fieldWidth: 40,
-                        selectedFillColor: Colors.white,
-                        inactiveFillColor: Colors.white,
-                        selectedColor: Colors.white,
-                        errorBorderColor: Colors.red,
                         activeFillColor: Colors.white,
+                        errorBorderColor: Colors.purple,
+                        activeColor: mainAppColor,
+                        borderWidth: 2,
+                        selectedFillColor: mainAppColor,
+                        inactiveColor: mainAppColor,
+                        inactiveFillColor: Colors.white,
+                        disabledColor: Colors.white,
+                        selectedColor: Colors.white,
                       ),
+
                       cursorColor: Colors.black,
                       animationDuration: Duration(milliseconds: 300),
                       enableActiveFill: true,
@@ -310,26 +319,33 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       color: textForgetPassColor,
                       fontSize: 14,
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (!BlocProvider.of<ForgetPasswordCubit>(context)
-                            .isLoading) {
-                          BlocProvider.of<ForgetPasswordCubit>(context)
-                              .resendEmail(
-                                  formKey: _formKey, email: widget.email!);
-                        }
-                        startTimeout();
-                      },
-                      child: CustomText(
-                        text:
-                            AppLocalizations.of(context)!.translate('resend')!,
-                        color: mainAppColor,
-                        fontSize: 14,
-                        // onChangedFunc: (text) {
-                        //   _userEmail = text;
-                        // },
-                      ),
-                    ),
+                    !BlocProvider.of<ForgetPasswordCubit>(context)
+                            .isLoadingresend
+                        ? GestureDetector(
+                            onTap: () async {
+                              if (!BlocProvider.of<ForgetPasswordCubit>(context)
+                                  .isLoadingresend) {
+                                BlocProvider.of<ForgetPasswordCubit>(context)
+                                    .resendEmail(
+                                        formKey: _formKey,
+                                        email: widget.email!);
+                              }
+                              startTimeout();
+                            },
+                            child: CustomText(
+                              text: AppLocalizations.of(context)!
+                                  .translate('resend')!,
+                              color: mainAppColor,
+                              fontSize: 14,
+                              // onChangedFunc: (text) {
+                              //   _userEmail = text;
+                              // },
+                            ),
+                          )
+                        : Center(
+                            child:
+                                CircularProgressIndicator(color: mainAppColor),
+                          ),
                   ],
                 ),
                 const SizedBox(
@@ -381,7 +397,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
 
   Widget _buildSendBtn(orientation) {
     code = "$num1$num2$num3$num4";
-    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoading
+    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoadingverify
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -403,7 +419,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                     hasError = false;
 
                     if (!BlocProvider.of<ForgetPasswordCubit>(context)
-                        .isLoading) {
+                        .isLoadingverify) {
                       BlocProvider.of<ForgetPasswordCubit>(context)
                           .sendVeifyCode(
                               formKey: _formKey,
