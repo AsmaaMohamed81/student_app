@@ -74,7 +74,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
     return null;
   }
 
-  String? validateUserEmail(String? userEmail) {
+  String? validateEmail(String? userEmail) {
     if (userEmail!.trim().isEmpty) {
       return AppLocalizations.of(context)!.translate('email_validation')!;
     } else {

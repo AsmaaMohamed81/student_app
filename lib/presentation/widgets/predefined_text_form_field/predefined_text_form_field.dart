@@ -161,7 +161,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
                   });
                 },
                 child: Icon(
-                  _obsecureText ? Icons.remove_red_eye : Icons.visibility_off,
+                  !_obsecureText ? Icons.remove_red_eye : Icons.visibility_off,
                   color: _focusNode.hasFocus ? mainAppColor : mainAppColor,
                   size: 20,
                 ),
@@ -208,7 +208,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             fontWeight: FontWeight.bold),
         errorMaxLines: 2,
         errorStyle:
-            widget.errorStyle ?? const TextStyle(height: .85, fontSize: 11),
+            widget.errorStyle ?? const TextStyle(height: .9, fontSize: 11),
         hintStyle: TextStyle(
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
             fontSize: 12,

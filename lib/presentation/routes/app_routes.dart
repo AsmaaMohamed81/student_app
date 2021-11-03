@@ -21,10 +21,10 @@ class AppRoutes {
         return MaterialPageRoute(
             builder: (_) => BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, authState) {
-                    if (authState is Authenticated) {
+                    if (authState is LogedIn) {
                       return const HomeScreen();
                     }
-                    if (authState is UnAuthenticated) {
+                    if (authState is FailLogIn) {
                       return const IntroScreen();
                     }
                     return const IntroScreen();

@@ -5,14 +5,22 @@ abstract class AuthState {}
 class AuthInitial extends AuthState {}
 
 class AuthLoadingState extends AuthState {
-    final bool isLoading;
-      AuthLoadingState(this.isLoading);
+  final bool isLoading;
+  AuthLoadingState(this.isLoading);
 }
 
-class Authenticated extends AuthState {
+class LogedIn extends AuthState {
   final User user;
 
-  Authenticated(
+  LogedIn(
+    this.user,
+  );
+}
+
+class SignUp extends AuthState {
+  final User user;
+
+  SignUp(
     this.user,
   );
 }
@@ -23,8 +31,14 @@ class AuthValidateState extends AuthState {
   AuthValidateState(this.isValidate);
 }
 
-class UnAuthenticated extends AuthState {
+class FailLogIn extends AuthState {
   final String message;
 
-  UnAuthenticated(this.message);
+  FailLogIn(this.message);
+}
+
+class FailSignUp extends AuthState {
+  final String message;
+
+  FailSignUp(this.message);
 }

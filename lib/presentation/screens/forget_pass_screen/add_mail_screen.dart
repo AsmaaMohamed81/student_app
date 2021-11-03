@@ -90,7 +90,7 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
               ),
               PredefinedTextFormField(
                 hintTxt: AppLocalizations.of(context)!.translate('email'),
-                validationFunction: validateUserEmail,
+                validationFunction: validateEmail,
                 inputData: TextInputType.emailAddress,
                 controller: _emailController,
                 maxLines: 1,

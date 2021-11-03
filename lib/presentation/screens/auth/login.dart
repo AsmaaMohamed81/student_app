@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                       style: TextStyle(
                           color: HexColor('7B7890'),
                           fontSize: orientation == Orientation.portrait
-                              ? 14.sp
+                              ? 13.sp
                               : 25.sp),
                     ),
                   )),
@@ -124,9 +124,9 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 height: 25.h,
               ),
               Center(
-                child: Text(' —————————— ' +
+                child: Text(' ————— ' +
                     AppLocalizations.of(context)!.translate('or')! +
-                    '  ——————————'),
+                    '  —————'),
               ),
               SizedBox(
                 height: 20.h,
@@ -244,15 +244,16 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
   Widget build(BuildContext context) {
     return PageContainer(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is Authenticated) {
+            if (state is LogedIn) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/home', (Route<dynamic> route) => false);
               // Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => const HomeScreen(),
               // ));
-            } else if (state is UnAuthenticated) {
+            } else if (state is FailLogIn) {
               Commons.showError(context, state.message);
             }
           },

@@ -16,7 +16,8 @@ class AuthCubit extends Cubit<AuthState> {
   void getSavedCredential() async {
     var userData = await SharedPreferencesFormatter.read("user");
     if (userData != null) {
-      emit(Authenticated(User.fromJson(userData)));
+      emit(LogedIn(User.fromJson(userData)));
+      emit(SignUp(User.fromJson(userData)));
     }
   }
 
@@ -33,9 +34,9 @@ class AuthCubit extends Cubit<AuthState> {
       if (response['status'] == 'Success') {
         SharedPreferencesFormatter.write(
             "user", User.fromJson(response['data']));
-        emit(Authenticated(User.fromJson(response['data'])));
+        emit(LogedIn(User.fromJson(response['data'])));
       } else {
-        emit(UnAuthenticated(response['message']));
+        emit(FailLogIn(response['message']));
       }
     } else {
       emit(AuthValidateState(true));
@@ -64,9 +65,9 @@ class AuthCubit extends Cubit<AuthState> {
       if (response['status'] == 'Success') {
         SharedPreferencesFormatter.write(
             "user", User.fromJson(response['data']));
-        emit(Authenticated(User.fromJson(response['data'])));
+        emit(SignUp(User.fromJson(response['data'])));
       } else {
-        emit(UnAuthenticated(response['message']));
+        emit(FailSignUp(response['message']));
       }
     } else {
       emit(AuthValidateState(true));

@@ -95,8 +95,9 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                 height: 10.h,
               ),
               PredefinedTextFormField(
+                inputData: TextInputType.emailAddress,
                 maxLines: 1,
-                validationFunction: validateUserNameOrEmail,
+                validationFunction: validateEmail,
                 controller: _emailController,
                 hintTxt: AppLocalizations.of(context)!.translate("email")!,
               ),
@@ -161,9 +162,9 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                 height: 10.h,
               ),
               Center(
-                child: Text(' —————————— ' +
+                child: Text(' ————— ' +
                     AppLocalizations.of(context)!.translate('or')! +
-                    '  ——————————'),
+                    '  —————'),
               ),
               SizedBox(
                 height: 10.h,
@@ -254,15 +255,16 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                       ])),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal:
-                        orientation == Orientation.portrait ? 120.w : 155.w,
-                    vertical: 10.h),
-                child: Divider(
-                  thickness: 4,
-                  height: 10.h,
-                  color: Colors.black,
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 120.w,
+                  child: Divider(
+                    indent: 2,
+                    thickness: 4,
+                    height: 10.h,
+                    color: Colors.black,
+                  ),
                 ),
               )
             ],
@@ -281,15 +283,16 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
   Widget build(BuildContext context) {
     return PageContainer(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is Authenticated) {
+            if (state is SignUp) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/home', (Route<dynamic> route) => false);
               // Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => const HomeScreen(),
               // ));
-            } else if (state is UnAuthenticated) {
+            } else if (state is FailSignUp) {
               Commons.showError(context, state.message);
             }
           },
