@@ -23,13 +23,14 @@ class AppRoutes {
                   builder: (context, authState) {
                     if (authState is LogedIn) {
                       return const HomeScreen();
+                    } else if (authState is FailLogIn) {
+                      return const ChoosingLoginOrSignUpScreen();
                     }
-                    if (authState is FailLogIn) {
-                      return const IntroScreen();
-                    }
-                    return const IntroScreen();
+                    return const ChoosingLoginOrSignUpScreen();
                   },
                 ));
+      case '/intro_screen':
+        return MaterialPageRoute(builder: (_) => const IntroScreen());
       case '/choosing_login_or_signup':
         return MaterialPageRoute(
             builder: (_) => const ChoosingLoginOrSignUpScreen());

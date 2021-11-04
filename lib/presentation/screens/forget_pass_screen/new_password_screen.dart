@@ -6,6 +6,7 @@ import 'package:student_app/business_logic/cubits/forgetpassword/forget_password
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
+import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
@@ -34,39 +35,41 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
       TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return PageContainer(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-          title: Text(
-            AppLocalizations.of(context)!.translate('enter_new_password')!,
-            style: const TextStyle(fontSize: 17, color: Colors.black),
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                )),
+            title: Text(
+              AppLocalizations.of(context)!.translate('enter_new_password')!,
+              style: const TextStyle(fontSize: 17, color: Colors.black),
+            ),
           ),
-        ),
-        body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-          listener: (context, state) {
-            if (state is ResetLostPassword) {
-              Navigator.pushNamed(context, '/login');
+          body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+            listener: (context, state) {
+              if (state is ResetLostPassword) {
+                Navigator.pushNamed(context, '/login');
 
-              Commons.showToast(context, message: state.message);
-            } else if (state is FailResetLostPassword) {
-              Commons.showError(context, state.message);
-            }
-          },
-          builder: (context, state) {
-            return _buildBodyItem(state);
-          },
+                Commons.showToast(context, message: state.message);
+              } else if (state is FailResetLostPassword) {
+                Commons.showError(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
         ),
       ),
     );

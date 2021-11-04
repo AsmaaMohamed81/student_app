@@ -44,5 +44,15 @@ class SharedPreferencesFormatter {
     return p.setString(key, value);
   }
 
+  static Future<bool> setIsFirstTime(bool value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setBool("first_time", value);
+  }
+
+  static Future<bool> checkIsFirstTime() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("first_time") ?? true;
+  }
+
   static Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }

@@ -35,7 +35,7 @@
   "user_name_valodation_length": "Sorry,your username must be between 8 and 30 characters long",
   "password_validation_valid": "Please enter password",
   "password_validation_symbols": "Please,use 8 or more characters with a mix of letters, numbers & symbols",
-  "confirm_password_validation": "Please enter your password again",
+  "confirm_password_validation": "please enter confirm password",
   "confirm_password_validation_duplicat": "Those passwords didn't match. Try again.",
   "email_validation": "Please enter email",
   "email_validation_valid": "Please Enter Valid Email Or UserName",

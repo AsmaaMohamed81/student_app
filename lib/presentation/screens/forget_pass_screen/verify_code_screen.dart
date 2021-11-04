@@ -10,6 +10,7 @@ import 'package:student_app/presentation/screens/forget_pass_screen/arguments.da
 import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/custom_text/custom_text.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
+import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
@@ -79,43 +80,46 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return PageContainer(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-          title: Text(
-            AppLocalizations.of(context)!.translate('verify_code')!,
-            style: const TextStyle(fontSize: 17, color: Colors.black),
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                )),
+            title: Text(
+              AppLocalizations.of(context)!.translate('verify_code')!,
+              style: const TextStyle(fontSize: 17, color: Colors.black),
+            ),
           ),
-        ),
-        body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-          listener: (context, state) {
-            if (state is SendVerifyCode) {
-              Commons.showToast(context, message: state.message);
-              Navigator.pushNamed(context, '/new_passWord_screen',
-                  arguments: widget.email);
-            } else if (state is FailVerifyCode) {
-              Commons.showError(context, state.message);
-            } else if (state is ReSentMail) {
-              Commons.showToast(context, message: state.message);
-            } else if (state is FailReSendMail) {
-              Commons.showError(context, state.message);
-            }
-          },
-          builder: (context, state) {
-            return _buildBodyItem(state);
-          },
+          body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+            listener: (context, state) {
+              if (state is SendVerifyCode) {
+                // Commons.showToast(context, message: state.message);
+                Navigator.pushNamed(context, '/new_passWord_screen',
+                    arguments: widget.email);
+              } else if (state is FailVerifyCode) {
+                Commons.showError(
+                    context, "Please enter correct code. Try again.");
+              } else if (state is ReSentMail) {
+                Commons.showToast(context, message: state.message);
+              } else if (state is FailReSendMail) {
+                Commons.showError(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
         ),
       ),
     );
@@ -157,13 +161,13 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       // ),
                       blinkWhenObscuring: true,
                       animationType: AnimationType.fade,
-                      validator: (v) {
-                        if (v!.length < 4) {
-                          return "I'm from validator";
-                        } else {
-                          return null;
-                        }
-                      },
+                      // validator: (v) {
+                      //   if (v!.length < 4) {
+                      //     return "I'm from validator";
+                      //   } else {
+                      //     return null;
+                      //   }
+                      // },
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
@@ -173,7 +177,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                         errorBorderColor: Colors.purple,
                         activeColor: mainAppColor,
                         borderWidth: 2,
-                        selectedFillColor: mainAppColor,
+                        selectedFillColor: Colors.white,
                         inactiveColor: mainAppColor,
                         inactiveFillColor: Colors.white,
                         disabledColor: Colors.white,
@@ -216,8 +220,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Text(
-                    hasError ? "*Please fill up all the cells properly" : "",
-                    style: TextStyle(
+                    hasError ? "Please enter code" : "",
+                    style: const TextStyle(
                         color: Colors.red,
                         fontSize: 12,
                         fontWeight: FontWeight.w400),

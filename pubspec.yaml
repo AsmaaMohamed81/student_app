@@ -92,9 +92,9 @@ flutter:
   fonts:
     - family: IBMPlexSans
       fonts:
-        - asset: assets/fonts/IBMPlexSans-Bold.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
           weight: 700
-        - asset: assets/fonts/IBMPlexSans-Regular.ttf
+        - asset: assets/fonts/Roboto-Regular.ttf
           weight: 400
     - family: video
       fonts:

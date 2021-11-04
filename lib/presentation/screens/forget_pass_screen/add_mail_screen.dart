@@ -7,6 +7,7 @@ import 'package:student_app/locale/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
+import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
@@ -28,41 +29,43 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
 
   @override
   Widget build(BuildContext context) {
-    return PageContainer(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-          title: Text(
-            AppLocalizations.of(context)!.translate('forgot_password')!,
-            style: const TextStyle(fontSize: 17, color: Colors.black),
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                )),
+            title: Text(
+              AppLocalizations.of(context)!.translate('forgot_password')!,
+              style: const TextStyle(fontSize: 17, color: Colors.black),
+            ),
           ),
-        ),
-        body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-          listener: (context, state) {
-            if (state is SentMail) {
-              print(_emailController.text.trim());
-              Navigator.pushNamed(context, '/verify_code_screen',
-                  arguments: _emailController.text.trim());
+          body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+            listener: (context, state) {
+              if (state is SentMail) {
+                print(_emailController.text.trim());
+                Navigator.pushNamed(context, '/verify_code_screen',
+                    arguments: _emailController.text.trim());
 
-              Commons.showToast(context, message: state.message);
-            } else if (state is FailSendMail) {
-              Commons.showError(context, state.message);
-            }
-          },
-          builder: (context, state) {
-            return _buildBodyItem(state);
-          },
+                Commons.showToast(context, message: state.message);
+              } else if (state is FailSendMail) {
+                Commons.showError(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
         ),
       ),
     );
