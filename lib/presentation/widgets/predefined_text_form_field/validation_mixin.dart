@@ -19,26 +19,42 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
   }
 
   String? validateFirstName(String? fisrtName) {
+    String pattern = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]';
+    RegExp regex = RegExp(pattern);
+
     if (fisrtName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
           .translate('first_name_validation_empty');
     } else {
-      if (!isLength(fisrtName, 2, 30)) {
+      if (regex.hasMatch(fisrtName)) {
         return AppLocalizations.of(context)!
-            .translate('first_name_validation_lenght');
+            .translate('first_name_validation_sample');
+      } else {
+        if (!isLength(fisrtName, 2, 30)) {
+          return AppLocalizations.of(context)!
+              .translate('first_name_validation_lenght');
+        }
       }
     }
     return null;
   }
 
   String? validateLastName(String? lastName) {
+    String pattern = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]';
+    RegExp regex = RegExp(pattern);
+
     if (lastName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
           .translate('last_name_validation_empty');
     } else {
-      if (!isLength(lastName, 2, 30)) {
+      if (regex.hasMatch(lastName)) {
         return AppLocalizations.of(context)!
-            .translate('last_name_validation_lenght');
+            .translate('last_name_validation_sample');
+      } else {
+        if (!isLength(lastName, 2, 30)) {
+          return AppLocalizations.of(context)!
+              .translate('last_name_validation_lenght');
+        }
       }
     }
     return null;

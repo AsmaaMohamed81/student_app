@@ -41,6 +41,8 @@ class PredefinedTextFormField extends StatefulWidget {
   final AutovalidateMode autovalidateMode;
   final TextAlignVertical? textAlignVertical;
   final TextAlign? textAlign;
+  final ValueChanged<String>? onFieldSubmitted;
+  final TextInputAction? textInputAction;
 
   const PredefinedTextFormField(
       {Key? key,
@@ -80,7 +82,9 @@ class PredefinedTextFormField extends StatefulWidget {
       this.filledColor,
       this.prefixIcon,
       this.controller,
-      this.inputFormatters})
+      this.inputFormatters,
+      this.onFieldSubmitted,
+      this.textInputAction})
       : super(key: key);
 
   @override
@@ -217,8 +221,15 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
       keyboardType: widget.inputData,
       obscureText: widget.isPassword ? _obsecureText : false,
       validator: widget.validationFunction,
-      onChanged: widget.onChangedFunction,
-      textInputAction: TextInputAction.next,
+      onChanged: widget.onChangedFunction ??
+          (text) {
+            if (text.isEmpty) {
+              FocusScope.of(context).previousFocus();
+            }
+          },
+      // onEditingComplete: () => FocusScope.of(context).nextFocus(),
+      onFieldSubmitted: widget.onFieldSubmitted,
+      textInputAction: widget.textInputAction,
     );
   }
 

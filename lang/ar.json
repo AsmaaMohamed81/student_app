@@ -53,5 +53,7 @@
   "resend": "اعاده ارسال",
   "verify_code": "رمز التأكيد",
   "submit": "سجل",
-  "enter_new_password": "ادخل كلمه مرور جديده"
+  "enter_new_password": "ادخل كلمه مرور جديده",
+  "first_name_validation_sample":"الاسم الاول لا يقبل الاشكال ولا الارقام",
+  "last_name_validation_sample":"الاسم الاخير لا يقبل الاشكال ولا الارقام"
 }

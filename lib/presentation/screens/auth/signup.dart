@@ -69,26 +69,33 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                 ),
                 Row(
                   children: [
-                    Expanded(
+                    SizedBox(
+                      height: 70.h,
+                      width: 180.w,
                       child: PredefinedTextFormField(
                         maxLines: 1,
                         validationFunction: validateFirstName,
                         hintTxt: 'First Name',
                         controller: _fisrtNameController,
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).nextFocus(),
+                        textInputAction: TextInputAction.next,
                       ),
                     ),
-                    Expanded(
+                    SizedBox(
+                      width: 180.w,
+                      height: 70.h,
                       child: PredefinedTextFormField(
                         maxLines: 1,
                         validationFunction: validateLastName,
                         hintTxt: 'Last Name',
                         controller: _lastNameController,
+                        onFieldSubmitted: (_) =>
+                            FocusScope.of(context).nextFocus(),
+                        textInputAction: TextInputAction.next,
                       ),
                     ),
                   ],
-                ),
-                SizedBox(
-                  height: 10.h,
                 ),
                 PredefinedTextFormField(
                   maxLines: 1,
@@ -96,6 +103,8 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                   controller: _usernameController,
                   hintTxt:
                       AppLocalizations.of(context)!.translate("user_name")!,
+                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
                   height: 10.h,
@@ -106,6 +115,8 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                   validationFunction: validateEmail,
                   controller: _emailController,
                   hintTxt: AppLocalizations.of(context)!.translate("email")!,
+                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
                   height: 10.h,
@@ -117,6 +128,8 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                       .translate("enter_password")!,
                   isPassword: true,
                   maxLines: 1,
+                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
                   height: 10.h,
@@ -128,6 +141,8 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                       .translate("enter_confirm_password")!,
                   isPassword: true,
                   maxLines: 1,
+                  onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
+                  textInputAction: TextInputAction.done,
                 ),
                 SizedBox(
                   height: 15.h,
