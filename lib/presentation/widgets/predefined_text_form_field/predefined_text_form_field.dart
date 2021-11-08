@@ -42,6 +42,7 @@ class PredefinedTextFormField extends StatefulWidget {
   final TextAlignVertical? textAlignVertical;
   final TextAlign? textAlign;
   final ValueChanged<String>? onFieldSubmitted;
+  final Function()? onEditingComplete;
   final TextInputAction? textInputAction;
 
   const PredefinedTextFormField(
@@ -84,7 +85,8 @@ class PredefinedTextFormField extends StatefulWidget {
       this.controller,
       this.inputFormatters,
       this.onFieldSubmitted,
-      this.textInputAction})
+      this.textInputAction,
+      this.onEditingComplete})
       : super(key: key);
 
   @override
@@ -227,7 +229,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
               FocusScope.of(context).previousFocus();
             }
           },
-      // onEditingComplete: () => FocusScope.of(context).nextFocus(),
+      onEditingComplete: widget.onEditingComplete,
       onFieldSubmitted: widget.onFieldSubmitted,
       textInputAction: widget.textInputAction,
     );

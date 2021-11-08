@@ -77,8 +77,9 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                         validationFunction: validateFirstName,
                         hintTxt: 'First Name',
                         controller: _fisrtNameController,
-                        onFieldSubmitted: (_) =>
-                            FocusScope.of(context).nextFocus(),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                        },
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -90,8 +91,9 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                         validationFunction: validateLastName,
                         hintTxt: 'Last Name',
                         controller: _lastNameController,
-                        onFieldSubmitted: (_) =>
-                            FocusScope.of(context).nextFocus(),
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                        },
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -103,7 +105,9 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                   controller: _usernameController,
                   hintTxt:
                       AppLocalizations.of(context)!.translate("user_name")!,
-                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  onEditingComplete: () {
+                    FocusScope.of(context).nextFocus();
+                  },
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
@@ -115,7 +119,9 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                   validationFunction: validateEmail,
                   controller: _emailController,
                   hintTxt: AppLocalizations.of(context)!.translate("email")!,
-                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  onEditingComplete: () {
+                    FocusScope.of(context).nextFocus();
+                  },
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
@@ -128,7 +134,12 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                       .translate("enter_password")!,
                   isPassword: true,
                   maxLines: 1,
-                  onFieldSubmitted: (_) => FocusScope.of(context).nextFocus(),
+                  onEditingComplete: () {
+                    FocusScope.of(context).nextFocus();
+                  },
+                  onFieldSubmitted: (v) {
+                    FocusScope.of(context).nextFocus();
+                  },
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(
@@ -141,7 +152,20 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                       .translate("enter_confirm_password")!,
                   isPassword: true,
                   maxLines: 1,
-                  onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).unfocus();
+                    if (!BlocProvider.of<AuthCubit>(context).isLoadingSignUp) {
+                      BlocProvider.of<AuthCubit>(context).signUp(
+                          formKey: _formKey,
+                          passwordController: _passwordController,
+                          emailController: _emailController,
+                          userNameController: _usernameController,
+                          firstNameController: _fisrtNameController,
+                          lasrNameController: _lastNameController,
+                          confirmpasswordController:
+                              _confirmpasswordController);
+                    }
+                  },
                   textInputAction: TextInputAction.done,
                 ),
                 SizedBox(
