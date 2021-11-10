@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
-import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
@@ -13,6 +12,7 @@ import 'package:student_app/presentation/widgets/predefined_text_form_field/vali
 
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
+import 'package:student_app/utils/strings.dart';
 import 'package:student_app/utils/urls.dart';
 
 import 'arguments.dart';
@@ -59,7 +59,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
           body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
             listener: (context, state) {
               if (state is ResetLostPassword) {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushNamed(context, loginRoute);
 
                 Commons.showToast(context, message: state.message);
               } else if (state is FailResetLostPassword) {

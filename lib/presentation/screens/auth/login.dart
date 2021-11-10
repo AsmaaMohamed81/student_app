@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/hex_color.dart';
+import 'package:student_app/utils/strings.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -84,8 +85,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 Container(
                     margin: EdgeInsets.symmetric(horizontal: 20.w),
                     child: InkWell(
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/add_mail_screen'),
+                      onTap: () => Navigator.pushNamed(context, addMailRoute),
                       child: Text(
                         AppLocalizations.of(context)!
                             .translate('forgot_your_password')!,
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                       vertical:
                           orientation == Orientation.portrait ? 10.h : 15.h),
                   child: InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/signup'),
+                    onTap: () => Navigator.pushNamed(context, signUpRoute),
                     child: Text.rich(TextSpan(
                         text: AppLocalizations.of(context)!
                             .translate('don’t_have_account?')!,
@@ -261,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
             listener: (context, state) {
               if (state is LogedIn) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/home', (Route<dynamic> route) => false);
+                    homeRoute, (Route<dynamic> route) => false);
                 // Navigator.of(context).push(MaterialPageRoute(
                 //   builder: (context) => const HomeScreen(),
                 // ));

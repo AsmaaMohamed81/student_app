@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/hex_color.dart';
+import 'package:student_app/utils/strings.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -276,7 +277,7 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
                       vertical:
                           orientation == Orientation.portrait ? 10.h : 15.h),
                   child: InkWell(
-                    onTap: () => Navigator.pushNamed(context, '/login'),
+                    onTap: () => Navigator.pushNamed(context, loginRoute),
                     child: Text.rich(TextSpan(
                         text: AppLocalizations.of(context)!
                             .translate('already_have_account?')!,
@@ -335,7 +336,7 @@ class _SignupScreenState extends State<SignupScreen> with ValidationMixin {
             listener: (context, state) {
               if (state is SignUp) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/home', (Route<dynamic> route) => false);
+                    homeRoute, (Route<dynamic> route) => false);
                 // Navigator.of(context).push(MaterialPageRoute(
                 //   builder: (context) => const HomeScreen(),
                 // ));

@@ -3,21 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
-import 'package:student_app/presentation/screens/forget_pass_screen/arguments.dart';
-import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/custom_text/custom_text.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
-import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
 
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:student_app/utils/strings.dart';
 
 class VerifyCodeScreen extends StatefulWidget {
   final String? email;
@@ -105,7 +102,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
             listener: (context, state) {
               if (state is SendVerifyCode) {
                 // Commons.showToast(context, message: state.message);
-                Navigator.pushNamed(context, '/new_passWord_screen',
+                Navigator.pushNamed(context, newPasswordRoute,
                     arguments: widget.email);
               } else if (state is FailVerifyCode) {
                 Commons.showError(

@@ -5,7 +5,6 @@ import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_app/presentation/widgets/appbar/appbar.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
@@ -14,6 +13,7 @@ import 'package:student_app/presentation/widgets/predefined_text_form_field/vali
 
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
+import 'package:student_app/utils/strings.dart';
 
 class AddMailScreen extends StatefulWidget {
   const AddMailScreen({Key? key}) : super(key: key);
@@ -54,7 +54,7 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
             listener: (context, state) {
               if (state is SentMail) {
                 print(_emailController.text.trim());
-                Navigator.pushNamed(context, '/verify_code_screen',
+                Navigator.pushNamed(context, verifyCodeRoute,
                     arguments: _emailController.text.trim());
 
                 Commons.showToast(context, message: state.message);
