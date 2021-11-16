@@ -4,5 +4,9 @@ const signupUrl = baseUrl + "/Account/Register";
 const forgetPasssword = baseUrl + "/Account/ForgetPassword";
 const verificationCodeUrL = baseUrl + "/Account/VerificationCode";
 const resetLostPasswordUrl = baseUrl + "/Account/ResetLostPassword";
+const studentInfoUrl =
+    baseUrl + "/SchoolApi/SchoolDashboard/GetStudentDashboard";
+const studentMaterialUrl =
+    baseUrl + "/SchoolApi/SchoolCourse/GetAllCoursesByClassId";
 
 const charactersUrl = baseUrl + "characters";

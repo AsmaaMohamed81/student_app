@@ -7,7 +7,7 @@ import 'package:student_app/presentation/screens/auth/signup.dart';
 import 'package:student_app/presentation/screens/forget_pass_screen/add_mail_screen.dart';
 import 'package:student_app/presentation/screens/forget_pass_screen/new_password_screen.dart';
 import 'package:student_app/presentation/screens/forget_pass_screen/verify_code_screen.dart';
-import 'package:student_app/presentation/screens/home.dart';
+import 'package:student_app/presentation/screens/home/home.dart';
 import 'package:student_app/presentation/screens/intro_screen.dart';
 import 'package:student_app/presentation/screens/splash_screen.dart';
 
@@ -25,6 +25,10 @@ class AppRoutes {
                       return const HomeScreen();
                     } else if (authState is FailLogIn) {
                       return const ChoosingLoginOrSignUpScreen();
+                    } else if (authState is SignUp) {
+                      return const HomeScreen();
+                    } else {
+                      const ChoosingLoginOrSignUpScreen();
                     }
                     return const ChoosingLoginOrSignUpScreen();
                   },
