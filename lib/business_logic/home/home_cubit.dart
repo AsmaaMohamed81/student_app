@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_app/data/models/student_information.dart';
+import 'package:student_app/data/models/student_dashboard.dart';
 
 import 'package:student_app/data/repositories/home_repository.dart';
 part 'home_state.dart';
@@ -21,6 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
     if (response['status'] == 'Success') {
       emit(GetStudentInfo(
           StudentInformation.fromJson(response['data']['studentInformation'])));
+      // emit(GetStudentMaterail(StudentDashboard.fromJson(response['data'])));
     } else {}
   }
 

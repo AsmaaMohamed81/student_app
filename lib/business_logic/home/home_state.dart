@@ -10,9 +10,17 @@ class HomeLoadingState extends HomeState {
 }
 
 class GetStudentInfo extends HomeState {
-  final StudentInformation studentInfo;
+  final StudentInformation studentInformation;
 
   GetStudentInfo(
-    this.studentInfo,
+    this.studentInformation,
+  );
+}
+
+class GetStudentMaterail extends HomeState {
+  final StudentDashboard studentDashboard;
+
+  GetStudentMaterail(
+    this.studentDashboard,
   );
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/data/models/student_material.dart';
+import 'package:student_app/data/models/student_dashboard.dart';
 import 'package:student_app/utils/hex_color.dart';
 
 class MaterialItem extends StatelessWidget {
-  final StudentMaterial studentMaterial;
+  final Subjects studentMaterial;
 
   const MaterialItem({Key? key, required this.studentMaterial})
       : super(key: key);

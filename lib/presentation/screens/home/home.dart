@@ -5,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
 import 'package:student_app/business_logic/home/home_cubit.dart';
-import 'package:student_app/business_logic/home/material_cubit.dart';
+import 'package:student_app/data/models/student_dashboard.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/material_item.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/app_colors.dart';
-import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:student_app/utils/preferences_formatter.dart';
 import 'package:student_app/utils/strings.dart';
@@ -27,10 +26,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    BlocProvider.of<MaterialCubit>(context).getStudentMatrial(courseId: '471');
-  }
+  // @override
+  // void initState() {
+  //   BlocProvider.of<MaterialCubit>(context).getStudentMatrial(courseId: '471');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           color: Colors.white, fontSize: 15.sp),
                                     ),
                                     Text(
-                                      state.studentInfo.name.toString(),
+                                      state.studentInformation.name.toString(),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 15.sp),
                                     ),
@@ -265,33 +264,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                   alignment: Alignment.bottomCenter,
                                   children: [
                                     Container(
-                                      height: 170.h,
-                                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                      padding:
-                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: HexColor('#F8FAFC'),
-                                          border: Border.all(
-                                              color: HexColor("#CFE1FB"))),
-                                      child: !BlocProvider.of<MaterialCubit>(
-                                                  context)
-                                              .isLoading
-                                          ? ListView.builder(
-                                              itemCount: 10,
-                                              itemBuilder: (context, index) {
-                                                return MaterialItem(
-                                                  studentMaterial:
-                                                      state.studentMaterial,
-                                                );
-                                              },
-                                            )
-                                          : Center(
-                                              child: CircularProgressIndicator(
-                                                  color: mainAppColor),
-                                            ),
-                                    ),
+                                        height: 170.h,
+                                        margin:
+                                            EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: HexColor('#F8FAFC'),
+                                            border: Border.all(
+                                                color: HexColor("#CFE1FB"))),
+                                        child: ListView.builder(
+                                          itemCount: 10,
+                                          itemBuilder: (context, index) {
+                                            if (state is GetStudentMaterail) {
+                                              return MaterialItem(
+                                                studentMaterial: state
+                                                    .studentDashboard
+                                                    .subjects![index],
+                                              );
+                                            } else {
+                                              return Text("SDs");
+                                            }
+                                          },
+                                        )),
                                     Container(
                                         margin:
                                             EdgeInsets.fromLTRB(20, 0, 20, 0),
