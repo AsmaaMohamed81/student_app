@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
+import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  Widget _buildBodyItem(AuthState state) {
+  Widget _buildBodyItem(LoginState state) {
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Padding(
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 SizedBox(
                   height: 15.h,
                 ),
-                !BlocProvider.of<AuthCubit>(context).isLoadingLogin
+                !BlocProvider.of<LoginCubit>(context).isLoading
                     ? Container(
                         margin: EdgeInsets.symmetric(horizontal: 10.w),
                         child: DefaultButton(
@@ -112,15 +112,14 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                           horizontalMarginIsEnabled: true,
                           btnLbl: AppLocalizations.of(context)!
                               .translate('sign_in')!,
-                          onPressedFunction: () {
-                            if (!BlocProvider.of<AuthCubit>(context)
-                                .isLoadingLogin) {
-                              BlocProvider.of<AuthCubit>(context).login(
+                          onPressedFunction: () =>
+                            
+                              BlocProvider.of<LoginCubit>(context).login(
                                   formKey: _formKey,
                                   passwordController: _passwordController,
-                                  emailController: _emailController);
-                            }
-                          },
+                                  emailController: _emailController)
+                            
+                          
                         ),
                       )
                     : Center(
@@ -246,8 +245,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
     });
   }
 
-  AutovalidateMode autovalidateMode(AuthState state) => state
-          is AuthValidateState
+  AutovalidateMode autovalidateMode(LoginState state) => state
+          is LoginValidatation
       ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
       : AutovalidateMode.disabled;
 
@@ -257,15 +256,15 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
       child: PageContainer(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          body: BlocConsumer<AuthCubit, AuthState>(
+          body: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
-              if (state is LogedIn) {
+              if (state is Authenticated) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     homeRoute, (Route<dynamic> route) => false);
                 // Navigator.of(context).push(MaterialPageRoute(
                 //   builder: (context) => const HomeScreen(),
                 // ));
-              } else if (state is FailLogIn) {
+              } else if (state is UnAuthenticated) {
                 Commons.showError(context, state.message);
               }
             },

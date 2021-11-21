@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
+import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/presentation/screens/auth/choosing_login_or_signup/choosing_login_or_signup.dart';
 import 'package:student_app/presentation/screens/auth/login.dart';
 import 'package:student_app/presentation/screens/auth/signup.dart';
@@ -19,15 +19,13 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case '/home':
         return MaterialPageRoute(
-            builder: (_) => BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, authState) {
-                    if (authState is LogedIn) {
+            builder: (_) => BlocBuilder<LoginCubit, LoginState>(
+                  builder: (context, loginState) {
+                    if (loginState is Authenticated) {
                       return const HomeScreen();
-                    } else if (authState is FailLogIn) {
+                    } else if (loginState is UnAuthenticated) {
                       return const ChoosingLoginOrSignUpScreen();
-                    } else if (authState is SignUp) {
-                      return const HomeScreen();
-                    } else {
+                    }  else {
                       const ChoosingLoginOrSignUpScreen();
                     }
                     return const ChoosingLoginOrSignUpScreen();

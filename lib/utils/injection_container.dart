@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
+import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/data/api/dio_consumer.dart';
 import 'package:student_app/data/api/http_consumer.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
@@ -13,7 +13,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   //Futures bloc
   sl.registerFactory<LocaleCubit>(() => LocaleCubit());
-  sl.registerFactory<AuthCubit>(() => AuthCubit(authRepository: sl.call()));
+  sl.registerFactory<LoginCubit>(() => LoginCubit(authRepository: sl.call()));
   sl.registerFactory<ForgetPasswordCubit>(
       () => ForgetPasswordCubit(forgetPasswordRepository: sl.call()));
   sl.registerFactory<HomeCubit>(() => HomeCubit(homeRepository: sl.call()));

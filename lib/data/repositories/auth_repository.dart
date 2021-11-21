@@ -1,4 +1,3 @@
-import 'package:student_app/data/api/api_consumer.dart';
 import 'package:student_app/data/api/dio_consumer.dart';
 import 'package:student_app/utils/urls.dart';
 
