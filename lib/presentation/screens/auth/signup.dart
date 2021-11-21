@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:student_app/locale/app_localizations.dart';
-import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
-import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/utils/app_colors.dart';
-import 'package:student_app/utils/commons.dart';
-import 'package:student_app/utils/hex_color.dart';
-import 'package:student_app/utils/strings.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);

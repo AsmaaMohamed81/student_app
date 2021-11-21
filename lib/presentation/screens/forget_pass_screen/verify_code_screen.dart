@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
-import 'package:student_app/presentation/widgets/custom_text/custom_text.dart';
+import 'package:student_app/presentation/widgets/custom_text.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';

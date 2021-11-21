@@ -262,9 +262,6 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               if (state is Authenticated) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     homeRoute, (Route<dynamic> route) => false);
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => const HomeScreen(),
-                // ));
               } else if (state is UnAuthenticated) {
                 Commons.showError(context, state.message);
               }

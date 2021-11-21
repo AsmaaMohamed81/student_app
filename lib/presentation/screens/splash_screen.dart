@@ -82,10 +82,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     initData().then((value) =>
-      _checkShowingIntroOrNot());
+      _checkShowingIntro());
   }
 
-  Future<void> _checkShowingIntroOrNot() async {
+  Future<void> _checkShowingIntro() async {
     bool showIntro = await SharedPreferencesFormatter.getBoolean("show_intro", true);
     if (showIntro) {
       SharedPreferencesFormatter.saveBoolean("show_intro",false);
