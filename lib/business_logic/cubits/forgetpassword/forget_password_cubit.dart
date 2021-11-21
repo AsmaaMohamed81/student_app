@@ -6,7 +6,7 @@ part 'forget_password_state.dart';
 
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final ForgetPasswordRepository forgetPasswordRepository;
-  ForgetPasswordCubit(this.forgetPasswordRepository)
+  ForgetPasswordCubit({required this.forgetPasswordRepository})
       : super(ForgetPasswordInitial());
 
   bool isLoadingsend = false;

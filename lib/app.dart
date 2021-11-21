@@ -5,11 +5,7 @@ import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
 import 'package:student_app/presentation/routes/app_routes.dart';
 import 'package:student_app/presentation/themes/app_theme.dart';
 import 'package:student_app/utils/injection_container.dart' as di;
-import 'package:student_app/utils/preferences_formatter.dart';
 import 'business_logic/cubits/auth/auth_cubit.dart';
-import 'business_logic/cubits/forgetpassword/forget_password_cubit.dart';
-import 'business_logic/home/home_cubit.dart';
-import 'data/models/user.dart';
 import 'locale/app_localizations_setup.dart';
 
 class StudentApp extends StatelessWidget {
@@ -17,7 +13,6 @@ class StudentApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String ff = SharedPreferencesFormatter.read("user").userId.toString();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -26,9 +21,9 @@ class StudentApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.sl<AuthCubit>()..getSavedCredential(),
         ),
-        BlocProvider(
-          create: (_) => di.sl<HomeCubit>()..getStudentInfo(studentId: "43"),
-        ),
+        // BlocProvider(
+        //   create: (_) => di.sl<HomeCubit>()..getStudentInfo(studentId: "43"),
+        // ),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         buildWhen: (previousState, currentState) =>

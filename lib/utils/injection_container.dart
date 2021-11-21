@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:student_app/business_logic/cubits/auth/auth_cubit.dart';
 import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
-import 'package:student_app/business_logic/home/home_cubit.dart';
 import 'package:student_app/data/api/dio_consumer.dart';
 import 'package:student_app/data/api/http_consumer.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
@@ -11,14 +11,22 @@ import 'package:student_app/data/repositories/home_repository.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
+  //Futures bloc
   sl.registerFactory<LocaleCubit>(() => LocaleCubit());
-  sl.registerFactory<AuthCubit>(
-      () => AuthCubit(AuthRepository(apiConsumer: DioConsumer())));
-  sl.registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(
-      ForgetPasswordRepository(apiConsumer: DioConsumer())));
-  sl.registerFactory<HomeCubit>(
-      () => HomeCubit(HomeRepository(apiConsumer: DioConsumer())));
+  sl.registerFactory<AuthCubit>(() => AuthCubit(authRepository: sl.call()));
+  sl.registerFactory<ForgetPasswordCubit>(
+      () => ForgetPasswordCubit(forgetPasswordRepository: sl.call()));
+  sl.registerFactory<HomeCubit>(() => HomeCubit(homeRepository: sl.call()));
 
+  //repository
+  sl.registerLazySingleton<ForgetPasswordRepository>(
+      () => ForgetPasswordRepository(dioConsumer: sl.call()));
+  sl.registerLazySingleton<AuthRepository>(
+      () => AuthRepository(dioConsumer: sl.call()));
+  sl.registerLazySingleton<HomeRepository>(
+      () => HomeRepository(dioConsumer: sl.call()));
+
+  //External
   sl.registerLazySingleton<HttpConsumer>(() => HttpConsumer());
   sl.registerLazySingleton<DioConsumer>(() => DioConsumer());
 }

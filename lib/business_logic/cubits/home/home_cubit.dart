@@ -7,7 +7,7 @@ part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepository homeRepository;
-  HomeCubit(this.homeRepository) : super(HomeInitial());
+  HomeCubit({required this.homeRepository}) : super(HomeInitial());
 
   bool isLoading = false;
 

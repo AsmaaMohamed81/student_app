@@ -81,15 +81,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    initData().then((value) {
-      _checkIsFirstTime();
-    });
+    initData().then((value) =>
+      _checkShowingIntroOrNot());
   }
 
-  Future<void> _checkIsFirstTime() async {
-    var _firstTime = await SharedPreferencesFormatter.checkIsFirstTime();
-    if (_firstTime) {
-      SharedPreferencesFormatter.setIsFirstTime(false);
+  Future<void> _checkShowingIntroOrNot() async {
+    bool showIntro = await SharedPreferencesFormatter.getBoolean("show_intro", true);
+    if (showIntro) {
+      SharedPreferencesFormatter.saveBoolean("show_intro",false);
       Navigator.pushReplacementNamed(context, '/intro_screen');
     } else {
       Navigator.pushReplacementNamed(context, '/home');
