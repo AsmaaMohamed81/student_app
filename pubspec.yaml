@@ -1,5 +1,5 @@
 name: student_app
-description: A new Flutter application.
+description: It is an education application.
 publish_to: 'none'
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -20,11 +20,12 @@ dependencies:
   fluttertoast: ^8.0.8
   font_awesome_flutter: ^9.2.0
   get_it: ^7.2.0
+  google_fonts: ^2.1.0
   http: ^0.13.3
   mask_text_input_formatter: ^2.0.0
+  pin_code_fields: ^7.3.0
   shared_preferences: ^2.0.8
   validators: ^3.0.0
-  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -88,13 +89,3 @@ flutter:
     - assets/images/flame_training.png
     - assets/images/calendar.png
 
-  fonts:
-    - family: IBMPlexSans
-      fonts:
-        - asset: assets/fonts/Roboto-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Roboto-Regular.ttf
-          weight: 400
-    - family: video
-      fonts:
-        - asset: assets/fonts/icons/video.ttf

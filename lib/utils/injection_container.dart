@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';

@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: orientation == Orientation.portrait
-                            ? 28.sp
+                            ? 25.sp
                             : 50.sp),
                   ),
                 ),
@@ -86,45 +86,46 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 Container(
                     margin: EdgeInsets.symmetric(horizontal: 20.w),
                     child: InkWell(
-                      onTap: () => Navigator.pushNamed(context, addMailRoute),
+                      onTap: () =>
+                          Navigator.pushNamed(context, forgotPasswordRoute),
                       child: Text(
                         AppLocalizations.of(context)!
                             .translate('forgot_your_password')!,
                         style: TextStyle(
+                            fontWeight: FontWeight.w500,
                             color: HexColor('7B7890'),
                             fontSize: orientation == Orientation.portrait
-                                ? 13.sp
+                                ? 14.sp
                                 : 25.sp),
                       ),
                     )),
                 SizedBox(
                   height: 15.h,
                 ),
-                !BlocProvider.of<LoginCubit>(context).isLoading
+                !context.watch<LoginCubit>().isLoading
                     ? Container(
                         margin: EdgeInsets.symmetric(horizontal: 10.w),
                         child: DefaultButton(
-                          btnLblStyle: orientation == Orientation.portrait
-                              ? Theme.of(context).textTheme.button
-                              : TextStyle(color: Colors.white, fontSize: 30.sp),
-                          height:
-                              orientation == Orientation.portrait ? 45.h : 70.h,
-                          borderColor: mainAppColor,
-                          horizontalMarginIsEnabled: true,
-                          btnLbl: AppLocalizations.of(context)!
-                              .translate('sign_in')!,
-                          onPressedFunction: () =>
-                            
-                              BlocProvider.of<LoginCubit>(context).login(
-                                  formKey: _formKey,
-                                  passwordController: _passwordController,
-                                  emailController: _emailController)
-                            
-                          
-                        ),
+                            btnLblStyle: orientation == Orientation.portrait
+                                ? Theme.of(context).textTheme.button
+                                : TextStyle(
+                                    color: Colors.white, fontSize: 30.sp),
+                            height: orientation == Orientation.portrait
+                                ? 45.h
+                                : 70.h,
+                            borderColor: mainAppColor,
+                            horizontalMarginIsEnabled: true,
+                            btnLbl: AppLocalizations.of(context)!
+                                .translate('sign_in')!,
+                            onPressedFunction: () =>
+                                BlocProvider.of<LoginCubit>(context).login(
+                                    formKey: _formKey,
+                                    passwordController: _passwordController,
+                                    emailController: _emailController)),
                       )
                     : Center(
-                        child: CircularProgressIndicator(color: mainAppColor),
+                        child: SpinKitFadingCircle(
+                            size: 45.h, color: mainAppColor),
                       ),
                 SizedBox(
                   height: 25.h,
@@ -140,58 +141,99 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DefaultButton(
-                      width: 0.26.sw,
-                      horizontalMarginIsEnabled: false,
-                      height: orientation == Orientation.portrait ? 30.h : 50.h,
-                      btnLbl: 'Facebook',
-                      btnLblStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: orientation == Orientation.portrait
-                              ? 10.sp
-                              : 20.sp),
-                      btnColor: const Color(0xff3C5A99),
-                      prefixIcon: Icon(
-                        FontAwesomeIcons.facebook,
-                        color: Colors.white,
-                        size: orientation == Orientation.portrait ? 15.h : 30.h,
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff3C5A99),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.facebook,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 15.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.h,
+                          ),
+                          Text(
+                            'Facebook',
+                            style: TextStyle(
+                              color: Colors.white,fontSize: 9.sp
+                            ),
+                          )
+                        ],
+                      ),
+                    ), Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xffF95341),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.google,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 12.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.h,
+                          ),
+                          Text(
+                            'Google',
+                            style: TextStyle(
+                              color: Colors.white,fontSize: 9.sp
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    DefaultButton(
-                      width: 0.26.sw,
-                      horizontalMarginIsEnabled: false,
-                      height: orientation == Orientation.portrait ? 30.h : 50.h,
-                      btnLbl: 'Google',
-                      btnLblStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: orientation == Orientation.portrait
-                              ? 10.sp
-                              : 20.sp),
-                      btnColor: const Color(0xffF95341),
-                      prefixIcon: Icon(
-                        FontAwesomeIcons.googlePlus,
-                        color: Colors.white,
-                        size: orientation == Orientation.portrait ? 15.h : 30.h,
+                     Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff3C5A99),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.windows,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 15.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.h,
+                          ),
+                          Text(
+                            'Microsoft',
+                            style: TextStyle(
+                              color: Colors.white,fontSize: 9.sp
+                            ),
+                          )
+                        ],
                       ),
-                    ),
-                    DefaultButton(
-                      width: 0.26.sw,
-                      horizontalMarginIsEnabled: false,
-                      height: orientation == Orientation.portrait ? 30.h : 50.h,
-                      btnLbl: 'Microsoft',
-                      btnLblStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: orientation == Orientation.portrait
-                              ? 10.sp
-                              : 20.sp),
-                      btnColor: const Color(0xff0491FF),
-                      prefixIcon: Icon(
-                        FontAwesomeIcons.windows,
-                        color: Colors.white,
-                        size: orientation == Orientation.portrait ? 15.h : 30.h,
-                      ),
-                    ),
+                    )
                   ],
+                ),
+                SizedBox(
+                  height: 20.h,
                 ),
                 Container(
                   alignment: Alignment.center,

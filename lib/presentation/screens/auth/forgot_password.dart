@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
@@ -12,16 +12,15 @@ import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/strings.dart';
 
-class AddMailScreen extends StatefulWidget {
-  const AddMailScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _AddMailScreenState createState() => _AddMailScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController _emailController = TextEditingController();
 
   @override
@@ -50,7 +49,7 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
           body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
             listener: (context, state) {
               if (state is SentMail) {
-                print(_emailController.text.trim());
+             
                 Navigator.pushNamed(context, verifyCodeRoute,
                     arguments: _emailController.text.trim());
 
@@ -73,7 +72,7 @@ class _AddMailScreenState extends State<AddMailScreen> with ValidationMixin {
       ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
       : AutovalidateMode.disabled;
 
-//eng.asmaa.mohammed13593@gmail.com
+
 
   Widget _buildBodyItem(ForgetPasswordState state) {
     return OrientationBuilder(builder: (context, orientation) {

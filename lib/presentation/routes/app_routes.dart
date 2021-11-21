@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/presentation/screens/auth/choosing_login_or_signup/choosing_login_or_signup.dart';
 import 'package:student_app/presentation/screens/auth/login.dart';
 import 'package:student_app/presentation/screens/auth/signup.dart';
-import 'package:student_app/presentation/screens/forget_pass_screen/add_mail_screen.dart';
-import 'package:student_app/presentation/screens/forget_pass_screen/new_password_screen.dart';
-import 'package:student_app/presentation/screens/forget_pass_screen/verify_code_screen.dart';
+import 'package:student_app/presentation/screens/auth/forgot_password.dart';
+import 'package:student_app/presentation/screens/auth/new_password_screen.dart';
+import 'package:student_app/presentation/screens/auth/verify_code_screen.dart';
 import 'package:student_app/presentation/screens/home/home.dart';
 import 'package:student_app/presentation/screens/intro_screen.dart';
 import 'package:student_app/presentation/screens/splash_screen.dart';
 import 'package:student_app/utils/strings.dart';
+import 'package:student_app/utils/injection_container.dart' as di;
 
 class AppRoutes {
   static Route? onGenerateRoute(RouteSettings routeSettings) {
@@ -32,17 +34,20 @@ class AppRoutes {
                     return const ChoosingLoginOrSignUpScreen();
                   },
                 ));
-      case '/intro_screen':
+      case introRoute:
         return MaterialPageRoute(builder: (_) => const IntroScreen());
-      case '/choosing_login_or_signup':
+      case choosingLoginOrSignUpRoute:
         return MaterialPageRoute(
             builder: (_) => const ChoosingLoginOrSignUpScreen());
       case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      case '/signup':
+      case signUpRoute:
         return MaterialPageRoute(builder: (_) => const SignupScreen());
-      case '/add_mail_screen':
-        return MaterialPageRoute(builder: (_) => const AddMailScreen());
+      case forgotPasswordRoute:
+        return MaterialPageRoute(builder: (_) =>
+        BlocProvider(
+          create: (_) => di.sl<ForgetPasswordCubit>(),
+         child: const ForgotPasswordScreen()));
       case '/verify_code_screen':
         var email = routeSettings.arguments as String;
         return MaterialPageRoute(

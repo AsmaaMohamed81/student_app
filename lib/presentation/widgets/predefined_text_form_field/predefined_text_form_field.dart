@@ -213,12 +213,18 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             fontSize: 12,
             fontWeight: FontWeight.bold),
         errorMaxLines: 2,
-        errorStyle:
-            widget.errorStyle ?? const TextStyle(height: .9, fontSize: 11),
+       errorStyle: widget.errorStyle ??
+            TextStyle(
+                fontSize:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 13.sp
+                        : 25.sp),
         hintStyle: TextStyle(
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
-            fontSize: 12,
-            fontWeight: FontWeight.w400),
+            fontSize: MediaQuery.of(context).orientation == Orientation.portrait
+                ? 14.sp
+                : 22.sp,
+            fontWeight: FontWeight.w500),
       ),
       keyboardType: widget.inputData,
       obscureText: widget.isPassword ? _obsecureText : false,

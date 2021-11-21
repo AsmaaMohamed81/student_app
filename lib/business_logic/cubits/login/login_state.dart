@@ -11,17 +11,15 @@ class LoginLoading extends LoginState {
 
 class Authenticated extends LoginState {
   final User user;
-  Authenticated(
-    { required this.user }
-  );
+  Authenticated({required this.user});
 }
 
-class  LoginValidatation extends LoginState {
+class LoginValidatation extends LoginState {
   final bool isValidate;
-  LoginValidatation({ required this.isValidate});
+  LoginValidatation({required this.isValidate});
 }
 
 class UnAuthenticated extends LoginState {
   final String message;
-  UnAuthenticated({ required this.message});
+  UnAuthenticated({required this.message});
 }

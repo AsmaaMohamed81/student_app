@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:student_app/business_logic/cubits/forgetpassword/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
-
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/strings.dart';
-import 'package:student_app/utils/urls.dart';
 
-import 'arguments.dart';
 
 class NewPassWordScreen extends StatefulWidget {
   final String? email;
@@ -29,7 +25,6 @@ class NewPassWordScreen extends StatefulWidget {
 class _NewPassWordScreenState extends State<NewPassWordScreen>
     with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
-  late Arguments arg;
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmpasswordController =
       TextEditingController();

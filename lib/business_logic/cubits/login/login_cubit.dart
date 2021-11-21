@@ -12,7 +12,6 @@ class LoginCubit extends Cubit<LoginState> {
 
   bool isLoading = false;
 
-
   void getSavedCredential() async {
     var userData = await SharedPreferencesFormatter.read("user");
     if (userData != null) {
@@ -40,38 +39,7 @@ class LoginCubit extends Cubit<LoginState> {
     } else {
       emit(LoginValidatation(isValidate: true));
     }
-  }
-
-  // Future<void> signUp({
-  //   required GlobalKey<FormState> formKey,
-  //   required TextEditingController userNameController,
-  //   required TextEditingController emailController,
-  //   required TextEditingController firstNameController,
-  //   required TextEditingController lasrNameController,
-  //   required TextEditingController passwordController,
-  //   required TextEditingController confirmpasswordController,
-  // }) async {
-  //   if (formKey.currentState != null && formKey.currentState!.validate()) {
-  //     changeLoadingSignUpView();
-  //     final response = await authRepository.signUp(
-  //         email: emailController.text.trim(),
-  //         password: passwordController.text.trim(),
-  //         confirmPassword: confirmpasswordController.text.trim(),
-  //         firstName: firstNameController.text.trim(),
-  //         lastName: lasrNameController.text.trim(),
-  //         userName: userNameController.text.trim());
-  //     changeLoadingSignUpView();
-  //     if (response['status'] == 'Success') {
-  //       SharedPreferencesFormatter.write(
-  //           "user", User.fromJson(response['data']));
-  //       emit(SignUp(User.fromJson(response['data'])));
-  //     } else {
-  //       emit(FailSignUp(response['message']));
-  //     }
-  //   } else {
-  //     emit(AuthValidateState(true));
-  //   }
-  // }
+      }
 
   void changeLoadingView() {
     isLoading = !isLoading;
