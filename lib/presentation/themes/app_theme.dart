@@ -9,12 +9,12 @@ ThemeData themeData() {
       hintColor: hintColor,
       brightness: Brightness.light,
       scaffoldBackgroundColor: const Color(0xffFFFFFF),
-      fontFamily: 'IBMPlexSans',
+      fontFamily: 'Roboto',
       textTheme: TextTheme(
         headline1: const TextStyle(
             color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
         headline2: const TextStyle(
-            fontFamily: 'IBMPlexSans',
+            fontFamily: 'Roboto',
             fontSize: 15,
             color: Colors.black,
             fontWeight: FontWeight.w800),

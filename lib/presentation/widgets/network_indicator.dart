@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:student_app/locale/app_localizations.dart';
+import 'package:student_app/utils/app_colors.dart';
 
 class NetworkIndicator extends StatefulWidget {
   final Widget? child;
@@ -68,7 +69,9 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             elevation: 500,
-                            onPrimary: Theme.of(context).primaryColor,
+                            onPrimary: mainAppColor,
+                            primary: mainAppColor,
+                            shadowColor: mainAppColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0)),
                           ),
@@ -102,9 +105,9 @@ class _NetworkIndicatorState extends State<NetworkIndicator> {
           final appBar = AppBar(
             leading: Container(),
             backgroundColor: Theme.of(context).primaryColor,
-            title: const Text(
-              'محرك',
-              style: TextStyle(
+            title: Text(
+              AppLocalizations.of(context)!.translate('refresh_screen')!,
+              style: const TextStyle(
                   color: Color(0xffFFFFFF),
                   fontFamily: 'Fairuz',
                   fontSize: 20,

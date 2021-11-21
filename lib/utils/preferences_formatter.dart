@@ -44,5 +44,7 @@ class SharedPreferencesFormatter {
     return p.setString(key, value);
   }
 
+ 
+
   static Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }

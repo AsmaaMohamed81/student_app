@@ -23,6 +23,8 @@ dependencies:
   http: ^0.13.3
   mask_text_input_formatter: ^2.0.0
   shared_preferences: ^2.0.8
+  validators: ^3.0.0
+  pin_code_fields: ^7.3.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
@@ -74,7 +76,6 @@ flutter:
     - assets/images/back.png
     - assets/images/alrwad.jpg
     - assets/images/upload.png
-    - assets/images/calendar.png
     - assets/images/student.png
     - assets/images/icon_excel.png
     - assets/images/icon_add.png
@@ -82,17 +83,17 @@ flutter:
     - assets/images/filter.png
     - assets/images/back.jpg
     - assets/images/mail.png
-    - assets/images/lock.png
-    - assets/images/mobile.png
-    - assets/images/lecutre.png
-    - assets/images/delete.png
+    - assets/images/backhome.png
+    - assets/images/schedule.png
+    - assets/images/flame_training.png
+    - assets/images/calendar.png
 
   fonts:
     - family: IBMPlexSans
       fonts:
-        - asset: assets/fonts/IBMPlexSans-Bold.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
           weight: 700
-        - asset: assets/fonts/IBMPlexSans-Regular.ttf
+        - asset: assets/fonts/Roboto-Regular.ttf
           weight: 400
     - family: video
       fonts:

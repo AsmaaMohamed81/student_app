@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/utils/strings.dart';
+import 'package:student_app/utils/preferences_formatter.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -21,11 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
       return Stack(
         children: [
           Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.bottomLeft,
               child: Image.asset(
                 'assets/images/splash_bg.png',
-                height: orientation == Orientation.portrait ? 0.3.sh : 1.0.sh,
-                width: 1.sw,
+                height: orientation == Orientation.portrait ? 0.25.sh : .9.sh,
+                width: orientation == Orientation.portrait ? .9.sw : .9.sw,
                 fit: BoxFit.fill,
               )),
           Column(
@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
               Image.asset(
                 'assets/images/logo.png',
+                height: orientation == Orientation.portrait ? 0.5.sh : .5.sh,
               ),
               orientation == Orientation.portrait
                   ? SizedBox(
@@ -80,9 +81,18 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    initData().then((value) {
-      Navigator.pushReplacementNamed(context, homeRoute);
-    });
+    initData().then((value) =>
+      _checkShowingIntroOrNot());
+  }
+
+  Future<void> _checkShowingIntroOrNot() async {
+    bool showIntro = await SharedPreferencesFormatter.getBoolean("show_intro", true);
+    if (showIntro) {
+      SharedPreferencesFormatter.saveBoolean("show_intro",false);
+      Navigator.pushReplacementNamed(context, '/intro_screen');
+    } else {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 
   @override

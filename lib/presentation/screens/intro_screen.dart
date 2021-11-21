@@ -60,25 +60,26 @@ class IntroScreen extends StatelessWidget {
                         orientation == Orientation.portrait ? 40.w : 80.w,
                     vertical: 30.h),
                 child: ElevatedButton(
-                    onPressed: () => Navigator.pushReplacementNamed(
-                        context, '/choosing_login_or_signup'),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                      primary: HexColor('FFC844'),
-                    ),
-                    child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Lets Get Started!',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                              fontSize: orientation == Orientation.portrait
-                                  ? 22.sp
-                                  : 35.sp),
-                        ))),
+                  onPressed: () => Navigator.pushReplacementNamed(
+                      context, '/choosing_login_or_signup'),
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    primary: HexColor('FFC844'),
+                  ),
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        AppLocalizations.of(context)!.translate('get_started')!,
+                        // style: TextStyle(
+                        //     fontWeight: FontWeight.w500,
+                        //     color: Colors.white,
+                        //     fontSize: orientation == Orientation.portrait
+                        //         ? 22.sp
+                        //         : 35.sp),
+                      )),
+                ),
               ),
             ],
           ),

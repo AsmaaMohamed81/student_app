@@ -49,12 +49,15 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
                       height: 60.h,
                       borderColor: mainAppColor,
                       horizontalMarginIsEnabled: false,
-                      btnLblStyle:
-                          TextStyle(color: mainAppColor, fontSize: 25.sp),
+                      btnLblStyle: TextStyle(
+                          color: mainAppColor,
+                          fontSize: 25.sp,
+                          fontWeight: FontWeight.bold),
                       btnColor: Colors.white,
                       btnLbl:
                           AppLocalizations.of(context)!.translate('sign_in')!,
-                      onPressedFunction: () => Navigator.pushNamed(context,  '/login'),
+                      onPressedFunction: () =>
+                          Navigator.pushNamed(context, '/login'),
                     ),
                   ),
                   SizedBox(
@@ -63,7 +66,10 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
                         height: 60.h,
                         borderColor: mainAppColor,
                         horizontalMarginIsEnabled: false,
-                        btnLblStyle: TextStyle(color: Colors.white, fontSize: 25.sp),
+                        btnLblStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.sp,
+                            fontWeight: FontWeight.bold),
                         btnLbl:
                             AppLocalizations.of(context)!.translate('sign_up')!,
                         onPressedFunction: () {},
@@ -76,6 +82,18 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
                 // fit: BoxFit.fill,
               ),
             ],
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 120.w,
+              child: Divider(
+                indent: 2,
+                thickness: 4,
+                height: 10.h,
+                color: Colors.black,
+              ),
+            ),
           )
         ],
       ),
