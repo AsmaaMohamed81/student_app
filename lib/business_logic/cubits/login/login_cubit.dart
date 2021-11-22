@@ -32,7 +32,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (response['status'] == 'Success') {
         SharedPreferencesFormatter.write(
             "user", User.fromJson(response['data']));
-        emit(Authenticated(user:User.fromJson(response['data'])));
+        emit(Authenticated(user: User.fromJson(response['data'])));
       } else {
         emit(UnAuthenticated(message: response['message']));
       }
@@ -45,6 +45,4 @@ class LoginCubit extends Cubit<LoginState> {
     isLoading = !isLoading;
     emit(LoginLoading(isLoading));
   }
-
- 
 }

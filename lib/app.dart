@@ -7,6 +7,7 @@ import 'package:student_app/presentation/themes/app_theme.dart';
 import 'package:student_app/utils/injection_container.dart' as di;
 import 'business_logic/cubits/home/home_cubit.dart';
 import 'business_logic/cubits/login/login_cubit.dart';
+import 'business_logic/cubits/signup/signup_cubit.dart';
 import 'locale/app_localizations_setup.dart';
 
 class StudentApp extends StatelessWidget {
@@ -23,6 +24,9 @@ class StudentApp extends StatelessWidget {
           create: (_) => di.sl<LoginCubit>()..getSavedCredential(),
         ),
         BlocProvider(
+          create: (_) => di.sl<SignupCubit>()..getSavedCredential(),
+        ),
+        BlocProvider(
           create: (_) => di.sl<HomeCubit>()..getStudentInfo(studentId: "43"),
         ),
       ],
@@ -32,7 +36,7 @@ class StudentApp extends StatelessWidget {
         builder: (_, localeState) {
           return ScreenUtilInit(
               designSize: const Size(360, 690),
-              builder: () => MaterialApp(         
+              builder: () => MaterialApp(
                     title: 'Student App',
                     debugShowCheckedModeBanner: false,
                     onGenerateRoute: AppRoutes.onGenerateRoute,
