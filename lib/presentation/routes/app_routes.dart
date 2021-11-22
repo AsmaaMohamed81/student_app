@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/presentation/screens/auth/choosing_login_or_signup/choosing_login_or_signup.dart';
 import 'package:student_app/presentation/screens/auth/login.dart';
@@ -46,7 +46,7 @@ class AppRoutes {
       case forgotPasswordRoute:
         return MaterialPageRoute(builder: (_) =>
         BlocProvider(
-          create: (_) => di.sl<ForgetPasswordCubit>(),
+          create: (_) => di.sl<ForgotPasswordCubit>(),
          child: const ForgotPasswordScreen()));
       case '/verify_code_screen':
         var email = routeSettings.arguments as String;

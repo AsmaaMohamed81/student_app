@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
@@ -51,15 +51,15 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
               style: const TextStyle(fontSize: 17, color: Colors.black),
             ),
           ),
-          body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+          body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
             listener: (context, state) {
-              if (state is ResetLostPassword) {
-                Navigator.pushNamed(context, loginRoute);
+              // if (state is ResetLostPassword) {
+              //   Navigator.pushNamed(context, loginRoute);
 
-                Commons.showToast(context, message: state.message);
-              } else if (state is FailResetLostPassword) {
-                Commons.showError(context, state.message);
-              }
+              //   Commons.showToast(context, message: state.message);
+              // } else if (state is FailResetLostPassword) {
+              //   Commons.showError(context, state.message);
+              // }
             },
             builder: (context, state) {
               return _buildBodyItem(state);
@@ -70,16 +70,16 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
     );
   }
 
-  AutovalidateMode autovalidateMode(ForgetPasswordState state) => state
-          is ForgetPasswordValidateState
-      ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
-      : AutovalidateMode.disabled;
+  // AutovalidateMode autovalidateMode(ForgetPasswordState state) => state
+  //         is ForgetPasswordValidateState
+  //     ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
+  //     : AutovalidateMode.disabled;
 
-  Widget _buildBodyItem(ForgetPasswordState state) {
+  Widget _buildBodyItem(ForgotPasswordState state) {
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Form(
-          autovalidateMode: autovalidateMode(state),
+        //  autovalidateMode: autovalidateMode(state),
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 10, 0),
@@ -117,7 +117,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
   }
 
   Widget _buildSendBtn(orientation) {
-    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoadingresetpass
+    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoadingresetpass
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -130,13 +130,13 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
                 btnLbl: AppLocalizations.of(context)!.translate('submit')!,
                 onPressedFunction: () {
                   print("${widget.email}${_passwordController.text.trim()}");
-                  if (!BlocProvider.of<ForgetPasswordCubit>(context)
+                  if (!BlocProvider.of<ForgotPasswordCubit>(context)
                       .isLoadingresetpass) {
-                    BlocProvider.of<ForgetPasswordCubit>(context)
-                        .resetLLostPassword(
-                            formKey: _formKey,
-                            email: widget.email!,
-                            passWord: _passwordController.text.trim());
+                    // BlocProvider.of<ForgotPasswordCubit>(context)
+                    //     .resetLLostPassword(
+                    //         formKey: _formKey,
+                    //         email: widget.email!,
+                    //         passWord: _passwordController.text.trim());
                   }
                 }),
           )

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
@@ -19,71 +21,54 @@ class ForgotPasswordScreen extends StatefulWidget {
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with ValidationMixin {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
+    with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return NetworkIndicator(
-      child: PageContainer(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            leading: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                )),
-            title: Text(
-              AppLocalizations.of(context)!.translate('forgot_password')!,
-              style: const TextStyle(fontSize: 17, color: Colors.black),
-            ),
-          ),
-          body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-            listener: (context, state) {
-              if (state is SentMail) {
-             
-                Navigator.pushNamed(context, verifyCodeRoute,
-                    arguments: _emailController.text.trim());
+  // AutovalidateMode autovalidateMode(ForgotPasswordCubit state) => state
+  //         is ForgetPasswordValidateState
+  //     ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
+  //     : AutovalidateMode.disabled;
 
-                Commons.showToast(context, message: state.message);
-              } else if (state is FailSendMail) {
-                Commons.showError(context, state.message);
-              }
-            },
-            builder: (context, state) {
-              return _buildBodyItem(state);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  AutovalidateMode autovalidateMode(ForgetPasswordState state) => state
-          is ForgetPasswordValidateState
-      ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
-      : AutovalidateMode.disabled;
-
-
-
-  Widget _buildBodyItem(ForgetPasswordState state) {
+  Widget _buildBodyItem(ForgotPasswordState state) {
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Form(
           key: _formKey,
-          autovalidateMode: autovalidateMode(state),
+       //   autovalidateMode: autovalidateMode(state),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDescText(orientation),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                  child: RichText(
+                    text: TextSpan(
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.tajawal().fontFamily,
+                        fontWeight: FontWeight.w500,
+                        fontSize:
+                            orientation == Orientation.portrait ? 16.sp : 30.sp,
+                        color: const Color(0xff7B7890),
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: AppLocalizations.of(context)!
+                                .translate('enter')),
+                        TextSpan(
+                            text: AppLocalizations.of(context)!
+                                .translate('your_email_address'),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: mainAppColor,
+                              fontFamily: GoogleFonts.tajawal().fontFamily,
+                            )),
+                        TextSpan(
+                            text: AppLocalizations.of(context)!
+                                .translate('to_reset_your_password')),
+                      ],
+                    ),
+                  )),
               SizedBox(
                 height: 30.h,
               ),
@@ -92,12 +77,39 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Valida
                 validationFunction: validateEmail,
                 inputData: TextInputType.emailAddress,
                 controller: _emailController,
-                maxLines: 1,
               ),
               SizedBox(
                 height: 100.h,
               ),
-              _buildSendBtn(orientation),
+              !context.watch<ForgotPasswordCubit>().isLoadingsend
+                  ? Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                      child: DefaultButton(
+                          btnLblStyle: orientation == Orientation.portrait
+                              ? TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30.sp,
+                                  fontWeight: FontWeight.bold),
+                          height:
+                              orientation == Orientation.portrait ? 45.h : 70.h,
+                          borderColor: mainAppColor,
+                          horizontalMarginIsEnabled: true,
+                          btnLbl:
+                              AppLocalizations.of(context)!.translate('send')!,
+                          onPressedFunction: () =>
+                              BlocProvider.of<ForgotPasswordCubit>(context)
+                                  .sendEmail(
+                                      formKey: _formKey,
+                                      email: _emailController.text.trim())),
+                    )
+                  : Center(
+                        child: SpinKitFadingCircle(
+                            size: 45.h, color: mainAppColor),
+                      )
             ],
           ),
         ),
@@ -105,58 +117,43 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> with Valida
     });
   }
 
-  Widget _buildDescText(orientation) {
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        child: RichText(
-          text: TextSpan(
-            style: TextStyle(
-              fontSize: orientation == Orientation.portrait ? 15.sp : 30.sp,
-              color: textForgetPassColor,
-            ),
-            children: <TextSpan>[
-              TextSpan(text: AppLocalizations.of(context)!.translate('enter')),
-              TextSpan(
-                  text: AppLocalizations.of(context)!
-                      .translate('your_email_address'),
-                  style: TextStyle(color: mainAppColor)),
-              TextSpan(
-                  text: AppLocalizations.of(context)!
-                      .translate('to_reset_your_password')),
-            ],
-          ),
-        ));
-  }
+  @override
+  Widget build(BuildContext context) {
+    final appBar = AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leading: InkWell(
+          onTap: () => Navigator.of(context).pop(),
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          )),
+      title: Text(AppLocalizations.of(context)!.translate('forgot_password')!,
+          style: Theme.of(context).textTheme.headline1),
+    );
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: appBar,
+          body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+            listener: (context, state) {
+              // if (state is SentMail) {
+              //   Navigator.pushNamed(context, verifyCodeRoute,
+              //       arguments: _emailController.text.trim());
 
-  Widget _buildSendBtn(orientation) {
-    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoadingsend
-        ? Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w),
-            child: DefaultButton(
-              btnLblStyle: orientation == Orientation.portrait
-                  ? TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold)
-                  : TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.sp,
-                      fontWeight: FontWeight.bold),
-              height: orientation == Orientation.portrait ? 45.h : 70.h,
-              borderColor: mainAppColor,
-              horizontalMarginIsEnabled: true,
-              btnLbl: AppLocalizations.of(context)!.translate('send')!,
-              onPressedFunction: () {
-                if (!BlocProvider.of<ForgetPasswordCubit>(context)
-                    .isLoadingsend) {
-                  BlocProvider.of<ForgetPasswordCubit>(context).sendEmail(
-                      formKey: _formKey, email: _emailController.text.trim());
-                }
-              },
-            ),
-          )
-        : Center(
-            child: CircularProgressIndicator(color: mainAppColor),
-          );
+              //   Commons.showToast(context, message: state.message);
+              // } else if (state is FailSendMail) {
+              //   Commons.showError(context, state.message);
+              // }
+            },
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/business_logic/cubits/forget_password/forget_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/custom_text.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
@@ -98,20 +98,20 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
               style: const TextStyle(fontSize: 17, color: Colors.black),
             ),
           ),
-          body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+          body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
             listener: (context, state) {
-              if (state is SendVerifyCode) {
-                // Commons.showToast(context, message: state.message);
-                Navigator.pushNamed(context, newPasswordRoute,
-                    arguments: widget.email);
-              } else if (state is FailVerifyCode) {
-                Commons.showError(
-                    context, "Please enter correct code. Try again.");
-              } else if (state is ReSentMail) {
-                Commons.showToast(context, message: state.message);
-              } else if (state is FailReSendMail) {
-                Commons.showError(context, state.message);
-              }
+            //  if (state is SendVerifyCode) {
+              //   // Commons.showToast(context, message: state.message);
+              //   Navigator.pushNamed(context, newPasswordRoute,
+              //       arguments: widget.email);
+              // } else if (state is FailVerifyCode) {
+              //   Commons.showError(
+              //       context, "Please enter correct code. Try again.");
+              // } else if (state is ReSentMail) {
+              //   Commons.showToast(context, message: state.message);
+              // } else if (state is FailReSendMail) {
+              //   Commons.showError(context, state.message);
+              // }
             },
             builder: (context, state) {
               return _buildBodyItem(state);
@@ -317,16 +317,16 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                     CustomText(
                       text: AppLocalizations.of(context)!
                           .translate("donot_receive_code")!,
-                      color: textForgetPassColor,
+                      color: const Color(0xff7B7890),
                       fontSize: 14,
                     ),
-                    !BlocProvider.of<ForgetPasswordCubit>(context)
+                    !BlocProvider.of<ForgotPasswordCubit>(context)
                             .isLoadingresend
                         ? GestureDetector(
                             onTap: () async {
-                              if (!BlocProvider.of<ForgetPasswordCubit>(context)
+                              if (!BlocProvider.of<ForgotPasswordCubit>(context)
                                   .isLoadingresend) {
-                                BlocProvider.of<ForgetPasswordCubit>(context)
+                                BlocProvider.of<ForgotPasswordCubit>(context)
                                     .resendEmail(
                                         formKey: _formKey,
                                         email: widget.email!);
@@ -358,7 +358,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                     Text(
                       "($timerText)",
                       style:
-                          TextStyle(color: textForgetPassColor, fontSize: 14),
+                          TextStyle(color: const Color(0xff7B7890), fontSize: 14),
                     ),
                   ],
                 ),
@@ -379,7 +379,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
       text: TextSpan(
         style: TextStyle(
           fontSize: 16,
-          color: textForgetPassColor,
+          color: const Color(0xff7B7890),
         ),
         children: <TextSpan>[
           TextSpan(
@@ -398,7 +398,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
 
   Widget _buildSendBtn(orientation) {
     code = "$num1$num2$num3$num4";
-    return !BlocProvider.of<ForgetPasswordCubit>(context).isLoadingverify
+    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoadingverify
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -419,9 +419,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                   } else {
                     hasError = false;
 
-                    if (!BlocProvider.of<ForgetPasswordCubit>(context)
+                    if (!BlocProvider.of<ForgotPasswordCubit>(context)
                         .isLoadingverify) {
-                      BlocProvider.of<ForgetPasswordCubit>(context)
+                      BlocProvider.of<ForgotPasswordCubit>(context)
                           .sendVeifyCode(
                               formKey: _formKey,
                               email: widget.email!,

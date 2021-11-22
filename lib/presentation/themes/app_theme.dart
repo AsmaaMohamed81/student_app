@@ -12,12 +12,10 @@ ThemeData themeData() {
       scaffoldBackgroundColor: const Color(0xffFFFFFF),
       fontFamily: GoogleFonts.tajawal().fontFamily,
       textTheme: TextTheme(
-        headline1: const TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
-        headline2: const TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-            fontWeight: FontWeight.w800),
+        // app bar title
+        headline1:  TextStyle(
+            color: Colors.black, fontSize: 20.sp, fontWeight: FontWeight.w700),
+            
         button: TextStyle(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 17.sp),
       ),
