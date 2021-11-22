@@ -1,4 +1,4 @@
-part of 'signup_cubit.dart';
+part of 'sign_up_cubit.dart';
 
 abstract class SignUpState {}
 

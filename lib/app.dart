@@ -7,7 +7,7 @@ import 'package:student_app/presentation/themes/app_theme.dart';
 import 'package:student_app/utils/injection_container.dart' as di;
 import 'business_logic/cubits/home/home_cubit.dart';
 import 'business_logic/cubits/login/login_cubit.dart';
-import 'business_logic/cubits/signup/signup_cubit.dart';
+import 'business_logic/cubits/sign_up/sign_up_cubit.dart';
 import 'locale/app_localizations_setup.dart';
 
 class StudentApp extends StatelessWidget {

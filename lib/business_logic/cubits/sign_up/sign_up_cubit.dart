@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
 import 'package:student_app/utils/strings.dart';
-part 'signup_state.dart';
+part 'sign_up_state.dart';
 
 class SignupCubit extends Cubit<SignUpState> {
   final AuthRepository authRepository;

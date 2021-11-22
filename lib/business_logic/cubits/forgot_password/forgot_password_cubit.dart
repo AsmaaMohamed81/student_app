@@ -9,10 +9,10 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit({required this.forgetPasswordRepository})
       : super(ForgotPasswordInitial());
 
-  bool isLoadingsend = false;
-  bool isLoadingresend = false;
-  bool isLoadingverify = false;
-  bool isLoadingresetpass = false;
+  bool isLoading = false;
+  // bool isLoadingresend = false;
+  // bool isLoadingverify = false;
+  // bool isLoadingresetpass = false;
 
   Future<void> sendEmail({
     required GlobalKey<FormState> formKey,
@@ -36,67 +36,67 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     }
   }
 
-  Future<void> resendEmail({
-    required GlobalKey<FormState> formKey,
-    required String email,
-  }) async {
-    // changeLoadingViewresend();
-    // final response = await forgetPasswordRepository.sendEmail(
-    //   email: email,
-    // );
-    // changeLoadingViewresend();
-    // if (response['status'] == 'Success') {
-    //   // SharedPreferencesFormatter.write(
-    //   //     "user", User.fromJson(response['data']));
-    //   emit(ReSentMail(response['message']));
-    // } else {
-    //   emit(FailReSendMail(response['message']));
-    // }
-  }
+  // Future<void> resendEmail({
+  //   required GlobalKey<FormState> formKey,
+  //   required String email,
+  // }) async {
+  //   // changeLoadingViewresend();
+  //   // final response = await forgetPasswordRepository.sendEmail(
+  //   //   email: email,
+  //   // );
+  //   // changeLoadingViewresend();
+  //   // if (response['status'] == 'Success') {
+  //   //   // SharedPreferencesFormatter.write(
+  //   //   //     "user", User.fromJson(response['data']));
+  //   //   emit(ReSentMail(response['message']));
+  //   // } else {
+  //   //   emit(FailReSendMail(response['message']));
+  //   // }
+  // }
 
-  Future<void> sendVeifyCode({
-    required GlobalKey<FormState> formKey,
-    required String email,
-    required String code,
-  }) async {
-    // if (formKey.currentState != null && formKey.currentState!.validate()) {
-    //   changeLoadingViewverify();
-    //   final response = await forgetPasswordRepository.sendVeifyCode(
-    //       email: email, code: code);
-    //   changeLoadingViewverify();
-    //   if (response['status'] == 'Success') {
-    //     // SharedPreferencesFormatter.write(
-    //     //     "user", User.fromJson(response['data']));
-    //     emit(SendVerifyCode(response['message']));
-    //   } else {
-    //     emit(FailVerifyCode(response['message']));
-    //   }
-    // } else {
-    //   emit(ForgetPasswordValidateState(true));
-     }
-  }
+  // Future<void> sendVeifyCode({
+  //   required GlobalKey<FormState> formKey,
+  //   required String email,
+  //   required String code,
+  // }) async {
+  //   // if (formKey.currentState != null && formKey.currentState!.validate()) {
+  //   //   changeLoadingViewverify();
+  //   //   final response = await forgetPasswordRepository.sendVeifyCode(
+  //   //       email: email, code: code);
+  //   //   changeLoadingViewverify();
+  //   //   if (response['status'] == 'Success') {
+  //   //     // SharedPreferencesFormatter.write(
+  //   //     //     "user", User.fromJson(response['data']));
+  //   //     emit(SendVerifyCode(response['message']));
+  //   //   } else {
+  //   //     emit(FailVerifyCode(response['message']));
+  //   //   }
+  //   // } else {
+  //   //   emit(ForgetPasswordValidateState(true));
+  //    }
+  // }
 
-  Future<void> resetLLostPassword({
-    required GlobalKey<FormState> formKey,
-    required String email,
-    required String passWord,
-  }) async {
-    // if (formKey.currentState != null && formKey.currentState!.validate()) {
-    //   changeLoadingViewresetpass();
-    //   final response = await forgetPasswordRepository.resetLostPassword(
-    //       email: email, passWord: passWord);
-    //   changeLoadingViewresetpass();
-    // //   if (response['status'] == 'Success') {
-    // //     // SharedPreferencesFormatter.write(
-    // //     //     "user", User.fromJson(response['data']));
-    // //     emit(ResetLostPassword(response['message']));
-    // //   } else {
-    // //     emit(FailResetLostPassword(response['message']));
-    // //   }
-    // // } else {
-    // //   emit(ForgetPasswordValidateState(true));
-    // }
-  }
+  // Future<void> resetLLostPassword({
+  //   required GlobalKey<FormState> formKey,
+  //   required String email,
+  //   required String passWord,
+  // }) async {
+  //   // if (formKey.currentState != null && formKey.currentState!.validate()) {
+  //   //   changeLoadingViewresetpass();
+  //   //   final response = await forgetPasswordRepository.resetLostPassword(
+  //   //       email: email, passWord: passWord);
+  //   //   changeLoadingViewresetpass();
+  //   // //   if (response['status'] == 'Success') {
+  //   // //     // SharedPreferencesFormatter.write(
+  //   // //     //     "user", User.fromJson(response['data']));
+  //   // //     emit(ResetLostPassword(response['message']));
+  //   // //   } else {
+  //   // //     emit(FailResetLostPassword(response['message']));
+  //   // //   }
+  //   // // } else {
+  //   // //   emit(ForgetPasswordValidateState(true));
+  //   // }
+  // }
 
   // void changeLoadingViewsend() {
   //   isLoadingsend = !isLoadingsend;
@@ -117,4 +117,4 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   //   isLoadingresetpass = !isLoadingresetpass;
   //   emit(ForgetPasswordLoadingState(isLoadingresetpass));
   // }
-
+}

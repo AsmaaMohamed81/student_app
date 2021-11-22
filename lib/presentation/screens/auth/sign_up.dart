@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:student_app/business_logic/cubits/signup/signup_cubit.dart';
+import 'package:student_app/business_logic/cubits/sign_up/sign_up_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
@@ -74,7 +75,8 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                     width: 180.w,
                     child: PredefinedTextFormField(
                       validationFunction: validateFirstName,
-                      hintTxt: AppLocalizations.of(context)!.translate('first_name'),
+                      hintTxt:
+                          AppLocalizations.of(context)!.translate('first_name'),
                       controller: _fisrtNameController,
                       onEditingComplete: () =>
                           FocusScope.of(context).nextFocus(),
@@ -86,9 +88,10 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                     height: 70.h,
                     child: PredefinedTextFormField(
                       validationFunction: validateLastName,
-                      hintTxt: AppLocalizations.of(context)!.translate('last_name'),
+                      hintTxt:
+                          AppLocalizations.of(context)!.translate('last_name'),
                       controller: _lastNameController,
-                         onEditingComplete: () =>
+                      onEditingComplete: () =>
                           FocusScope.of(context).nextFocus(),
                       textInputAction: TextInputAction.next,
                     ),
@@ -99,8 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                 validationFunction: validateUserName,
                 controller: _userNameController,
                 hintTxt: AppLocalizations.of(context)!.translate("user_name")!,
-                    onEditingComplete: () =>
-                          FocusScope.of(context).nextFocus(),
+                onEditingComplete: () => FocusScope.of(context).nextFocus(),
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(
@@ -108,13 +110,10 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               ),
               PredefinedTextFormField(
                 inputData: TextInputType.emailAddress,
-                maxLines: 1,
                 validationFunction: validateEmail,
                 controller: _emailController,
                 hintTxt: AppLocalizations.of(context)!.translate("email")!,
-                onEditingComplete: () {
-                  FocusScope.of(context).nextFocus();
-                },
+                onEditingComplete: () => FocusScope.of(context).nextFocus(),
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(
@@ -122,32 +121,25 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               ),
               PredefinedTextFormField(
                 controller: _passwordController,
-                validationFunction: validatePasswordsignup,
+                validationFunction: validatePasswordForSignUp,
                 hintTxt:
                     AppLocalizations.of(context)!.translate("enter_password")!,
                 isPassword: true,
-                maxLines: 1,
-                onEditingComplete: () {
-                  FocusScope.of(context).nextFocus();
-                },
-                onFieldSubmitted: (v) {
-                  FocusScope.of(context).nextFocus();
-                },
+                onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                onFieldSubmitted: (value) => FocusScope.of(context).nextFocus(),
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(
                 height: 10.h,
               ),
               PredefinedTextFormField(
-                controller: _confirmPasswordController,
                 validationFunction: validateConfirmPassword,
                 hintTxt: AppLocalizations.of(context)!
                     .translate("enter_confirm_password")!,
                 isPassword: true,
-                maxLines: 1,
                 onFieldSubmitted: (value) {
                   FocusScope.of(context).unfocus();
-                  if (!BlocProvider.of<SignupCubit>(context).isLoading) {
+                  if (!context.watch<SignupCubit>().isLoading) {
                     BlocProvider.of<SignupCubit>(context).signUp(
                       formKey: _formKey,
                       password: _passwordController.text.trim(),
@@ -163,7 +155,8 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               SizedBox(
                 height: 15.h,
               ),
-              !BlocProvider.of<SignupCubit>(context).isLoading
+              !context.watch<SignupCubit>().isLoading
+             
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: DefaultButton(
@@ -187,8 +180,9 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                               )),
                     )
                   : Center(
-                      child: CircularProgressIndicator(color: mainAppColor),
-                    ),
+                        child: SpinKitFadingCircle(
+                            size: 45.h, color: mainAppColor),
+                      ),
               SizedBox(
                 height: 10.h,
               ),
@@ -200,61 +194,100 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               SizedBox(
                 height: 10.h,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  DefaultButton(
-                    width: 0.26.sw,
-                    horizontalMarginIsEnabled: false,
-                    height: orientation == Orientation.portrait ? 30.h : 50.h,
-                    btnLbl: 'Facebook',
-                    btnLblStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: orientation == Orientation.portrait
-                            ? 10.sp
-                            : 20.sp),
-                    btnColor: const Color(0xff3C5A99),
-                    prefixIcon: Icon(
-                      FontAwesomeIcons.facebook,
-                      color: Colors.white,
-                      size: orientation == Orientation.portrait ? 15.h : 30.h,
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 15.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff3C5A99),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.facebook,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 15.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.h,
+                          ),
+                          Text(
+                            'Facebook',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 9.sp),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  DefaultButton(
-                    width: 0.26.sw,
-                    horizontalMarginIsEnabled: false,
-                    height: orientation == Orientation.portrait ? 30.h : 50.h,
-                    btnLbl: 'Google',
-                    btnLblStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: orientation == Orientation.portrait
-                            ? 10.sp
-                            : 20.sp),
-                    btnColor: const Color(0xffF95341),
-                    prefixIcon: Icon(
-                      FontAwesomeIcons.googlePlus,
-                      color: Colors.white,
-                      size: orientation == Orientation.portrait ? 15.h : 30.h,
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xffF95341),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.google,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 12.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.h,
+                          ),
+                          Text(
+                            'Google',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 9.sp),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  DefaultButton(
-                    width: 0.26.sw,
-                    horizontalMarginIsEnabled: false,
-                    height: orientation == Orientation.portrait ? 30.h : 50.h,
-                    btnLbl: 'Microsoft',
-                    btnLblStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: orientation == Orientation.portrait
-                            ? 10.sp
-                            : 20.sp),
-                    btnColor: const Color(0xff0491FF),
-                    prefixIcon: Icon(
-                      FontAwesomeIcons.windows,
-                      color: Colors.white,
-                      size: orientation == Orientation.portrait ? 15.h : 30.h,
-                    ),
-                  ),
-                ],
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: 28.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff0491FF),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.windows,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 15.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.h,
+                          ),
+                          Text(
+                            'Microsoft',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 9.sp),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
                 alignment: Alignment.center,
@@ -310,10 +343,11 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
     return NetworkIndicator(
       child: PageContainer(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
           body: BlocConsumer<SignupCubit, SignUpState>(
             listener: (context, state) {
               if (state is SignUpSucccess) {
+                  Commons.showToast( context,message: state.message);
                 state.navigate(context);
               } else if (state is SignUpFailure) {
                 Commons.showError(context, state.message);

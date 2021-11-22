@@ -317,17 +317,17 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       fontSize: 14,
                     ),
                     !BlocProvider.of<ForgotPasswordCubit>(context)
-                            .isLoadingresend
+                            .isLoading
                         ? GestureDetector(
                             onTap: () async {
-                              if (!BlocProvider.of<ForgotPasswordCubit>(context)
-                                  .isLoadingresend) {
-                                BlocProvider.of<ForgotPasswordCubit>(context)
-                                    .resendEmail(
-                                        formKey: _formKey,
-                                        email: widget.email!);
-                              }
-                              startTimeout();
+                              // if (!BlocProvider.of<ForgotPasswordCubit>(context)
+                              //     .isLoadingresend) {
+                              //   BlocProvider.of<ForgotPasswordCubit>(context)
+                              //       .resendEmail(
+                              //           formKey: _formKey,
+                              //           email: widget.email!);
+                              // }
+                              // startTimeout();
                             },
                             child: CustomText(
                               text: AppLocalizations.of(context)!
@@ -394,7 +394,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
 
   Widget _buildSendBtn(orientation) {
     code = "$num1$num2$num3$num4";
-    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoadingverify
+    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoading
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -415,14 +415,14 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                   } else {
                     hasError = false;
 
-                    if (!BlocProvider.of<ForgotPasswordCubit>(context)
-                        .isLoadingverify) {
-                      BlocProvider.of<ForgotPasswordCubit>(context)
-                          .sendVeifyCode(
-                              formKey: _formKey,
-                              email: widget.email!,
-                              code: currentText);
-                    }
+                    // if (!BlocProvider.of<ForgotPasswordCubit>(context)
+                    //     .isLoadingverify) {
+                    //   BlocProvider.of<ForgotPasswordCubit>(context)
+                    //       .sendVeifyCode(
+                    //           formKey: _formKey,
+                    //           email: widget.email!,
+                    //           code: currentText);
+                    // }
                   }
                 }),
           )

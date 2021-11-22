@@ -123,7 +123,7 @@ class _PredefinedDropdownButtonFormFieldState
                       : mainAppColor
                   : widget.unfocusColor != null
                       ? widget.unfocusColor!
-                      : hintColor!),
+                      : hintColor),
         ),
         enabledBorder: !widget.borderIsEnabled
             ? InputBorder.none
@@ -137,7 +137,7 @@ class _PredefinedDropdownButtonFormFieldState
                       : mainAppColor
                   : widget.unfocusColor != null
                       ? widget.unfocusColor!
-                      : hintColor!),
+                      : hintColor),
         ),
         contentPadding: EdgeInsets.symmetric(
             horizontal: widget.horizontalPadding ?? 

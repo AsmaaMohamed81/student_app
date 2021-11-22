@@ -85,7 +85,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
               children: [
                 PredefinedTextFormField(
                   controller: _passwordController,
-                  validationFunction: validatePasswordsignup,
+                  validationFunction: validatePasswordForSignUp,
                   hintTxt: AppLocalizations.of(context)!
                       .translate("enter_password")!,
                   isPassword: true,
@@ -115,7 +115,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
   }
 
   Widget _buildSendBtn(orientation) {
-    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoadingresetpass
+    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoading
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -128,14 +128,14 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
                 btnLbl: AppLocalizations.of(context)!.translate('submit')!,
                 onPressedFunction: () {
                   print("${widget.email}${_passwordController.text.trim()}");
-                  if (!BlocProvider.of<ForgotPasswordCubit>(context)
-                      .isLoadingresetpass) {
+                  // if (!BlocProvider.of<ForgotPasswordCubit>(context)
+                  //     .isLoadingresetpass) {
                     // BlocProvider.of<ForgotPasswordCubit>(context)
                     //     .resetLLostPassword(
                     //         formKey: _formKey,
                     //         email: widget.email!,
                     //         passWord: _passwordController.text.trim());
-                  }
+                  // }
                 }),
           )
         : Center(

@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 ),
                 PredefinedTextFormField(
                   controller: _passwordController,
-                  validationFunction: validatePassword,
+                  validationFunction: validatePasswordForLogin,
                   hintTxt: AppLocalizations.of(context)!
                       .translate("enter_password")!,
                   isPassword: true,
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                       width: 0.25.sw,
                       height: 28.h,
                       decoration: BoxDecoration(
-                          color: const Color(0xff3C5A99),
+                          color: const Color(0xff0491FF),
                           borderRadius: BorderRadius.circular((10))),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

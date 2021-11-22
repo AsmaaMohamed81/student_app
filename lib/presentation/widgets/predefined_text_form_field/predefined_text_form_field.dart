@@ -124,7 +124,6 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
       style: const TextStyle(
           color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
-        counterText: '',
         filled: widget.filled ? true : false,
         fillColor: widget.filledColor ?? Colors.white,
         border: !widget.borderIsEnabled
@@ -133,6 +132,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
                 borderRadius: BorderRadius.circular(
                     (widget.radius == null ? 12 : widget.radius!)),
                 borderSide: BorderSide(
+                  width: 1.5,
                   color: _focusNode.hasFocus
                       ? widget.focusColor ?? mainAppColor
                       : widget.unfocusColor ?? mainAppColor,
@@ -142,6 +142,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             : OutlineInputBorder(
                 borderRadius: BorderRadius.circular((widget.radius ?? 10.0)),
                 borderSide: BorderSide(
+                   width: 1.5,
                     color: _focusNode.hasFocus
                         ? widget.focusColor ?? mainAppColor
                         : widget.unfocusColor ?? mainAppColor),
@@ -151,6 +152,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             : OutlineInputBorder(
                 borderRadius: BorderRadius.circular((widget.radius ?? 10.0)),
                 borderSide: BorderSide(
+                   width: 1.5,
                     color: _focusNode.hasFocus
                         ? widget.focusColor ?? mainAppColor
                         : widget.unfocusColor ?? mainAppColor),
