@@ -1,25 +1,27 @@
 part of 'signup_cubit.dart';
 
-abstract class SignupState {}
+abstract class SignUpState {}
 
-class SignupInitial extends SignupState {}
+class SignUpInitial extends SignUpState {}
 
-class SigupLoading extends SignupState {
+class SignUpLoading extends SignUpState {
   final bool isLoading;
-  SigupLoading(this.isLoading);
+  SignUpLoading(this.isLoading);
 }
 
-class Signup extends SignupState {
-  final User user;
-  Signup({required this.user});
-}
-
-class SignupValidatation extends SignupState {
-  final bool isValidate;
-  SignupValidatation({required this.isValidate});
-}
-
-class SignupFailed extends SignupState {
+class SignUpSucccess extends SignUpState {
   final String message;
-  SignupFailed({required this.message});
+  SignUpSucccess({required this.message});
+
+  void navigate(context) => Navigator.of(context).pushNamed(loginRoute);
+}
+
+class SignUpValidatation extends SignUpState {
+  final bool isValidate;
+  SignUpValidatation({required this.isValidate});
+}
+
+class SignUpFailure extends SignUpState {
+  final String message;
+  SignUpFailure({required this.message});
 }

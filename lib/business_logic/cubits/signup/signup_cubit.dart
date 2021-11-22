@@ -1,57 +1,46 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_app/data/models/user.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
-import 'package:student_app/utils/preferences_formatter.dart';
+import 'package:student_app/utils/strings.dart';
 part 'signup_state.dart';
 
-class SignupCubit extends Cubit<SignupState> {
+class SignupCubit extends Cubit<SignUpState> {
   final AuthRepository authRepository;
-  SignupCubit({required this.authRepository}) : super(SignupInitial());
+  SignupCubit({required this.authRepository}) : super(SignUpInitial());
 
   bool isLoading = false;
 
-  void getSavedCredential() async {
-    var userData = await SharedPreferencesFormatter.read("user");
-    if (userData != null) {
-      emit(Signup(user: User.fromJson(userData)));
-    }
-  }
-
   Future<void> signUp({
     required GlobalKey<FormState> formKey,
-    required TextEditingController userNameController,
-    required TextEditingController emailController,
-    required TextEditingController firstNameController,
-    required TextEditingController lasrNameController,
-    required TextEditingController passwordController,
-    required TextEditingController confirmpasswordController,
+    required String userName,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String password,
   }) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       changeLoadingView();
       final response = await authRepository.signUp(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-          confirmPassword: confirmpasswordController.text.trim(),
-          firstName: firstNameController.text.trim(),
-          lastName: lasrNameController.text.trim(),
-          userName: userNameController.text.trim());
+          email: email,
+          password: password,
+          confirmPassword: password,
+          firstName: firstName,
+          lastName: lastName,
+          userName: userName);
       changeLoadingView();
       if (response['status'] == 'Success') {
-        SharedPreferencesFormatter.write(
-            "user", User.fromJson(response['data']));
-        emit(Signup(user: User.fromJson(response['data'])));
+        emit(SignUpSucccess(message: response['message']));
       } else {
-        emit(SignupFailed(message: response['message']));
+        emit(SignUpFailure(message: response['message']));
       }
     } else {
-      emit(SignupValidatation(isValidate: true));
+      emit(SignUpValidatation(isValidate: true));
     }
   }
 
   void changeLoadingView() {
     isLoading = !isLoading;
-    emit(SigupLoading(isLoading));
+    emit(SignUpLoading(isLoading));
   }
 }

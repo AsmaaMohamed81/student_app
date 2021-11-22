@@ -11,9 +11,10 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
   }
 
   String? validateUserNameOrEmail(String? userName) {
-    if (userName!.trim().isEmpty)
+    if (userName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
           .translate('user_name_or_email_validation')!;
+    }
 
     return null;
   }
@@ -24,18 +25,15 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
     if (fisrtName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
-          .translate('first_name_validation_empty');
-    } else {
-      if (regex.hasMatch(fisrtName)) {
-        return AppLocalizations.of(context)!
-            .translate('first_name_validation_sample');
-      } else {
-        if (!isLength(fisrtName, 2, 30)) {
-          return AppLocalizations.of(context)!
-              .translate('first_name_validation_lenght');
-        }
-      }
+          .translate('first_name_validation_when_empty');
+    } else if (regex.hasMatch(fisrtName)) {
+      return AppLocalizations.of(context)!
+          .translate('first_name_validation_sample');
+    } else if (!isLength(fisrtName, 2, 30)) {
+      return AppLocalizations.of(context)!
+          .translate('first_name_validation_on_length');
     }
+
     return null;
   }
 
@@ -45,7 +43,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
     if (lastName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
-          .translate('last_name_validation_empty');
+          .translate('last_name_validation_when_empty');
     } else {
       if (regex.hasMatch(lastName)) {
         return AppLocalizations.of(context)!
@@ -53,7 +51,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
       } else {
         if (!isLength(lastName, 2, 30)) {
           return AppLocalizations.of(context)!
-              .translate('last_name_validation_lenght');
+              .translate('last_name_validation_on_length');
         }
       }
     }

@@ -69,7 +69,7 @@ class PredefinedTextFormField extends StatefulWidget {
       this.prefixIconImagePath,
       this.suffixIconImagePath,
       this.enabled = true,
-      this.maxLines,
+      this.maxLines = 1,
       this.expands = false,
       this.labelTxt,
       this.prefix,
@@ -217,7 +217,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             TextStyle(
                 fontSize:
                     MediaQuery.of(context).orientation == Orientation.portrait
-                        ? 13.sp
+                        ? 11.sp
                         : 25.sp),
         hintStyle: TextStyle(
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,

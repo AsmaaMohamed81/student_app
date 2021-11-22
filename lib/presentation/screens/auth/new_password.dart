@@ -9,8 +9,6 @@ import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
 import 'package:student_app/utils/app_colors.dart';
-import 'package:student_app/utils/commons.dart';
-import 'package:student_app/utils/strings.dart';
 
 
 class NewPassWordScreen extends StatefulWidget {

@@ -4,10 +4,10 @@ import 'package:student_app/business_logic/cubits/forgot_password/forgot_passwor
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/presentation/screens/auth/choosing_login_or_signup/choosing_login_or_signup.dart';
 import 'package:student_app/presentation/screens/auth/login.dart';
-import 'package:student_app/presentation/screens/auth/signup.dart';
+import 'package:student_app/presentation/screens/auth/sign_up.dart';
 import 'package:student_app/presentation/screens/auth/forgot_password.dart';
-import 'package:student_app/presentation/screens/auth/new_password_screen.dart';
-import 'package:student_app/presentation/screens/auth/verify_code_screen.dart';
+import 'package:student_app/presentation/screens/auth/new_password.dart';
+import 'package:student_app/presentation/screens/auth/verify_code.dart';
 import 'package:student_app/presentation/screens/home/home.dart';
 import 'package:student_app/presentation/screens/intro_screen.dart';
 import 'package:student_app/presentation/screens/splash_screen.dart';
@@ -42,7 +42,7 @@ class AppRoutes {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case signUpRoute:
-        return MaterialPageRoute(builder: (_) => const SignupScreen());
+        return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case forgotPasswordRoute:
         return MaterialPageRoute(builder: (_) =>
         BlocProvider(

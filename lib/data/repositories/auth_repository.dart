@@ -24,10 +24,8 @@ class AuthRepository {
       "email": email,
       "password": password,
       "confirmPassword": confirmPassword,
-      "phone": "",
       "firstName": firstName,
       "lastName": lastName,
-      "zoomUserId": " "
     });
     return response;
   }

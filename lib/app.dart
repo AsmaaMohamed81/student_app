@@ -24,10 +24,10 @@ class StudentApp extends StatelessWidget {
           create: (_) => di.sl<LoginCubit>()..getSavedCredential(),
         ),
         BlocProvider(
-          create: (_) => di.sl<SignupCubit>()..getSavedCredential(),
+          create: (_) => di.sl<SignupCubit>()
         ),
         BlocProvider(
-          create: (_) => di.sl<HomeCubit>()..getStudentInfo(studentId: "43"),
+          create: (_) => di.sl<HomeCubit>(),
         ),
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
