@@ -4,6 +4,7 @@ import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/business_logic/cubits/sign_up/sign_up_cubit.dart';
+import 'package:student_app/business_logic/cubits/verify_code/verify_code_cubit.dart';
 import 'package:student_app/data/api/dio_consumer.dart';
 import 'package:student_app/data/api/http_consumer.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
@@ -16,10 +17,10 @@ Future<void> init() async {
   sl.registerFactory<LocaleCubit>(() => LocaleCubit());
   sl.registerFactory<LoginCubit>(() => LoginCubit(authRepository: sl.call()));
   sl.registerFactory<ForgotPasswordCubit>(
-      () => ForgotPasswordCubit(forgetPasswordRepository: sl.call()));
+      () => ForgotPasswordCubit(authRepository: sl.call()));
   sl.registerFactory<HomeCubit>(() => HomeCubit(homeRepository: sl.call()));
   sl.registerFactory<SignupCubit>(() => SignupCubit(authRepository: sl.call()));
-
+sl.registerFactory<VerifyCodeCubit>(() => VerifyCodeCubit(authRepository: sl.call()));
   //repository
   sl.registerLazySingleton<ForgetPasswordRepository>(
       () => ForgetPasswordRepository(dioConsumer: sl.call()));

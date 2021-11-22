@@ -29,4 +29,17 @@ class AuthRepository {
     });
     return response;
   }
+
+    Future<dynamic> forgotPasswordByEmail({required String email}) async {
+    final response = await dioConsumer.get( forgotPassswordUrl + "?Email=" + email);
+    return response;
+  }
+
+
+  Future<dynamic> veifyCode(
+      {required String email, required String code}) async {
+    final response =
+        await dioConsumer.get(verificationCodeUrL + "?Email=$email&Code=$code");
+    return response;
+  }
 }

@@ -4,9 +4,9 @@ abstract class ForgotPasswordState {}
 
 class ForgotPasswordInitial extends ForgotPasswordState {}
 
-class ForgotPasswordILoading extends ForgotPasswordState {
+class ForgotPasswordLoading extends ForgotPasswordState {
   final bool isLoading;
-  ForgotPasswordILoading(this.isLoading);
+  ForgotPasswordLoading(this.isLoading);
 }
 
 class ForgotPasswordSuccess extends ForgotPasswordState {

@@ -11,6 +11,8 @@ import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/predefined_text_form_field.dart';
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
 import 'package:student_app/utils/app_colors.dart';
+import 'package:student_app/utils/commons.dart';
+import 'package:student_app/utils/strings.dart';
 
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -25,17 +27,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
 
-  // AutovalidateMode autovalidateMode(ForgotPasswordCubit state) => state
-  //         is ForgetPasswordValidateState
-  //     ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
-  //     : AutovalidateMode.disabled;
+  AutovalidateMode autovalidateMode(ForgotPasswordState state) => state
+          is ForgotPasswordValidatation
+      ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
+      : AutovalidateMode.disabled;
 
-  Widget _buildBodyItem(ForgotPasswordState state) {
+  Widget _buildBodyItem(ForgotPasswordState forgotPasswordState) {
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Form(
           key: _formKey,
-       //   autovalidateMode: autovalidateMode(state),
+         autovalidateMode: autovalidateMode(forgotPasswordState),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -101,13 +103,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                               AppLocalizations.of(context)!.translate('send')!,
                           onPressedFunction: () =>
                               BlocProvider.of<ForgotPasswordCubit>(context)
-                                  .sendEmail(
+                                  .forgotPasswordByEmail(
                                       formKey: _formKey,
                                       email: _emailController.text.trim())),
                     )
                   : Center(
                         child: SpinKitFadingCircle(
-                            size: 45.h, color: mainAppColor),
+                            size:   orientation == Orientation.portrait ? 
+                            45.h: 70.h, color: mainAppColor),
                       )
             ],
           ),
@@ -134,18 +137,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     return NetworkIndicator(
       child: PageContainer(
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
           appBar: appBar,
           body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
             listener: (context, state) {
-              // if (state is SentMail) {
-              //   Navigator.pushNamed(context, verifyCodeRoute,
-              //       arguments: _emailController.text.trim());
-
-              //   Commons.showToast(context, message: state.message);
-              // } else if (state is FailSendMail) {
-              //   Commons.showError(context, state.message);
-              // }
+              if (state is ForgotPasswordSuccess) {
+                Navigator.pushNamed(context, verifyCodeRoute,
+                    arguments: _emailController.text.trim());
+              } else if (state is ForgotPasswordFailure) {
+                Commons.showError(context, state.message);
+              }
             },
             builder: (context, state) {
               return _buildBodyItem(state);

@@ -5,5 +5,5 @@ const String loginRoute = '/login';
 const String introRoute = '/intro';
 const String signUpRoute = '/signup';
 const String forgotPasswordRoute = '/forgot_password';
-const String verifyCodeRoute = '/login';
-const String newPasswordRoute = '/new_password_screen';
+const String verifyCodeRoute = '/verify_code';
+const String newPasswordRoute = '/new_password_';

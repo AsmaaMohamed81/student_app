@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/verify_code/verify_code_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/custom_text.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
@@ -24,13 +24,9 @@ class VerifyCodeScreen extends StatefulWidget {
 class _VerifyCodeScreenState extends State<VerifyCodeScreen>
     with ValidationMixin {
   final _formKey = GlobalKey<FormState>();
-
   final interval = const Duration(seconds: 1);
-
   final int timerMaxSeconds = 60;
-
   int currentSeconds = 0;
-
   String get timerText =>
       '${((timerMaxSeconds - currentSeconds) ~/ 60).toString().padLeft(2, '0')}: ${((timerMaxSeconds - currentSeconds) % 60).toString().padLeft(2, '0')}';
   Timer? timer;
@@ -38,16 +34,11 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
   TextEditingController textEditingController = TextEditingController();
   String currentText = "";
   bool hasError = false;
-
-  // ..text = "123456";
-
-  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   @override
   void initState() {
     errorController = StreamController<ErrorAnimationType>();
-
     startTimeout();
     super.initState();
   }
@@ -55,7 +46,6 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
   @override
   void dispose() {
     errorController!.close();
-
     super.dispose();
     timer!.cancel();
   }
@@ -71,54 +61,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return NetworkIndicator(
-      child: PageContainer(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            leading: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                )),
-            title: Text(
-              AppLocalizations.of(context)!.translate('verify_code')!,
-              style: const TextStyle(fontSize: 17, color: Colors.black),
-            ),
-          ),
-          body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-            listener: (context, state) {
-            //  if (state is SendVerifyCode) {
-              //   // Commons.showToast(context, message: state.message);
-              //   Navigator.pushNamed(context, newPasswordRoute,
-              //       arguments: widget.email);
-              // } else if (state is FailVerifyCode) {
-              //   Commons.showError(
-              //       context, "Please enter correct code. Try again.");
-              // } else if (state is ReSentMail) {
-              //   Commons.showToast(context, message: state.message);
-              // } else if (state is FailReSendMail) {
-              //   Commons.showError(context, state.message);
-              // }
-            },
-            builder: (context, state) {
-              return _buildBodyItem(state);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBodyItem(state) {
+  Widget _buildBodyItem(VerifyCodeState verifyCodeState) {
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Form(
@@ -197,7 +140,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       //   print("Pressed");
                       // },
                       onChanged: (value) {
-                        print(value);
+                     
                         setState(() {
                           currentText = value;
                         });
@@ -316,7 +259,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       color: const Color(0xff7B7890),
                       fontSize: 14,
                     ),
-                    !BlocProvider.of<ForgotPasswordCubit>(context)
+                    !BlocProvider.of<VerifyCodeCubit>(context)
                             .isLoading
                         ? GestureDetector(
                             onTap: () async {
@@ -394,7 +337,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
 
   Widget _buildSendBtn(orientation) {
     code = "$num1$num2$num3$num4";
-    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoading
+    return !BlocProvider.of<VerifyCodeCubit>(context).isLoading
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -430,4 +373,52 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
             child: CircularProgressIndicator(color: mainAppColor),
           );
   }
+
+  @override
+  Widget build(BuildContext context) {
+final appBar = AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                )),
+            title: Text(
+              AppLocalizations.of(context)!.translate('verify_code')!,
+              style: const TextStyle(fontSize: 17, color: Colors.black),
+            ),
+          ); 
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          appBar:appBar ,
+          body: BlocConsumer<VerifyCodeCubit, VerifyCodeState>(
+            listener: (context, state) {
+            //  if (state is SendVerifyCode) {
+              //   // Commons.showToast(context, message: state.message);
+              //   Navigator.pushNamed(context, newPasswordRoute,
+              //       arguments: widget.email);
+              // } else if (state is FailVerifyCode) {
+              //   Commons.showError(
+              //       context, "Please enter correct code. Try again.");
+              // } else if (state is ReSentMail) {
+              //   Commons.showToast(context, message: state.message);
+              // } else if (state is FailReSendMail) {
+              //   Commons.showError(context, state.message);
+              // }
+            },
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
 }

@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_app/data/repositories/auth_repository.dart';
 import 'package:student_app/data/repositories/forget_password_repository.dart';
 part 'forgot_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
-  final ForgetPasswordRepository forgetPasswordRepository;
-  ForgotPasswordCubit({required this.forgetPasswordRepository})
+  final AuthRepository authRepository;
+  ForgotPasswordCubit({required this.authRepository})
       : super(ForgotPasswordInitial());
 
   bool isLoading = false;
@@ -14,28 +15,30 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   // bool isLoadingverify = false;
   // bool isLoadingresetpass = false;
 
-  Future<void> sendEmail({
+  Future<void> forgotPasswordByEmail({
     required GlobalKey<FormState> formKey,
     required String email,
   }) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
-      // changeLoadingViewsend();
-      // final response = await forgetPasswordRepository.sendEmail(
-      //   email: email,
-      // );
-      // changeLoadingViewsend();
-    //   if (response['status'] == 'Success') {
-    //     // SharedPreferencesFormatter.write(
-    //     //     "user", User.fromJson(response['data']));
-    //     emit(SentMail(response['message']));
-    //   } else {
-    //     emit(FailSendMail(response['message']));
-    //   }
-    // } else {
-    //   emit(ForgetPasswordValidateState(true));
+      changeLoadingView();
+      final response = await authRepository.forgotPasswordByEmail(
+        email: email,
+      );
+      changeLoadingView();
+      if (response['status'] == 'Success') {
+        emit(ForgotPasswordSuccess(message: response['message']));
+      } else {
+        emit(ForgotPasswordFailure(message: response['message']));
+      }
+    } else {
+      emit(ForgotPasswordValidatation(isValidate: true));
     }
   }
 
+  void changeLoadingView() {
+    isLoading = !isLoading;
+    emit(ForgotPasswordLoading(isLoading));
+  }
   // Future<void> resendEmail({
   //   required GlobalKey<FormState> formKey,
   //   required String email,
