@@ -121,8 +121,10 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
       focusNode: _focusNode,
       maxLength: widget.maxLength,
       initialValue: widget.initialValue,
-      style: const TextStyle(
-          color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
+      style:  TextStyle(
+          color: Colors.black, fontSize:
+                         MediaQuery.of(context).orientation == Orientation.portrait?
+                          15.sp : 30.sp, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
         filled: widget.filled ? true : false,
         fillColor: widget.filledColor ?? Colors.white,
@@ -212,7 +214,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
         labelText: widget.labelTxt,
         labelStyle: TextStyle(
             color: const Color(0xff0D0D0F).withOpacity(0.5),
-            fontSize: 12,
+            fontSize: 12.sp,
             fontWeight: FontWeight.bold),
         errorMaxLines: 2,
        errorStyle: widget.errorStyle ??
@@ -225,7 +227,7 @@ class _PredefinedTextFormFieldState extends State<PredefinedTextFormField> {
             color: _focusNode.hasFocus ? mainAppColor : widget.hintColor,
             fontSize: MediaQuery.of(context).orientation == Orientation.portrait
                 ? 14.sp
-                : 22.sp,
+                : 30.sp,
             fontWeight: FontWeight.w500),
       ),
       keyboardType: widget.inputData,

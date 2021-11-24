@@ -4,6 +4,7 @@ import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
+import 'package:student_app/utils/strings.dart';
 
 class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
   const ChoosingLoginOrSignUpPortrait({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
                 fontWeight: FontWeight.bold),
             btnColor: Colors.white,
             btnLbl: AppLocalizations.of(context)!.translate('sign_in')!,
-            onPressedFunction: () => Navigator.pushNamed(context, '/login'),
+            onPressedFunction: () => Navigator.pushNamed(context, loginRoute),
           ),
           DefaultButton(
             borderColor: mainAppColor,
@@ -61,7 +62,7 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold),
             btnLbl: AppLocalizations.of(context)!.translate('sign_up')!,
-            onPressedFunction: () => Navigator.pushNamed(context, '/signup'),
+            onPressedFunction: () => Navigator.pushNamed(context, signUpRoute),
           ),
           SizedBox(
             height: 300.h,

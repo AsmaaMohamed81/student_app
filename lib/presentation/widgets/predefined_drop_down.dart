@@ -95,8 +95,6 @@ class _PredefinedDropdownButtonFormFieldState
 
   Widget _buildDropdownButtonFormField() {
     return DropdownButtonFormField(
-     // isDense: false,
-     // itemHeight: 48,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       icon: widget.icon ?? Icon(
               Icons.keyboard_arrow_down,

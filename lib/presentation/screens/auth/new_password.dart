@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
+import 'package:student_app/business_logic/cubits/new_password/new_password_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
@@ -26,58 +26,17 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmpasswordController =
       TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return NetworkIndicator(
-      child: PageContainer(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            leading: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                )),
-            title: Text(
-              AppLocalizations.of(context)!.translate('enter_new_password')!,
-              style: const TextStyle(fontSize: 17, color: Colors.black),
-            ),
-          ),
-          body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-            listener: (context, state) {
-              // if (state is ResetLostPassword) {
-              //   Navigator.pushNamed(context, loginRoute);
 
-              //   Commons.showToast(context, message: state.message);
-              // } else if (state is FailResetLostPassword) {
-              //   Commons.showError(context, state.message);
-              // }
-            },
-            builder: (context, state) {
-              return _buildBodyItem(state);
-            },
-          ),
-        ),
-      ),
-    );
-  }
+       AutovalidateMode autovalidateMode(NewPasswordState state) => state
+          is NewPasswordValidatation
+      ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
+      : AutovalidateMode.disabled;
 
-  // AutovalidateMode autovalidateMode(ForgetPasswordState state) => state
-  //         is ForgetPasswordValidateState
-  //     ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
-  //     : AutovalidateMode.disabled;
-
-  Widget _buildBodyItem(ForgotPasswordState state) {
+  Widget _buildBodyItem(NewPasswordState state) {
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Form(
-        //  autovalidateMode: autovalidateMode(state),
+          autovalidateMode: autovalidateMode(state),
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 10, 0),
@@ -115,7 +74,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
   }
 
   Widget _buildSendBtn(orientation) {
-    return !BlocProvider.of<ForgotPasswordCubit>(context).isLoading
+    return !BlocProvider.of<NewPasswordCubit>(context).isLoading
         ? Container(
             margin: EdgeInsets.symmetric(horizontal: 10.w),
             child: DefaultButton(
@@ -127,7 +86,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
                 horizontalMarginIsEnabled: true,
                 btnLbl: AppLocalizations.of(context)!.translate('submit')!,
                 onPressedFunction: () {
-                  print("${widget.email}${_passwordController.text.trim()}");
+              
                   // if (!BlocProvider.of<ForgotPasswordCubit>(context)
                   //     .isLoadingresetpass) {
                     // BlocProvider.of<ForgotPasswordCubit>(context)
@@ -142,4 +101,48 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
             child: CircularProgressIndicator(color: mainAppColor),
           );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                )),
+            title: Text(
+              AppLocalizations.of(context)!.translate('enter_new_password')!,
+              style: const TextStyle(fontSize: 17, color: Colors.black),
+            ),
+          ),
+          body: BlocConsumer<NewPasswordCubit, NewPasswordState>(
+            listener: (context, state) {
+              // if (state is ResetLostPassword) {
+              //   Navigator.pushNamed(context, loginRoute);
+
+              //   Commons.showToast(context, message: state.message);
+              // } else if (state is FailResetLostPassword) {
+              //   Commons.showError(context, state.message);
+              // }
+            },
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+ 
 }

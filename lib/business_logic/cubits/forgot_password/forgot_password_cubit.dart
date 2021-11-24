@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
-import 'package:student_app/data/repositories/forget_password_repository.dart';
 part 'forgot_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
@@ -39,24 +38,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     isLoading = !isLoading;
     emit(ForgotPasswordLoading(isLoading));
   }
-  // Future<void> resendEmail({
-  //   required GlobalKey<FormState> formKey,
-  //   required String email,
-  // }) async {
-  //   // changeLoadingViewresend();
-  //   // final response = await forgetPasswordRepository.sendEmail(
-  //   //   email: email,
-  //   // );
-  //   // changeLoadingViewresend();
-  //   // if (response['status'] == 'Success') {
-  //   //   // SharedPreferencesFormatter.write(
-  //   //   //     "user", User.fromJson(response['data']));
-  //   //   emit(ReSentMail(response['message']));
-  //   // } else {
-  //   //   emit(FailReSendMail(response['message']));
-  //   // }
-  // }
-
+  
   // Future<void> sendVeifyCode({
   //   required GlobalKey<FormState> formKey,
   //   required String email,

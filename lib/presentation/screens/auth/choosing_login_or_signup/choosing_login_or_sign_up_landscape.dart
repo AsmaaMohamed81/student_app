@@ -4,6 +4,7 @@ import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
+import 'package:student_app/utils/strings.dart';
 
 class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
   const ChoosingLoginOrSignUpLandscape({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
                       btnLbl:
                           AppLocalizations.of(context)!.translate('sign_in')!,
                       onPressedFunction: () =>
-                          Navigator.pushNamed(context, '/login'),
+                          Navigator.pushNamed(context, loginRoute),
                     ),
                   ),
                   SizedBox(
@@ -72,7 +73,8 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                         btnLbl:
                             AppLocalizations.of(context)!.translate('sign_up')!,
-                        onPressedFunction: () {},
+                          onPressedFunction: () =>
+                          Navigator.pushNamed(context, signUpRoute),
                       ))
                 ]),
               ),

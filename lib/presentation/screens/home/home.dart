@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +12,6 @@ import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:student_app/utils/preferences_formatter.dart';
 import 'package:student_app/utils/strings.dart';
-
 import 'dail_item.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -23,3 +23,13 @@ class VerifyCodeFailure extends VerifyCodeState {
   final String message;
   VerifyCodeFailure({required this.message});
 }
+
+class ResendingCodeSuccess extends VerifyCodeState {
+  final String message;
+  ResendingCodeSuccess({required this.message});
+}
+
+class ResendingCodeFailure extends VerifyCodeState {
+  final String message;
+  ResendingCodeFailure({required this.message});
+}

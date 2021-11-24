@@ -14,7 +14,6 @@ import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/commons.dart';
 import 'package:student_app/utils/strings.dart';
 
-
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
 
@@ -37,41 +36,40 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
       return SingleChildScrollView(
         child: Form(
           key: _formKey,
-         autovalidateMode: autovalidateMode(forgotPasswordState),
+          autovalidateMode: autovalidateMode(forgotPasswordState),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontFamily: GoogleFonts.tajawal().fontFamily,
-                        fontWeight: FontWeight.w500,
-                        fontSize:
-                            orientation == Orientation.portrait ? 16.sp : 30.sp,
-                        color: const Color(0xff7B7890),
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .translate('enter')),
-                        TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .translate('your_email_address'),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: mainAppColor,
-                              fontFamily: GoogleFonts.tajawal().fontFamily,
-                            )),
-                        TextSpan(
-                            text: AppLocalizations.of(context)!
-                                .translate('to_reset_your_password')),
-                      ],
+              Container(
+                margin: EdgeInsets.only(
+                    left: 20.w, right: 20.w, top: 10.h, bottom: 30.h),
+                child: RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontFamily: GoogleFonts.tajawal().fontFamily,
+                      fontWeight: FontWeight.w500,
+                      fontSize:
+                          orientation == Orientation.portrait ? 16.sp : 30.sp,
+                      color: const Color(0xff7B7890),
                     ),
-                  )),
-              SizedBox(
-                height: 30.h,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text:
+                              AppLocalizations.of(context)!.translate('enter')),
+                      TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .translate('your_email_address'),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: mainAppColor,
+                            fontFamily: GoogleFonts.tajawal().fontFamily,
+                          )),
+                      TextSpan(
+                          text: AppLocalizations.of(context)!
+                              .translate('to_reset_your_password')),
+                    ],
+                  ),
+                ),
               ),
               PredefinedTextFormField(
                 hintTxt: AppLocalizations.of(context)!.translate('email'),
@@ -86,19 +84,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: DefaultButton(
-                          btnLblStyle: orientation == Orientation.portrait
-                              ? TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold)
-                              : TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30.sp,
-                                  fontWeight: FontWeight.bold),
                           height:
                               orientation == Orientation.portrait ? 45.h : 70.h,
                           borderColor: mainAppColor,
-                          horizontalMarginIsEnabled: true,
+                          btnLblStyle: MediaQuery.of(context).orientation ==
+                                  Orientation.portrait
+                              ? Theme.of(context).textTheme.button
+                              : Theme.of(context).textTheme.headline3,
                           btnLbl:
                               AppLocalizations.of(context)!.translate('send')!,
                           onPressedFunction: () =>
@@ -108,10 +100,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                       email: _emailController.text.trim())),
                     )
                   : Center(
-                        child: SpinKitFadingCircle(
-                            size:   orientation == Orientation.portrait ? 
-                            45.h: 70.h, color: mainAppColor),
-                      )
+                      child: SpinKitFadingCircle(
+                          size:
+                              orientation == Orientation.portrait ? 45.h : 70.h,
+                          color: mainAppColor),
+                    )
             ],
           ),
         ),
@@ -132,7 +125,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             color: Colors.black,
           )),
       title: Text(AppLocalizations.of(context)!.translate('forgot_password')!,
-          style: Theme.of(context).textTheme.headline1),
+          style: MediaQuery.of(context).orientation == Orientation.portrait
+              ? Theme.of(context).textTheme.headline1
+              : Theme.of(context).textTheme.headline2),
     );
     return NetworkIndicator(
       child: PageContainer(

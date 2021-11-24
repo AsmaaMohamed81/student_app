@@ -3,7 +3,7 @@ import 'package:student_app/locale/app_localizations.dart';
 import 'package:validators/validators.dart';
 
 mixin ValidationMixin<T extends StatefulWidget> on State<T> {
-  String _password = '', _newPassword = '';
+  String _password = '';
 
   String? validateUserPhone(String phoneNo) {
     if (phoneNo.trim().isEmpty) return 'يرجى إدخال رقم الجوال   ';

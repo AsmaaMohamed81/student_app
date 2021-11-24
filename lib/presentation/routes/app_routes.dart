@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
+import 'package:student_app/business_logic/cubits/new_password/new_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/verify_code/verify_code_cubit.dart';
 import 'package:student_app/presentation/screens/auth/choosing_login_or_signup/choosing_login_or_signup.dart';
 import 'package:student_app/presentation/screens/auth/login.dart';
@@ -29,9 +30,7 @@ class AppRoutes {
                       return const HomeScreen();
                     } else if (loginState is UnAuthenticated) {
                       return const ChoosingLoginOrSignUpScreen();
-                    } else {
-                      const ChoosingLoginOrSignUpScreen();
-                    }
+                    } 
                     return const ChoosingLoginOrSignUpScreen();
                   },
                 ));
@@ -54,13 +53,17 @@ class AppRoutes {
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                 create: (_) => di.sl<VerifyCodeCubit>(),
-                child:  VerifyCodeScreen(
+                child: VerifyCodeScreen(
                   email: email,
                 )));
-      case '/new_passWord_screen':
+      case newPasswordRoute:
         var email = args as String;
         return MaterialPageRoute(
-            builder: (_) => NewPassWordScreen(email: email));
+            builder: (_) => BlocProvider(
+                create: (_) => di.sl<NewPasswordCubit>(),
+                child: NewPassWordScreen(
+                  email: email,
+                )));
       default:
         return null;
     }
