@@ -141,7 +141,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                   Container(
                     alignment: Alignment.center,
                     width: 0.25.sw,
-                    height: 28.h,
+                    height: orientation == Orientation.portrait
+                              ? 28.h : 50.h,
                     decoration: BoxDecoration(
                         color: const Color(0xff3C5A99),
                         borderRadius: BorderRadius.circular((10))),
@@ -157,12 +158,14 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                               : 30.h,
                         ),
                         SizedBox(
-                          width: 7.h,
+                          width: 7.w,
                         ),
                         Text(
                           'Facebook',
                           style: TextStyle(
-                            color: Colors.white,fontSize: 9.sp
+                            color: Colors.white,fontSize:
+                            orientation == Orientation.portrait
+                              ?  9.sp : 20.sp
                           ),
                         )
                       ],
@@ -170,7 +173,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                   ), Container(
                     alignment: Alignment.center,
                     width: 0.25.sw,
-                    height: 28.h,
+                          height: orientation == Orientation.portrait
+                              ? 28.h : 50.h,
                     decoration: BoxDecoration(
                         color: const Color(0xffF95341),
                         borderRadius: BorderRadius.circular((10))),
@@ -186,12 +190,13 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                               : 30.h,
                         ),
                         SizedBox(
-                          width: 7.h,
+                          width: 7.w,
                         ),
                         Text(
                           'Google',
                           style: TextStyle(
-                            color: Colors.white,fontSize: 9.sp
+                            color: Colors.white,fontSize:   orientation == Orientation.portrait
+                              ?  9.sp : 20.sp
                           ),
                         )
                       ],
@@ -200,7 +205,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                    Container(
                     alignment: Alignment.center,
                     width: 0.25.sw,
-                    height: 28.h,
+                        height: orientation == Orientation.portrait
+                              ? 28.h : 50.h,
                     decoration: BoxDecoration(
                         color: const Color(0xff0491FF),
                         borderRadius: BorderRadius.circular((10))),
@@ -216,12 +222,13 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                               : 30.h,
                         ),
                         SizedBox(
-                          width: 7.h,
+                          width: 7.w,
                         ),
                         Text(
                           'Microsoft',
                           style: TextStyle(
-                            color: Colors.white,fontSize: 9.sp
+                            color: Colors.white,fontSize:   orientation == Orientation.portrait
+                              ?  9.sp : 20.sp
                           ),
                         )
                       ],
