@@ -56,7 +56,7 @@
   "resend": "Resend",
   "verify_code": "Verify Code",
   "submit": "Submit",
-  "enter_new_password": "Enter New PassWord",
+  "enter_new_password": "Enter New Password",
   "first_name_validation_sample":"first name not accept numbers & symbols",
   "last_name_validation_sample":"last name not accept numbers & symbols"
 

@@ -17,6 +17,7 @@ class DioConsumer extends ApiConsumer {
             },
             headers: headers,
           ));
+      print(response)   ; 
       var responseJson = handleDioResponse(response);
       return responseJson;
     } on SocketException {
@@ -38,6 +39,7 @@ class DioConsumer extends ApiConsumer {
             },
             headers: headers,
           ));
+            print(response)   ; 
       var responseJson = handleDioResponse(response);
       return responseJson;
     } on SocketException {

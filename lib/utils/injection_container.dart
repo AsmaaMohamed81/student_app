@@ -9,7 +9,6 @@ import 'package:student_app/business_logic/cubits/verify_code/verify_code_cubit.
 import 'package:student_app/data/api/dio_consumer.dart';
 import 'package:student_app/data/api/http_consumer.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
-import 'package:student_app/data/repositories/forget_password_repository.dart';
 import 'package:student_app/data/repositories/home_repository.dart';
 
 final sl = GetIt.instance;
@@ -24,10 +23,9 @@ Future<void> init() async {
   sl.registerFactory<VerifyCodeCubit>(
       () => VerifyCodeCubit(authRepository: sl.call()));
    sl.registerFactory<NewPasswordCubit>(
-      () => NewPasswordCubit(authRepository: sl.call()));    
+      () => NewPasswordCubit(authRepository: sl.call())); 
+         
   //repository
-  sl.registerLazySingleton<ForgetPasswordRepository>(
-      () => ForgetPasswordRepository(dioConsumer: sl.call()));
   sl.registerLazySingleton<AuthRepository>(
       () => AuthRepository(dioConsumer: sl.call()));
   sl.registerLazySingleton<HomeRepository>(

@@ -42,4 +42,11 @@ class AuthRepository {
         await dioConsumer.get(verificationCodeUrL + "?Email=$email&Code=$code");
     return response;
   }
+
+    Future<dynamic> resetLostPassword(
+      {required String email, required String password}) async {
+    final response = await dioConsumer
+        .get(resetLostPasswordUrl +"?Email=$email&Password=$password");
+    return response;
+  }
 }
