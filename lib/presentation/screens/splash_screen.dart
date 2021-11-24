@@ -3,6 +3,7 @@ import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/utils/preferences_formatter.dart';
+import 'package:student_app/utils/strings.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -90,9 +91,9 @@ class _SplashScreenState extends State<SplashScreen> {
     bool showIntro = await SharedPreferencesFormatter.getBoolean("show_intro", true);
     if (showIntro) {
       SharedPreferencesFormatter.saveBoolean("show_intro",false);
-      Navigator.pushReplacementNamed(context, '/intro_screen');
+      Navigator.pushReplacementNamed(context, introRoute);
     } else {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, homeRoute);
     }
   }
 

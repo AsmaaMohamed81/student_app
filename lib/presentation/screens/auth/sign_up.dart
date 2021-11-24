@@ -140,8 +140,8 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                 isPassword: true,
                 onFieldSubmitted: (value) {
                   FocusScope.of(context).unfocus();
-                  if (!context.watch<SignupCubit>().isLoading) {
-                    BlocProvider.of<SignupCubit>(context).signUp(
+                  if (!context.watch<SignUpCubit>().isLoading) {
+                    BlocProvider.of<SignUpCubit>(context).signUp(
                       formKey: _formKey,
                       password: _passwordController.text.trim(),
                       email: _emailController.text.trim(),
@@ -156,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               SizedBox(
                 height: 15.h,
               ),
-              !context.watch<SignupCubit>().isLoading
+              !context.watch<SignUpCubit>().isLoading
              
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
@@ -171,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                           btnLbl: AppLocalizations.of(context)!
                               .translate('sign_up')!,
                           onPressedFunction: () =>
-                              BlocProvider.of<SignupCubit>(context).signUp(
+                              BlocProvider.of<SignUpCubit>(context).signUp(
                                 formKey: _formKey,
                                 password: _passwordController.text.trim(),
                                 email: _emailController.text.trim(),
@@ -354,7 +354,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
       child: PageContainer(
         child: Scaffold(
       resizeToAvoidBottomInset: true,
-          body: BlocConsumer<SignupCubit, SignUpState>(
+          body: BlocConsumer<SignUpCubit, SignUpState>(
             listener: (context, state) {
               if (state is SignUpSucccess) {
                   Commons.showToast( context,message: state.message);

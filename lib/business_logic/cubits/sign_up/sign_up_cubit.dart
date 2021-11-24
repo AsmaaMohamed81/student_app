@@ -5,9 +5,9 @@ import 'package:student_app/data/repositories/auth_repository.dart';
 import 'package:student_app/utils/strings.dart';
 part 'sign_up_state.dart';
 
-class SignupCubit extends Cubit<SignUpState> {
+class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepository authRepository;
-  SignupCubit({required this.authRepository}) : super(SignUpInitial());
+  SignUpCubit({required this.authRepository}) : super(SignUpInitial());
 
   bool isLoading = false;
 

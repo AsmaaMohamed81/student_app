@@ -19,7 +19,7 @@ Future<void> init() async {
   sl.registerFactory<ForgotPasswordCubit>(
       () => ForgotPasswordCubit(authRepository: sl.call()));
   sl.registerFactory<HomeCubit>(() => HomeCubit(homeRepository: sl.call()));
-  sl.registerFactory<SignupCubit>(() => SignupCubit(authRepository: sl.call()));
+  sl.registerFactory<SignUpCubit>(() => SignUpCubit(authRepository: sl.call()));
   sl.registerFactory<VerifyCodeCubit>(
       () => VerifyCodeCubit(authRepository: sl.call()));
    sl.registerFactory<NewPasswordCubit>(

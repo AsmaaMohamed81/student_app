@@ -1,5 +1,5 @@
 class StudentDashboard {
-  StudentDashboard? studentInformation;
+  StudentInformation? studentInformation;
   List<Groups>? groups;
   List<DailyLectures>? dailyLectures;
   List<Exams>? exams;
@@ -16,7 +16,7 @@ class StudentDashboard {
 
   StudentDashboard.fromJson(Map<String, dynamic> json) {
     studentInformation = json['studentInformation'] != null
-        ? StudentDashboard.fromJson(json['studentInformation'])
+        ? StudentInformation.fromJson(json['studentInformation'])
         : null;
     if (json['groups'] != null) {
       groups = <Groups>[];
