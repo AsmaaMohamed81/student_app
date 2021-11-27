@@ -5,6 +5,7 @@ import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/business_logic/cubits/locale/locale_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/material_item.dart';
+import 'package:student_app/presentation/widgets/app_drawer.dart';
 import 'package:student_app/presentation/widgets/default_button.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+    final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
   // @override
   // void initState() {
   //   BlocProvider.of<MaterialCubit>(context).getStudentMatrial(courseId: '471');
@@ -32,14 +34,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return NetworkIndicator(
       child: PageContainer(
         child: Scaffold(
+          drawer: const AppDrawer(),
+          key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             centerTitle: true,
             backgroundColor: mainAppColor,
             elevation: 0,
-            leading: GestureDetector(
-                // onTap: () => keyScafold.currentState!.openDrawer(),
-                child: const Icon(
+            leading: IconButton(
+                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+                icon: const Icon(
               Icons.menu,
               color: Colors.white,
             )),

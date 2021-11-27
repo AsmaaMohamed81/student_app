@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/data/models/user.dart';
 import 'package:student_app/data/repositories/auth_repository.dart';
 import 'package:student_app/utils/preferences_formatter.dart';
+import 'package:student_app/utils/strings.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -39,10 +40,17 @@ class LoginCubit extends Cubit<LoginState> {
     } else {
       emit(LoginValidatation(isValidate: true));
     }
-      }
+  }
 
   void changeLoadingView() {
     isLoading = !isLoading;
     emit(LoginLoading(isLoading));
+  }
+
+  void logout(BuildContext context) {
+    emit(UnAuthenticated(message: ''));
+    SharedPreferencesFormatter.remove("user");
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(homeRoute, (Route<dynamic> route) => false);
   }
 }

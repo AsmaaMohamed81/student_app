@@ -57,5 +57,8 @@
   "submit": "سجل",
   "enter_new_password": "أدخل كلمة المرور الجديدة",
   "first_name_validation_sample":"الاسم الاول لا يقبل الاشكال ولا الارقام",
-  "last_name_validation_sample":"الاسم الاخير لا يقبل الاشكال ولا الارقام"
+  "last_name_validation_sample":"الاسم الاخير لا يقبل الاشكال ولا الارقام",
+  "account" : "الحساب الشخصي",
+  "live_support" : "الدعم الأون لاين",
+  "settings" : "الإعدادات"
 }

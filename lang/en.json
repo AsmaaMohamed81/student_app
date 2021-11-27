@@ -42,7 +42,7 @@
   "email_validation": "Please enter email",
   "email_validation_valid": "Please enter valid email or userName",
   "email_validation_example": "please enter valid email address like 'example@gmail.com",
-  "log_out": "LogOut",
+  "log_out": "Logout",
   "arabic": "Arabic",
   "english": "English",
   "home": "Home",
@@ -58,6 +58,8 @@
   "submit": "Submit",
   "enter_new_password": "Enter New Password",
   "first_name_validation_sample":"first name not accept numbers & symbols",
-  "last_name_validation_sample":"last name not accept numbers & symbols"
-
+  "last_name_validation_sample":"last name not accept numbers & symbols",
+  "account" : "Account",
+  "live_support" : "Live Support",
+  "settings" : "Settings"
 }
