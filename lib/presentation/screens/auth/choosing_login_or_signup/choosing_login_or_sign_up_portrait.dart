@@ -6,12 +6,31 @@ import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:student_app/utils/strings.dart';
 
-class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
+import 'widgets/animated_btn.dart';
+
+class ChoosingLoginOrSignUpPortrait extends StatefulWidget {
   const ChoosingLoginOrSignUpPortrait({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return _buildBodyItem(context);
+  State<ChoosingLoginOrSignUpPortrait> createState() =>
+      _ChoosingLoginOrSignUpPortraitState();
+}
+
+class _ChoosingLoginOrSignUpPortraitState
+    extends State<ChoosingLoginOrSignUpPortrait> with TickerProviderStateMixin {
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
   }
 
   Widget _buildBodyItem(BuildContext context) {
@@ -43,26 +62,52 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          DefaultButton(
-            borderColor: mainAppColor,
-            horizontalMarginIsEnabled: false,
-            btnLblStyle: TextStyle(
-                color: mainAppColor,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold),
-            btnColor: Colors.white,
-            btnLbl: AppLocalizations.of(context)!.translate('sign_in')!,
-            onPressedFunction: () => Navigator.pushNamed(context, loginRoute),
-          ),
-          DefaultButton(
-            borderColor: mainAppColor,
-            horizontalMarginIsEnabled: false,
-            btnLblStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold),
-            btnLbl: AppLocalizations.of(context)!.translate('sign_up')!,
-            onPressedFunction: () => Navigator.pushNamed(context, signUpRoute),
+          SizedBox(
+            height: 120.h,
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                var animation = Tween(begin: 0.0, end: 1.0).animate(
+                  CurvedAnimation(
+                    parent: _animationController!,
+                    curve: Interval((1 / 2) * index, 1.0,
+                        curve: Curves.fastOutSlowIn),
+                  ),
+                );
+                _animationController?.forward();
+                return AnimatedBtn(
+                  defaultButton: index == 0
+                      ? DefaultButton(
+                          borderColor: mainAppColor,
+                          horizontalMarginIsEnabled: false,
+                          btnLblStyle: TextStyle(
+                              color: mainAppColor,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold),
+                          btnColor: Colors.white,
+                          btnLbl: AppLocalizations.of(context)!
+                              .translate('sign_in')!,
+                          onPressedFunction: () =>
+                              Navigator.pushNamed(context, loginRoute),
+                        )
+                      : DefaultButton(
+                          borderColor: mainAppColor,
+                          horizontalMarginIsEnabled: false,
+                          btnLblStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold),
+                          btnLbl: AppLocalizations.of(context)!
+                              .translate('sign_up')!,
+                          onPressedFunction: () =>
+                              Navigator.pushNamed(context, signUpRoute),
+                        ),
+                  animation: animation,
+                  animationController: _animationController,
+                );
+              },
+            ),
           ),
           SizedBox(
             height: 300.h,
@@ -87,5 +132,10 @@ class ChoosingLoginOrSignUpPortrait extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildBodyItem(context);
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:student_app/locale/app_localizations.dart';
+import 'package:student_app/presentation/animation/slide_in.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,12 +16,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  
-  Future initData() async {
-    await Future.delayed(const Duration(seconds: 2));
+  bool _startMovingUp = false;
+  Future initData() async => await Future.delayed(const Duration(seconds: 3));
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(milliseconds: 600),
+        () => setState(() => _startMovingUp = true));
+    initData().then((value) => _checkShowingIntro());
   }
 
   Widget _buildBodyItem() {
+    final topPadding = MediaQuery.of(context).viewPadding.top;
+    final centerHeight = MediaQuery.of(context).size.height / 2 - topPadding;
     return OrientationBuilder(builder: (context, orientation) {
       return Stack(
         children: [
@@ -30,67 +41,87 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: orientation == Orientation.portrait ? .9.sw : .9.sw,
                 fit: BoxFit.fill,
               )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: orientation == Orientation.portrait
-                ? MainAxisAlignment.start
-                : MainAxisAlignment.center,
-            children: [
-              orientation == Orientation.portrait
-                  ? SizedBox(
-                      height: 100.h,
-                    )
-                  : SizedBox(
-                      height: 10.h,
-                    ),
-              Image.asset(
-                'assets/images/logo.png',
-                height: orientation == Orientation.portrait ? 0.5.sh : .5.sh,
+          AnimatedPadding(
+              padding: EdgeInsets.only(
+                top: _startMovingUp ? 20 : centerHeight,
               ),
-              orientation == Orientation.portrait
-                  ? SizedBox(
-                      height: 20.h,
-                    )
-                  : const SizedBox(),
-              Align(
-                  alignment: Alignment.center,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text.rich(TextSpan(
-                            text: 'Talentnotion',
-                            style: TextStyle(
-                                fontSize: 20.sp, color: HexColor('0F0A39')),
-                            children: <InlineSpan>[
-                              TextSpan(
-                                text: '2021',
+              duration: const Duration(seconds: 1),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: orientation == Orientation.portrait
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                children: [
+                  orientation == Orientation.portrait
+                      ? SizedBox(
+                          height: 20.h,
+                        )
+                      : const SizedBox(),
+                  SlideIn(
+                      msDelay: 500,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        height: orientation == Orientation.portrait
+                            ? 0.4.sh
+                            : 0.43.sh,
+                      )),
+                  orientation == Orientation.portrait
+                      ? SizedBox(
+                          height: 20.h,
+                        )
+                      : const SizedBox(),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text.rich(TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .translate('app_name')!,
                                 style: TextStyle(
-                                    fontSize: 20.sp, color: Colors.brown),
-                              )
-                            ])),
-                        SizedBox(
-                          width: 12.w,
-                        ),
-                        const Icon(Icons.copyright)
-                      ])),
-            ],
-          ),
+                                    fontSize:
+                                        orientation == Orientation.portrait
+                                            ? 20.sp
+                                            : 30.sp,
+                                    color: HexColor('0F0A39'),
+                                    fontWeight: FontWeight.bold),
+                                children: <InlineSpan>[
+                                  const TextSpan(text: '  '),
+                                  TextSpan(
+                                    text: DateTime.now().year.toString(),
+                                    style: TextStyle(
+                                        fontSize:
+                                            orientation == Orientation.portrait
+                                                ? 20.sp
+                                                : 30.sp,
+                                        color: Colors.brown,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ])),
+                            SizedBox(
+                              width: orientation == Orientation.portrait
+                                  ? 12.w
+                                  : 5.w,
+                            ),
+                            Icon(
+                              Icons.copyright,
+                              size: orientation == Orientation.portrait
+                                  ? 20.sp
+                                  : 35.sp,
+                            )
+                          ])),
+                ],
+              )),
         ],
       );
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    initData().then((value) =>
-      _checkShowingIntro());
-  }
-
   Future<void> _checkShowingIntro() async {
-    bool showIntro = await SharedPreferencesFormatter.getBoolean("show_intro", true);
+    bool showIntro =
+        await SharedPreferencesFormatter.getBoolean("show_intro", true);
     if (showIntro) {
-      SharedPreferencesFormatter.saveBoolean("show_intro",false);
+      SharedPreferencesFormatter.saveBoolean("show_intro", false);
       Navigator.pushReplacementNamed(context, introRoute);
     } else {
       Navigator.pushReplacementNamed(context, homeRoute);

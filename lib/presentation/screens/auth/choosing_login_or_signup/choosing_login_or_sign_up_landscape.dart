@@ -6,12 +6,32 @@ import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
 import 'package:student_app/utils/strings.dart';
 
-class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
+import 'widgets/animated_btn.dart';
+
+class ChoosingLoginOrSignUpLandscape extends StatefulWidget {
   const ChoosingLoginOrSignUpLandscape({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return _buildBodyItem(context);
+  State<ChoosingLoginOrSignUpLandscape> createState() =>
+      _ChoosingLoginOrSignUpLandscapeState();
+}
+
+class _ChoosingLoginOrSignUpLandscapeState
+    extends State<ChoosingLoginOrSignUpLandscape>
+    with TickerProviderStateMixin {
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
   }
 
   Widget _buildBodyItem(BuildContext context) {
@@ -42,45 +62,60 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
           ),
           Row(
             children: [
-              Expanded(
-                child: Column(children: [
-                  SizedBox(
-                    width: 0.4.sw,
-                    child: DefaultButton(
-                      height: 60.h,
-                      borderColor: mainAppColor,
-                      horizontalMarginIsEnabled: false,
-                      btnLblStyle: TextStyle(
-                          color: mainAppColor,
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.bold),
-                      btnColor: Colors.white,
-                      btnLbl:
-                          AppLocalizations.of(context)!.translate('sign_in')!,
-                      onPressedFunction: () =>
-                          Navigator.pushNamed(context, loginRoute),
-                    ),
-                  ),
-                  SizedBox(
-                      width: 0.4.sw,
-                      child: DefaultButton(
-                        height: 60.h,
-                        borderColor: mainAppColor,
-                        horizontalMarginIsEnabled: false,
-                        btnLblStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.sp,
-                            fontWeight: FontWeight.bold),
-                        btnLbl:
-                            AppLocalizations.of(context)!.translate('sign_up')!,
-                          onPressedFunction: () =>
-                          Navigator.pushNamed(context, signUpRoute),
-                      ))
-                ]),
-              ),
+              SizedBox(
+            height: 150.h,
+            width: 0.5.sw,
+           
+            child:ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    var animation = Tween(begin: 0.0, end: 1.0).animate(
+                      CurvedAnimation(
+                        parent: _animationController!,
+                        curve: Interval((1 / 2) * index, 1.0,
+                            curve: Curves.fastOutSlowIn),
+                      ),
+                    );
+                    _animationController?.forward();
+                    return  AnimatedBtn(
+                        defaultButton: index == 0
+                            ? DefaultButton(
+                                width: 0.4.sw,
+                                height: 60.h,
+                                borderColor: mainAppColor,
+                                horizontalMarginIsEnabled: false,
+                                btnLblStyle: TextStyle(
+                                    color: mainAppColor,
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.bold),
+                                btnColor: Colors.white,
+                                btnLbl: AppLocalizations.of(context)!
+                                    .translate('sign_in')!,
+                                onPressedFunction: () =>
+                                    Navigator.pushNamed(context, loginRoute),
+                              )
+                            : DefaultButton(
+                                height: 60.h,
+                                borderColor: mainAppColor,
+                                horizontalMarginIsEnabled: false,
+                                btnLblStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.bold),
+                                btnLbl: AppLocalizations.of(context)!
+                                    .translate('sign_up')!,
+                                onPressedFunction: () =>
+                                    Navigator.pushNamed(context, signUpRoute),
+                              ),
+                        animation: animation,
+                        animationController: _animationController,
+                      
+                    );
+                  })),
               Image.asset(
                 'assets/images/welcome_bg.png',
-                width: 0.3.sw,
+                width: 0.35.sw,
                 // fit: BoxFit.fill,
               ),
             ],
@@ -100,5 +135,10 @@ class ChoosingLoginOrSignUpLandscape extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildBodyItem(context);
   }
 }
