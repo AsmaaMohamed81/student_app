@@ -6,7 +6,6 @@ dynamic handleDioResponse(Response<dynamic> response) {
   switch (response.statusCode) {
     case 200:
       var responseJson = jsonDecode(response.toString());
-      print(responseJson);
       return responseJson;
     case 400:
       throw BadRequestException(response.data.toString());

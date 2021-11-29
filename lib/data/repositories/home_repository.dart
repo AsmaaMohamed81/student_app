@@ -6,18 +6,9 @@ class HomeRepository {
 
   HomeRepository({required this.dioConsumer});
 
-  Future<dynamic> getStudentInfo({required String studentId}) async {
+  Future<dynamic> getStudentDashboard({required String studentId}) async {
     final response =
-        await dioConsumer.get("$studentInfoUrl?studentId=$studentId");
-    print("$response");
-
-    return response;
-  }
-
-  Future<dynamic> getStudentMatrial({required String classId}) async {
-    final response =
-        await dioConsumer.get("$studentMaterialUrl??ClassId=$classId");
-    print("$response");
+        await dioConsumer.get("$studentDashboardUrl?studentId=$studentId");
 
     return response;
   }

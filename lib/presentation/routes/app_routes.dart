@@ -25,10 +25,10 @@ class AppRoutes {
             builder: (_) => BlocBuilder<LoginCubit, LoginState>(
                   builder: (context, loginState) {
                     if (loginState is Authenticated) {
-                      return const HomeScreen();
+                      return HomeScreen(studentId: loginState.user.mainRoleId);
                     } else if (loginState is UnAuthenticated) {
                       return const ChoosingLoginOrSignUpScreen();
-                    }  else {
+                    } else {
                       const ChoosingLoginOrSignUpScreen();
                     }
                     return const ChoosingLoginOrSignUpScreen();
@@ -44,10 +44,10 @@ class AppRoutes {
       case signUpRoute:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case forgotPasswordRoute:
-        return MaterialPageRoute(builder: (_) =>
-        BlocProvider(
-          create: (_) => di.sl<ForgotPasswordCubit>(),
-         child: const ForgotPasswordScreen()));
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                create: (_) => di.sl<ForgotPasswordCubit>(),
+                child: const ForgotPasswordScreen()));
       case '/verify_code_screen':
         var email = routeSettings.arguments as String;
         return MaterialPageRoute(

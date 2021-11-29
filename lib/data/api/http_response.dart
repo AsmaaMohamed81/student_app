@@ -6,7 +6,6 @@ dynamic handleHttpResponse(http.Response response) {
   switch (response.statusCode) {
     case 200:
       var responseJson = jsonDecode(response.body.toString());
-      print(responseJson);
       return responseJson;
     case 400:
       throw BadRequestException(response.body.toString());

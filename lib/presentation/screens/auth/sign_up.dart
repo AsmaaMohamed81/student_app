@@ -28,8 +28,6 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
   final TextEditingController _fisrtNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   AutovalidateMode autovalidateMode(SignUpState state) => state
           is SignUpValidatation
@@ -156,7 +154,6 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                 height: 15.h,
               ),
               !context.watch<SignupCubit>().isLoading
-             
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: DefaultButton(
@@ -180,9 +177,9 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                               )),
                     )
                   : Center(
-                        child: SpinKitFadingCircle(
-                            size: 45.h, color: mainAppColor),
-                      ),
+                      child:
+                          SpinKitFadingCircle(size: 45.h, color: mainAppColor),
+                    ),
               SizedBox(
                 height: 10.h,
               ),
@@ -343,11 +340,11 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
     return NetworkIndicator(
       child: PageContainer(
         child: Scaffold(
-      resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: true,
           body: BlocConsumer<SignupCubit, SignUpState>(
             listener: (context, state) {
               if (state is SignUpSucccess) {
-                  Commons.showToast( context,message: state.message);
+                Commons.showToast(context, message: state.message);
                 state.navigate(context);
               } else if (state is SignUpFailure) {
                 Commons.showError(context, state.message);

@@ -96,7 +96,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
           ),
           body: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
             listener: (context, state) {
-            //  if (state is SendVerifyCode) {
+              //  if (state is SendVerifyCode) {
               //   // Commons.showToast(context, message: state.message);
               //   Navigator.pushNamed(context, newPasswordRoute,
               //       arguments: widget.email);
@@ -178,7 +178,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       ),
 
                       cursorColor: Colors.black,
-                      animationDuration: Duration(milliseconds: 300),
+                      animationDuration: const Duration(milliseconds: 300),
                       enableActiveFill: true,
                       errorAnimationController: errorController,
                       // controller: textEditingController,
@@ -190,22 +190,16 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                           blurRadius: 10,
                         )
                       ],
-                      onCompleted: (v) {
-                        print("Completed");
-                      },
+                      onCompleted: (v) {},
                       // onTap: () {
                       //   print("Pressed");
                       // },
                       onChanged: (value) {
-                        print(value);
                         setState(() {
                           currentText = value;
                         });
                       },
                       beforeTextPaste: (text) {
-                        print("Allowing to paste $text");
-                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
                         return true;
                       },
                     )),
@@ -316,8 +310,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                       color: const Color(0xff7B7890),
                       fontSize: 14,
                     ),
-                    !BlocProvider.of<ForgotPasswordCubit>(context)
-                            .isLoading
+                    !BlocProvider.of<ForgotPasswordCubit>(context).isLoading
                         ? GestureDetector(
                             onTap: () async {
                               // if (!BlocProvider.of<ForgotPasswordCubit>(context)
@@ -353,8 +346,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                     const Spacer(),
                     Text(
                       "($timerText)",
-                      style:
-                          TextStyle(color: const Color(0xff7B7890), fontSize: 14),
+                      style: const TextStyle(
+                          color: Color(0xff7B7890), fontSize: 14),
                     ),
                   ],
                 ),
@@ -373,9 +366,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
   Widget _buildDescText() {
     return RichText(
       text: TextSpan(
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
-          color: const Color(0xff7B7890),
+          color: Color(0xff7B7890),
         ),
         children: <TextSpan>[
           TextSpan(
@@ -406,8 +399,6 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                 horizontalMarginIsEnabled: true,
                 btnLbl: AppLocalizations.of(context)!.translate('send')!,
                 onPressedFunction: () {
-                  print(widget.email);
-                  print(code);
                   if (currentText.length != 4) {
                     setState(() {
                       hasError = true;

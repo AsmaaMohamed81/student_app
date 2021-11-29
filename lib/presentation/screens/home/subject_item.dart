@@ -3,11 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/data/models/student_dashboard.dart';
 import 'package:student_app/utils/hex_color.dart';
 
-class MaterialItem extends StatelessWidget {
-  final Subjects studentMaterial;
+class SubjectsItem extends StatelessWidget {
+  final Subject subject;
 
-  const MaterialItem({Key? key, required this.studentMaterial})
-      : super(key: key);
+  const SubjectsItem({Key? key, required this.subject}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +30,20 @@ class MaterialItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(studentMaterial.subjectName.toString()),
-                  SizedBox(
+                  Text(
+                    subject.subjectName.toString(),
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
                     height: 3,
                   ),
-                  Text(
-                    "(Group Name)",
-                    style: TextStyle(fontSize: 10),
-                  )
+                  subject.groupName != null
+                      ? Text(
+                          "(${subject.groupName})",
+                          style: const TextStyle(fontSize: 10),
+                        )
+                      : const SizedBox()
                 ],
               ),
               const Spacer(),

@@ -10,7 +10,6 @@ import 'package:student_app/presentation/widgets/predefined_text_form_field/pred
 import 'package:student_app/presentation/widgets/predefined_text_form_field/validation_mixin.dart';
 import 'package:student_app/utils/app_colors.dart';
 
-
 class NewPassWordScreen extends StatefulWidget {
   final String? email;
 
@@ -77,7 +76,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
     return OrientationBuilder(builder: (context, orientation) {
       return SingleChildScrollView(
         child: Form(
-        //  autovalidateMode: autovalidateMode(state),
+          //  autovalidateMode: autovalidateMode(state),
           key: _formKey,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 10, 0),
@@ -126,17 +125,7 @@ class _NewPassWordScreenState extends State<NewPassWordScreen>
                 borderColor: mainAppColor,
                 horizontalMarginIsEnabled: true,
                 btnLbl: AppLocalizations.of(context)!.translate('submit')!,
-                onPressedFunction: () {
-                  print("${widget.email}${_passwordController.text.trim()}");
-                  // if (!BlocProvider.of<ForgotPasswordCubit>(context)
-                  //     .isLoadingresetpass) {
-                    // BlocProvider.of<ForgotPasswordCubit>(context)
-                    //     .resetLLostPassword(
-                    //         formKey: _formKey,
-                    //         email: widget.email!,
-                    //         passWord: _passwordController.text.trim());
-                  // }
-                }),
+                onPressedFunction: () {}),
           )
         : Center(
             child: CircularProgressIndicator(color: mainAppColor),
