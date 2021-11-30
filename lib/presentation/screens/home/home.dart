@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
+import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/subject_item.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
@@ -36,7 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            centerTitle: true,
+            title: Padding(
+              padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
+              child: Text(AppLocalizations.of(context)!.translate('home')!),
+            ),
             backgroundColor: mainAppColor,
             elevation: 0,
             leading: GestureDetector(
@@ -70,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _buildBodyItem(state) {
+  _buildBodyItem(HomeState state) {
     if (state is HomeLoadingState) {
       return Center(
         child: CircularProgressIndicator(color: mainAppColor),
@@ -89,15 +93,15 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20.r),
+                      bottomRight: Radius.circular(20.r)),
                   color: mainAppColor,
                 ),
                 child: Column(
                   children: [
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 5, 10, 10),
+                        padding: EdgeInsets.fromLTRB(20.w, 5.h, 20.w, 10.h),
                         child: Row(
                           children: [
                             CircleAvatar(
@@ -118,26 +122,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
+                            SizedBox(
+                              width: 10.h,
                             ),
                             Column(
                               children: [
                                 Row(children: [
                                   Text(
-                                    "Hi,",
+                                    AppLocalizations.of(context)!
+                                        .translate('hi')!,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 15.sp),
+                                        color: Colors.white, fontSize: 20.sp),
                                   ),
                                   Text(
                                     state.studentDashboard.studentInformation!
                                         .name!,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 15.sp),
+                                        color: Colors.white, fontSize: 20.sp),
                                   ),
                                 ]),
-                                const SizedBox(
-                                  height: 3,
+                                SizedBox(
+                                  height: 3.h,
                                 ),
                                 Row(
                                     mainAxisAlignment:
@@ -147,29 +152,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                         "${state.studentDashboard.studentInformation!.className!}   ",
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9.sp),
+                                            fontSize: 12.sp),
                                       ),
                                       Text(
                                         "  |  ",
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9.sp),
+                                            fontSize: 12.sp),
                                       ),
                                       Text(
                                         "${state.studentDashboard.studentInformation!.levelName!}  ",
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 9.sp),
+                                            fontSize: 12.sp),
                                       ),
                                     ]),
-                                const SizedBox(
-                                  height: 3,
+                                SizedBox(
+                                  height: 5.h,
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 10.w, vertical: 2.h),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(20.r),
                                     color: homeBackgroundCard,
                                   ),
                                   child: Text(
@@ -185,15 +190,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                     Stack(children: [
                       Container(
-                        margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                        height: 270.h,
+                        margin: EdgeInsets.fromLTRB(0, 40.h, 0, 0),
+                        height: 280.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: HexColor("#00000029").withOpacity(0.5),
-                              blurRadius: 6,
+                              blurRadius: 6.r,
                               offset: const Offset(0, 3),
                             ),
                           ],
@@ -216,11 +221,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 3.h,
+                                  ),
                                   Text(
-                                    "Lectures",
+                                    AppLocalizations.of(context)!
+                                        .translate('lectures')!,
                                     style: TextStyle(
                                         color: HexColor("#5C4DB1"),
-                                        fontSize: 10.sp),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600),
                                   )
                                 ],
                               ),
@@ -236,11 +246,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 3.h,
+                                  ),
                                   Text(
-                                    "Missed Lectures",
+                                    AppLocalizations.of(context)!
+                                        .translate("missed_lectures")!,
                                     style: TextStyle(
                                         color: HexColor("#5C4DB1"),
-                                        fontSize: 10.sp),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600),
                                   )
                                 ],
                               ),
@@ -256,27 +271,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 3.h,
+                                  ),
                                   Text(
-                                    "Daily Lecture",
+                                    AppLocalizations.of(context)!
+                                        .translate("daily_lecture")!,
                                     style: TextStyle(
                                         color: HexColor("#5C4DB1"),
-                                        fontSize: 10.sp),
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600),
                                   )
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: 10.h,
                           ),
                           Stack(alignment: Alignment.bottomCenter, children: [
                             Container(
-                                height: 170.h,
-                                margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                height: 190.h,
+                                margin: EdgeInsets.symmetric(horizontal: 15.w),
                                 padding:
-                                    const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                                    EdgeInsets.fromLTRB(20.h, 10.w, 20.h, 20.w),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(10.r),
                                     color: HexColor('#F8FAFC'),
                                     border:
                                         Border.all(color: HexColor("#CFE1FB"))),
@@ -291,12 +311,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                 )),
                             Container(
-                                margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
                                 height: 40.h,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(10.r),
                                   color: HexColor('#F8FAFC').withOpacity(.9),
                                 ))
                           ]),
@@ -316,8 +335,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildExamsCarouselSlider(state),
                 ],
               ),
-              const SizedBox(
-                height: 100,
+              SizedBox(
+                height: 100.h,
               ),
             ],
           ),
@@ -330,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> assignmentSliders = state.studentDashboard.assignments!
-        .map((i) =>
+        .map((assignment) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Row(
                 children: [
@@ -338,32 +357,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30.h,
                     width: 5.w,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(3),
-                          bottomRight: Radius.circular(3)),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(3.r),
+                          bottomRight: Radius.circular(3.r)),
                       color: HexColor("#8B0000"),
                     ),
                   ),
-                  const SizedBox(
-                    width: 15,
+                  SizedBox(
+                    width: 15.w,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        i.materialName.toString(),
+                        assignment.materialName.toString(),
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
                             color: HexColor("#0F0A39")),
                       ),
-                      const SizedBox(
-                        height: 3,
+                      SizedBox(
+                        height: 3.h,
                       ),
                       Text(
                         DateFormat('EEE dd/MM/yyyy')
-                            .format(i.assignmentDueDate!),
+                            .format(assignment.assignmentDueDate!),
                         style: TextStyle(
                             fontSize: 10.sp, color: HexColor("#0F0A39")),
                       )
@@ -371,18 +390,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               Container(
-                height: 20,
+                height: 20.h,
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(25.r),
                   color: HexColor("#8B0000"),
                 ),
                 child: Text(
-                  DateFormat('kk:mm a').format(i.assignmentDueDate!),
+                  DateFormat('kk:mm a').format(assignment.assignmentDueDate!),
                   style: TextStyle(fontSize: 10.sp, color: Colors.white),
                 ),
               ),
@@ -393,12 +412,12 @@ class _HomeScreenState extends State<HomeScreen> {
       alignment: Alignment.topCenter,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 7),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          margin: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.r),
+                  bottomRight: Radius.circular(20.r)),
               color: HexColor("#FFF7D6"),
               border: Border.all(color: mainAppColor, width: .5)),
           height: 110.h,
@@ -427,8 +446,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () =>
                             _carouselController.animateToPage(entry.key),
                         child: Container(
-                          width: 7.0,
-                          height: 7.0,
+                          width: 7.0.w,
+                          height: 7.0.h,
                           margin: const EdgeInsets.symmetric(horizontal: 4.0),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -447,9 +466,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Container(
             color: HexColor("#FFF7D6"),
-            margin: const EdgeInsets.fromLTRB(10, 0, 40, 0),
+            margin: EdgeInsets.fromLTRB(10.w, 0, 40.w, 0),
             child: Text(
-              "Assignment",
+              AppLocalizations.of(context)!.translate("assignment")!,
               style: TextStyle(fontSize: 10.sp),
             ))
       ],
@@ -458,25 +477,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildDailyLectureCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> examstSliders = state.studentDashboard.dailyLectures!
-        .map((i) =>
+        .map((dailyLectures) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Row(
                 children: [
                   SizedBox(
-                    height: 30,
-                    width: 30,
+                    height: 25.h,
+                    width: 25.h,
                     child: Image.network(
                         "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
                   ),
-                  const SizedBox(
-                    width: 5,
+                  SizedBox(
+                    width: 5.w,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        i.isBreakTime! ? "Break" : i.subjectName.toString(),
+                        dailyLectures.isBreakTime!
+                            ? AppLocalizations.of(context)!.translate("break")!
+                            : dailyLectures.subjectName.toString(),
                         style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
@@ -492,21 +513,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.h,
                 color: Colors.black,
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 5.h,
               ),
               Row(
                 children: [
                   Text(
-                    (i.fromTime!),
+                    (dailyLectures.fromTime!),
                     style:
                         TextStyle(fontSize: 10.sp, color: HexColor('#01064E')),
                   ),
-                  const SizedBox(
-                    width: 5,
+                  SizedBox(
+                    width: 5.w,
                   ),
                   Container(
-                    height: 20,
+                    height: 20.h,
                     padding:
                         EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
                     decoration: BoxDecoration(
@@ -514,7 +535,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: HexColor("#8B0000"),
                     ),
                     child: Text(
-                      ("JOIN"),
+                      AppLocalizations.of(context)!.translate("join")!,
                       style: TextStyle(fontSize: 12.sp, color: Colors.white),
                     ),
                   ),
@@ -527,21 +548,21 @@ class _HomeScreenState extends State<HomeScreen> {
       alignment: Alignment.topCenter,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 7.h),
+          margin: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
               color: HexColor("#EFF7FF"),
-              border: Border.all(color: mainAppColor, width: .5)),
+              border: Border.all(color: mainAppColor, width: .5.w)),
           height: 110.h,
           width: 100.w,
           child: Column(
             children: [
               CarouselSlider(
                   options: CarouselOptions(
-                    height: 90.0,
+                    height: 90.0.h,
                     autoPlay: true,
                     viewportFraction: 1,
                   ),
@@ -555,9 +576,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () =>
                             _carouselController.animateToPage(entry.key),
                         child: Container(
-                          width: 7.0,
-                          height: 7.0,
-                          margin: const EdgeInsets.symmetric(horizontal: 2.0),
+                          width: 4.0.w,
+                          height: 4.0.h,
+                          margin: EdgeInsets.symmetric(horizontal: 2.0.w),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: (Theme.of(context).brightness ==
@@ -575,9 +596,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Container(
             color: HexColor("#EFF7FF"),
-            margin: const EdgeInsets.fromLTRB(10, 0, 40, 0),
+            margin: EdgeInsets.fromLTRB(10.w, 0, 40.w, 0),
             child: Text(
-              "DailyLecture",
+              AppLocalizations.of(context)!.translate("daily_lecture")!,
               style: TextStyle(fontSize: 10.sp),
             ))
       ],
@@ -586,7 +607,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _buildExamsCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> examstSliders = state.studentDashboard.exams!
-        .map((i) =>
+        .map((exam) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Row(
                 children: [
@@ -594,47 +615,47 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30.h,
                     width: 5.w,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(3),
-                          bottomRight: Radius.circular(3)),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(3.r),
+                          bottomRight: Radius.circular(3.r)),
                       color: HexColor("#00C3DE"),
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
+                  SizedBox(
+                    width: 5.w,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        i.courseName.toString(),
+                        exam.courseName.toString(),
                         style: TextStyle(
                             fontSize: 12.sp, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                        height: 3,
+                      SizedBox(
+                        height: 3.h,
                       ),
                       Text(
-                        DateFormat('EEE dd/MM/yyyy').format(i.createdDate!),
-                        style: const TextStyle(fontSize: 10),
+                        DateFormat('EEE dd/MM/yyyy').format(exam.createdDate!),
+                        style: TextStyle(fontSize: 10.sp),
                       )
                     ],
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 10.h,
               ),
               Container(
-                height: 20,
+                height: 20.h,
                 padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(25.r),
                   color: HexColor("#00C3DE"),
                 ),
                 child: Text(
-                  DateFormat('kk:mm a').format(i.createdDate!),
+                  DateFormat('kk:mm a').format(exam.createdDate!),
                   style: TextStyle(fontSize: 10.sp, color: Colors.white),
                 ),
               ),
@@ -645,21 +666,21 @@ class _HomeScreenState extends State<HomeScreen> {
       alignment: Alignment.topCenter,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 7),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 7.w),
+          margin: EdgeInsets.symmetric(horizontal: 10.w),
           decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.r),
+                  bottomRight: Radius.circular(20.r)),
               color: HexColor("#C7E1FB"),
-              border: Border.all(color: mainAppColor, width: .5)),
+              border: Border.all(color: mainAppColor, width: .5.w)),
           height: 110.h,
           width: 100.w,
           child: Column(
             children: [
               CarouselSlider(
                   options: CarouselOptions(
-                    height: 90.0,
+                    height: 90.0.h,
                     autoPlay: true,
                     viewportFraction: 1,
                   ),
@@ -672,9 +693,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () =>
                             _carouselController.animateToPage(entry.key),
                         child: Container(
-                          width: 7.0,
-                          height: 7.0,
-                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                          width: 7.0.w,
+                          height: 7.0.h,
+                          margin: EdgeInsets.symmetric(horizontal: 4.0.w),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: (Theme.of(context).brightness ==
@@ -694,7 +715,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: HexColor("#C7E1FB"),
             margin: const EdgeInsets.fromLTRB(10, 0, 40, 0),
             child: Text(
-              "Exams",
+              AppLocalizations.of(context)!.translate("exams")!,
               style: TextStyle(fontSize: 10.sp),
             ))
       ],

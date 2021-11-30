@@ -58,6 +58,14 @@
   "submit": "Submit",
   "enter_new_password": "Enter New PassWord",
   "first_name_validation_sample":"first name not accept numbers & symbols",
-  "last_name_validation_sample":"last name not accept numbers & symbols"
+  "last_name_validation_sample":"last name not accept numbers & symbols",
+  "hi":"Hi.",
+  "lectures":"Lectures",
+  "daily_lecture":"Daily Lecture",
+  "missed_lectures":"Missed Lectures",
+  "join":"JOIN",
+  "assignment":"Assignment",
+  "exams":"Exams",
+  "break":"Break"
 
 }

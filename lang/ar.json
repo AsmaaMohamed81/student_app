@@ -57,5 +57,16 @@
   "submit": "سجل",
   "enter_new_password": "أدخل كلم مرور جديدة",
   "first_name_validation_sample":"الاسم الاول لا يقبل الاشكال ولا الارقام",
-  "last_name_validation_sample":"الاسم الاخير لا يقبل الاشكال ولا الارقام"
+  "last_name_validation_sample":"الاسم الاخير لا يقبل الاشكال ولا الارقام",
+  "hi":"مرحبا.",
+  "lectures":"محاضرات",
+  "daily_lecture":"محاضرات متأخره",
+  "missed_lectures":"محاضرات انتهت",
+  "join":"التحق",
+  "assignment":"وجبات",
+  "exams":"امتحانات",
+  "break":"اجازه"
+
+
+
 }

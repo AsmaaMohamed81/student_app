@@ -11,7 +11,7 @@ class SubjectsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+      padding: EdgeInsets.symmetric(vertical: 5.h),
       child: Column(
         children: [
           Row(
@@ -24,24 +24,27 @@ class SubjectsItem extends StatelessWidget {
                   color: HexColor("#FFCC0A"),
                 ),
               ),
-              const SizedBox(
-                width: 15,
+              SizedBox(
+                width: 10.h,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     subject.subjectName.toString(),
-                    style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor("#0F0A39")),
                   ),
-                  const SizedBox(
-                    height: 3,
+                  SizedBox(
+                    height: 3.h,
                   ),
                   subject.groupName != null
                       ? Text(
                           "(${subject.groupName})",
-                          style: const TextStyle(fontSize: 10),
+                          style: TextStyle(
+                              fontSize: 12.sp, color: HexColor("#7B7890")),
                         )
                       : const SizedBox()
                 ],
@@ -50,8 +53,9 @@ class SubjectsItem extends StatelessWidget {
               const Icon(Icons.more_vert),
             ],
           ),
-          const Divider(
-            color: Colors.black,
+          Divider(
+            color: HexColor("#EAE9F0"),
+            thickness: 2,
           )
         ],
       ),
