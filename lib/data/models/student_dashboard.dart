@@ -45,17 +45,20 @@ class StudentDashboard {
 }
 
 class Assignment {
-  Assignment({
-    this.id,
-    this.courseGroupId,
-    this.courseAssignmentId,
-    this.assignmentCode,
-    this.assignmentText,
-    this.assignmentFile,
-    this.assignmentDegree,
-    this.assignmentDueDate,
-    this.materialName,
-  });
+  Assignment(
+      {this.id,
+      this.courseGroupId,
+      this.courseAssignmentId,
+      this.assignmentCode,
+      this.assignmentText,
+      this.assignmentFile,
+      this.assignmentDegree,
+      this.assignmentDueDate,
+      this.materialName,
+      this.assignmentComeSoon,
+      this.assignmentFinished,
+      this.subjectColor,
+      this.subjectImage});
 
   int? id;
   int? courseGroupId;
@@ -66,12 +69,20 @@ class Assignment {
   double? assignmentDegree;
   DateTime? assignmentDueDate;
   String? materialName;
+  bool? assignmentComeSoon;
+  bool? assignmentFinished;
+  String? subjectImage;
+  String? subjectColor;
 
   factory Assignment.fromJson(Map<String, dynamic> json) => Assignment(
         id: json["id"],
         courseGroupId: json["courseGroupId"],
         courseAssignmentId: json["courseAssignmentId"],
+        assignmentComeSoon: json["assignmentComeSoon"],
+        assignmentFinished: json["assignmentFinished"],
         assignmentCode: json["assignmentCode"],
+        subjectColor: json["subjectColor"],
+        subjectImage: json["subjectImage"],
         assignmentText: json["assignmentText"],
         assignmentFile: List<String>.from(json["assignmentFile"].map((x) => x)),
         assignmentDegree: json["assignmentDegree"],
@@ -84,6 +95,10 @@ class Assignment {
         "courseGroupId": courseGroupId,
         "courseAssignmentId": courseAssignmentId,
         "assignmentCode": assignmentCode,
+        "assignmentFinished": assignmentFinished,
+        "assignmentComeSoon": assignmentComeSoon,
+        "subjectImage": subjectImage,
+        "subjectColor": subjectColor,
         "assignmentText": assignmentText,
         "assignmentFile": List<dynamic>.from(assignmentFile!.map((x) => x)),
         "assignmentDegree": assignmentDegree,
@@ -93,30 +108,33 @@ class Assignment {
 }
 
 class DailyLecture {
-  DailyLecture({
-    this.id,
-    this.courseId,
-    this.lectureNumber,
-    this.peroidDescription,
-    this.fromTime,
-    this.toTime,
-    this.isBreakTime,
-    this.dayId,
-    this.dayName,
-    this.subjectName,
-    this.className,
-    this.levelName,
-    this.studentsCount,
-    this.percentage,
-    this.relatedLectureNumber,
-    this.isLectureOpened,
-    this.meeting,
-  });
+  DailyLecture(
+      {this.id,
+      this.courseId,
+      this.lectureNumber,
+      this.peroidDescription,
+      this.fromTime,
+      this.toTime,
+      this.isBreakTime,
+      this.dayId,
+      this.dayName,
+      this.subjectName,
+      this.className,
+      this.levelName,
+      this.studentsCount,
+      this.percentage,
+      this.relatedLectureNumber,
+      this.isLectureOpened,
+      this.meeting,
+      this.subjectColor,
+      this.subjectImage});
 
   int? id;
   int? courseId;
   int? lectureNumber;
   String? peroidDescription;
+  String? subjectColor;
+  String? subjectImage;
   String? fromTime;
   String? toTime;
   bool? isBreakTime;
@@ -136,6 +154,8 @@ class DailyLecture {
         courseId: json["courseId"],
         lectureNumber: json["lectureNumber"],
         peroidDescription: json["peroidDescription"],
+        subjectColor: json["subjectColor"],
+        subjectImage: json["subjectImage"],
         fromTime: json["fromTime"],
         toTime: json["toTime"],
         isBreakTime: json["isBreakTime"],
@@ -156,6 +176,8 @@ class DailyLecture {
         "courseId": courseId,
         "lectureNumber": lectureNumber,
         "peroidDescription": peroidDescription,
+        "subjectImage": subjectImage,
+        "subjectColor": subjectColor,
         "fromTime": fromTime,
         "toTime": toTime,
         "isBreakTime": isBreakTime,
@@ -173,26 +195,29 @@ class DailyLecture {
 }
 
 class Exam {
-  Exam({
-    this.id,
-    this.code,
-    this.name,
-    this.isDisplay,
-    this.percentageToSuccess,
-    this.studentMultiAnswar,
-    this.minutes,
-    this.isRandom,
-    this.isSomeNumber,
-    this.numberQuestionDisplay,
-    this.isFinalExam,
-    this.courseModuleId,
-    this.courseModuleName,
-    this.courseId,
-    this.organizationId,
-    this.courseName,
-    this.catalogCourseName,
-    this.createdDate,
-  });
+  Exam(
+      {this.id,
+      this.code,
+      this.name,
+      this.isDisplay,
+      this.percentageToSuccess,
+      this.studentMultiAnswar,
+      this.minutes,
+      this.isRandom,
+      this.isSomeNumber,
+      this.numberQuestionDisplay,
+      this.isFinalExam,
+      this.courseModuleId,
+      this.courseModuleName,
+      this.courseId,
+      this.organizationId,
+      this.courseName,
+      this.catalogCourseName,
+      this.createdDate,
+      this.examComeSoon,
+      this.subjectColor,
+      this.subjectImage,
+      this.examFinished});
 
   int? id;
   String? code;
@@ -200,6 +225,8 @@ class Exam {
   bool? isDisplay;
   double? percentageToSuccess;
   bool? studentMultiAnswar;
+  bool? examComeSoon;
+  bool? examFinished;
   int? minutes;
   bool? isRandom;
   bool? isSomeNumber;
@@ -212,6 +239,8 @@ class Exam {
   String? courseName;
   String? catalogCourseName;
   DateTime? createdDate;
+  String? subjectImage;
+  String? subjectColor;
 
   factory Exam.fromJson(Map<String, dynamic> json) => Exam(
         id: json["id"],
@@ -221,7 +250,11 @@ class Exam {
         percentageToSuccess: json["percentageToSuccess"],
         studentMultiAnswar: json["studentMultiAnswar"],
         minutes: json["minutes"],
+        subjectColor: json["subjectColor"],
+        subjectImage: json["subjectImage"],
         isRandom: json["isRandom"],
+        examComeSoon: json["examComeSoon"],
+        examFinished: json["examFinished"],
         isSomeNumber: json["isSomeNumber"],
         numberQuestionDisplay: json["numberQuestionDisplay"],
         isFinalExam: json["isFinalExam"],
@@ -243,10 +276,14 @@ class Exam {
         "studentMultiAnswar": studentMultiAnswar,
         "minutes": minutes,
         "isRandom": isRandom,
+        "examFinished": examFinished,
+        "examComeSoon": examComeSoon,
         "isSomeNumber": isSomeNumber,
         "numberQuestionDisplay": numberQuestionDisplay,
         "isFinalExam": isFinalExam,
         "courseModuleId": courseModuleId,
+        "subjectImage": subjectImage,
+        "subjectColor": subjectColor,
         "courseModuleName": courseModuleName,
         "courseId": courseId,
         "organizationId": organizationId,
@@ -322,29 +359,32 @@ class StudentInformation {
 }
 
 class Subject {
-  Subject({
-    this.id,
-    this.subjectId,
-    this.subjectName,
-    this.academicYearId,
-    this.academicYearName,
-    this.levelId,
-    this.levelName,
-    this.classId,
-    this.className,
-    this.groupName,
-    this.semesterId,
-    this.semesterName,
-    this.schoolId,
-    this.minAttandance,
-    this.maxAttandance,
-    this.startDate,
-    this.endDate,
-  });
+  Subject(
+      {this.id,
+      this.subjectId,
+      this.subjectName,
+      this.academicYearId,
+      this.academicYearName,
+      this.levelId,
+      this.levelName,
+      this.classId,
+      this.className,
+      this.groupName,
+      this.semesterId,
+      this.semesterName,
+      this.schoolId,
+      this.minAttandance,
+      this.maxAttandance,
+      this.startDate,
+      this.endDate,
+      this.subjectColor,
+      this.subjectImage});
 
   int? id;
   int? subjectId;
   String? subjectName;
+  String? subjectColor;
+  String? subjectImage;
   int? academicYearId;
   String? academicYearName;
   int? levelId;
@@ -370,6 +410,8 @@ class Subject {
         levelName: json["levelName"],
         classId: json["classId"],
         className: json["className"],
+        subjectColor: json["subjectColor"],
+        subjectImage: json["subjectImage"],
         groupName: json["groupName"],
         semesterId: json["semesterId"],
         semesterName: json["semesterName"],
@@ -386,6 +428,8 @@ class Subject {
         "subjectName": subjectName,
         "academicYearId": academicYearId,
         "academicYearName": academicYearName,
+        "subjectImage": subjectImage,
+        "subjectColor": subjectColor,
         "levelId": levelId,
         "levelName": levelName,
         "classId": classId,

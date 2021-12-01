@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/data/models/student_dashboard.dart';
 import 'package:student_app/utils/hex_color.dart';
 
-class SubjectsItem extends StatelessWidget {
+class SubjectsItemPortrait extends StatelessWidget {
   final Subject subject;
 
-  const SubjectsItem({Key? key, required this.subject}) : super(key: key);
+  const SubjectsItemPortrait({Key? key, required this.subject})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,10 @@ class SubjectsItem extends StatelessWidget {
                 height: 30.h,
                 width: 5.w,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: HexColor("#FFCC0A"),
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: subject.subjectColor != null
+                      ? HexColor("${subject.subjectColor}")
+                      : HexColor("#FFCC0A"),
                 ),
               ),
               SizedBox(

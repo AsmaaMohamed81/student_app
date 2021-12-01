@@ -25,7 +25,7 @@ class AppRoutes {
             builder: (_) => BlocBuilder<LoginCubit, LoginState>(
                   builder: (context, loginState) {
                     if (loginState is Authenticated) {
-                      return HomeScreen(studentId: loginState.user.mainRoleId);
+                      return Home(studentId: loginState.user.mainRoleId);
                     } else if (loginState is UnAuthenticated) {
                       return const ChoosingLoginOrSignUpScreen();
                     } else {
