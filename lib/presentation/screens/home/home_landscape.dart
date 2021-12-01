@@ -351,6 +351,25 @@ class _HomeLandscapeState extends State<HomeLandscape> {
     final List<Widget> assignmentSliders = state.studentDashboard.assignments!
         .map((assignment) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              assignment.assignmentComeSoon == false
+                  ? assignment.assignmentFinished == true
+                      ? const SizedBox()
+                      : Align(
+                          alignment: Alignment.topRight,
+                          child: Image.asset(
+                            "assets/images/comesoon.png",
+                            height: 50.h,
+                            width: 50.h,
+                            fit: BoxFit.fill,
+                          ))
+                  : Align(
+                      alignment: Alignment.topRight,
+                      child: Image.asset(
+                        "assets/images/comesoon.png",
+                        height: 50.h,
+                        width: 50.h,
+                        fit: BoxFit.fill,
+                      )),
               Row(
                 children: [
                   Container(
@@ -360,7 +379,9 @@ class _HomeLandscapeState extends State<HomeLandscape> {
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(4.r),
                           bottomRight: Radius.circular(4.r)),
-                      color: HexColor("#8B0000"),
+                      color: assignment.subjectColor != null
+                          ? HexColor("${assignment.subjectColor}")
+                          : HexColor("#8B0000"),
                     ),
                   ),
                   SizedBox(
@@ -400,7 +421,9 @@ class _HomeLandscapeState extends State<HomeLandscape> {
                 padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.r),
-                  color: HexColor("#8B0000"),
+                  color: assignment.subjectColor != null
+                      ? HexColor("${assignment.subjectColor}")
+                      : HexColor("#8B0000"),
                 ),
                 child: Text(
                   DateFormat('kk:mm a').format(assignment.assignmentDueDate!),
@@ -611,6 +634,25 @@ class _HomeLandscapeState extends State<HomeLandscape> {
     final List<Widget> examstSliders = state.studentDashboard.exams!
         .map((exam) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              exam.examComeSoon == false
+                  ? exam.examFinished == true
+                      ? const SizedBox()
+                      : Align(
+                          alignment: Alignment.topRight,
+                          child: Image.asset(
+                            "assets/images/comesoon.png",
+                            height: 50.h,
+                            width: 50.h,
+                            fit: BoxFit.fill,
+                          ))
+                  : Align(
+                      alignment: Alignment.topRight,
+                      child: Image.asset(
+                        "assets/images/comesoon.png",
+                        height: 50.h,
+                        width: 50.h,
+                        fit: BoxFit.fill,
+                      )),
               Row(
                 children: [
                   Container(
@@ -620,7 +662,9 @@ class _HomeLandscapeState extends State<HomeLandscape> {
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(4.r),
                           bottomRight: Radius.circular(4.r)),
-                      color: HexColor("#00C3DE"),
+                      color: exam.subjectColor != null
+                          ? HexColor("${exam.subjectColor}")
+                          : HexColor("#00C3DE"),
                     ),
                   ),
                   SizedBox(
@@ -656,7 +700,9 @@ class _HomeLandscapeState extends State<HomeLandscape> {
                 padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.r),
-                  color: HexColor("#00C3DE"),
+                  color: exam.subjectColor != null
+                      ? HexColor("${exam.subjectColor}")
+                      : HexColor("#00C3DE"),
                 ),
                 child: Text(
                   DateFormat('kk:mm a').format(exam.createdDate!),
