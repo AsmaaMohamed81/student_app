@@ -82,7 +82,7 @@ class SubjectsItemlandscape extends StatelessWidget {
           }
         },
         itemBuilder: (context) {
-          // ignore: deprecated_member_use
+        
           var menuList = <PopupMenuEntry<Object>>[];
           menuList.add(
             PopupMenuItem(

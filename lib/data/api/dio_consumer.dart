@@ -17,6 +17,7 @@ class DioConsumer extends ApiConsumer {
             },
             headers: headers,
           ));
+      // ignore: avoid_print
       print(response)   ; 
       var responseJson = handleDioResponse(response);
       return responseJson;
@@ -39,6 +40,7 @@ class DioConsumer extends ApiConsumer {
             },
             headers: headers,
           ));
+            // ignore: avoid_print
             print(response)   ; 
       var responseJson = handleDioResponse(response);
       return responseJson;

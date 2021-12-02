@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/subject_item_landscape.dart';
-import 'package:student_app/presentation/screens/home/subject_item_portrait.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/app_colors.dart';
@@ -347,7 +346,7 @@ class _HomeLandscapeState extends State<HomeLandscape> {
     }
   }
 
-  _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
+ _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> assignmentSliders = state.studentDashboard.assignments!
         .map((assignment) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -446,7 +445,7 @@ class _HomeLandscapeState extends State<HomeLandscape> {
               color: HexColor("#FFF7D6"),
               border: Border.all(color: mainAppColor, width: .5)),
           height: 300.h,
-          width: 100.w,
+        //  width: 100.w,
           child: Column(
             children: [
               CarouselSlider(
@@ -582,7 +581,7 @@ class _HomeLandscapeState extends State<HomeLandscape> {
               color: HexColor("#EFF7FF"),
               border: Border.all(color: mainAppColor, width: .5.w)),
           height: 300.h,
-          width: 100.w,
+         // width: 100.w,
           child: Column(
             children: [
               CarouselSlider(
@@ -725,7 +724,7 @@ class _HomeLandscapeState extends State<HomeLandscape> {
               color: HexColor("#C7E1FB"),
               border: Border.all(color: mainAppColor, width: .5.w)),
           height: 300.h,
-          width: 100.w,
+         // width: 100.w,
           child: Column(
             children: [
               CarouselSlider(
