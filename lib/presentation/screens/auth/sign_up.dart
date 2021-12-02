@@ -29,7 +29,6 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
   AutovalidateMode autovalidateMode(SignUpState state) => state
           is SignUpValidatation
       ? (state.isValidate ? AutovalidateMode.always : AutovalidateMode.disabled)
@@ -181,9 +180,9 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                               )),
                     )
                   : Center(
-                        child: SpinKitFadingCircle(
-                            size: 45.h, color: mainAppColor),
-                      ),
+                      child:
+                          SpinKitFadingCircle(size: 45.h, color: mainAppColor),
+                    ),
               SizedBox(
                 height: 10.h,
               ),
@@ -357,7 +356,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
           body: BlocConsumer<SignUpCubit, SignUpState>(
             listener: (context, state) {
               if (state is SignUpSucccess) {
-                  Commons.showToast( context,message: state.message);
+                Commons.showToast(context, message: state.message);
                 state.navigate(context);
               } else if (state is SignUpFailure) {
                 Commons.showError(context, state.message);

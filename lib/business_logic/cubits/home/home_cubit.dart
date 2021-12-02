@@ -11,21 +11,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   bool isLoading = false;
 
-  Future<void> getStudentInfo({
+  Future<void> getStudentDashboard({
     required String studentId,
   }) async {
-    changeLoadingInfoView();
+    changeLoadingView();
     final response =
-        await homeRepository.getStudentInfo(studentId: studentId.trim());
-    changeLoadingInfoView();
+        await homeRepository.getStudentDashboard(studentId: studentId.trim());
+    changeLoadingView();
     if (response['status'] == 'Success') {
-      emit(GetStudentInfo(
-          StudentInformation.fromJson(response['data']['studentInformation'])));
-      // emit(GetStudentMaterail(StudentDashboard.fromJson(response['data'])));
-    } else {}
+      emit(
+          StudentDashboardSuccess(StudentDashboard.fromJson(response['data'])));
+    } else {
+      emit(StudentDashboardFailure(message: response['message']));
+    }
   }
 
-  void changeLoadingInfoView() {
+  void changeLoadingView() {
     isLoading = !isLoading;
     emit(HomeLoadingState(isLoading));
   }

@@ -61,5 +61,14 @@
   "last_name_validation_sample":"last name not accept numbers & symbols",
   "account" : "Account",
   "live_support" : "Live Support",
-  "settings" : "Settings"
+  "settings" : "Settings",
+  "hi":"Hi.",
+  "lectures":"Lectures",
+  "daily_lecture":"Daily Lecture",
+  "missed_lectures":"Missed Lectures",
+  "join":"JOIN",
+  "assignment":"Assignment",
+  "exams":"Exams",
+  "break":"Break"
+
 }

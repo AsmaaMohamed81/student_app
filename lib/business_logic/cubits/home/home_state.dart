@@ -9,18 +9,15 @@ class HomeLoadingState extends HomeState {
   HomeLoadingState(this.isLoading);
 }
 
-class GetStudentInfo extends HomeState {
-  final StudentInformation studentInformation;
+class StudentDashboardSuccess extends HomeState {
+  final StudentDashboard studentDashboard;
 
-  GetStudentInfo(
-    this.studentInformation,
+  StudentDashboardSuccess(
+    this.studentDashboard,
   );
 }
 
-class GetStudentMaterail extends HomeState {
-  final StudentDashboard studentDashboard;
-
-  GetStudentMaterail(
-    this.studentDashboard,
-  );
+class StudentDashboardFailure extends HomeState {
+  final String message;
+  StudentDashboardFailure({required this.message});
 }

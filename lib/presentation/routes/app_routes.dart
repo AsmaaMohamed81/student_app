@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_app/business_logic/cubits/forgot_password/forgot_password_cubit.dart';
-import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/business_logic/cubits/login/login_cubit.dart';
 import 'package:student_app/business_logic/cubits/new_password/new_password_cubit.dart';
 import 'package:student_app/business_logic/cubits/sign_up/sign_up_cubit.dart';
@@ -29,11 +28,11 @@ class AppRoutes {
             builder: (_) => BlocBuilder<LoginCubit, LoginState>(
                   builder: (context, loginState) {
                     if (loginState is Authenticated) {
-                      return BlocProvider(
-                          create: (_) => di.sl<HomeCubit>(),
-                          child: const HomeScreen());
+                      return Home(studentId: loginState.user.mainRoleId);
                     } else if (loginState is UnAuthenticated) {
                       return const ChoosingLoginOrSignUpScreen();
+                    } else {
+                      const ChoosingLoginOrSignUpScreen();
                     }
                     return const ChoosingLoginOrSignUpScreen();
                   },

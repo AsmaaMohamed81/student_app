@@ -20,8 +20,10 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
   }
 
   String? validateFirstName(String? fisrtName) {
-  String patternDetectStartWithSpecialCharsOrNumbers = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]';
-    RegExp regexDetectStartWithSpecialCharsOrNumbers = RegExp(patternDetectStartWithSpecialCharsOrNumbers);
+    String patternDetectStartWithSpecialCharsOrNumbers =
+        r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]';
+    RegExp regexDetectStartWithSpecialCharsOrNumbers =
+        RegExp(patternDetectStartWithSpecialCharsOrNumbers);
     if (fisrtName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
           .translate('first_name_validation_when_empty');
@@ -37,8 +39,10 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
   }
 
   String? validateLastName(String? lastName) {
-    String patternDetectStartWithSpecialCharsOrNumbers = r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]';
-    RegExp regexDetectStartWithSpecialCharsOrNumbers = RegExp(patternDetectStartWithSpecialCharsOrNumbers);
+    String patternDetectStartWithSpecialCharsOrNumbers =
+        r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]';
+    RegExp regexDetectStartWithSpecialCharsOrNumbers =
+        RegExp(patternDetectStartWithSpecialCharsOrNumbers);
     if (lastName!.trim().isEmpty) {
       return AppLocalizations.of(context)!
           .translate('last_name_validation_when_empty');
@@ -101,7 +105,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
     } else if (password.length < 8) {
       return AppLocalizations.of(context)!.translate('password_validation_msg');
     }
-     return null;
+    return null;
   }
 
   String? validateConfirmPassword(String? confirmPassword) {

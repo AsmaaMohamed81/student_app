@@ -60,5 +60,13 @@
   "last_name_validation_sample":"الاسم الاخير لا يقبل الاشكال ولا الارقام",
   "account" : "الحساب الشخصي",
   "live_support" : "الدعم الأون لاين",
-  "settings" : "الإعدادات"
+  "settings" : "الإعدادات",
+  "hi":"مرحبا.",
+  "lectures":"محاضرات",
+  "daily_lecture":"محاضرات متأخره",
+  "missed_lectures":"محاضرات انتهت",
+  "join":"التحق",
+  "assignment":"وجبات",
+  "exams":"امتحانات",
+  "break":"اجازه"
 }
