@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/data/models/student_dashboard.dart';
+import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
 
 class SubjectsItemPortrait extends StatelessWidget {
@@ -53,7 +54,7 @@ class SubjectsItemPortrait extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              const Icon(Icons.more_vert),
+              _buildPopupMenu(context)
             ],
           ),
           Divider(
@@ -63,5 +64,69 @@ class SubjectsItemPortrait extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildPopupMenu(BuildContext context) {
+    return PopupMenuButton(
+        child: const Icon(
+          Icons.more_vert,
+          color: Colors.black,
+          size: 30,
+        ),
+        onSelected: (value) {
+          switch (value) {
+            case "Delete":
+              break;
+            case 'Edit':
+              break;
+          }
+        },
+        itemBuilder: (context) {
+          // ignore: deprecated_member_use
+          var menuList = <PopupMenuEntry<Object>>[];
+          menuList.add(
+            PopupMenuItem(
+              value: 'Content',
+              height: 30,
+              child: Text(
+                "Content",
+                style: TextStyle(
+                    color: mainAppColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15),
+              ),
+            ),
+          );
+
+          menuList.add(
+            PopupMenuItem(
+              value: 'Assignments',
+              height: 30,
+              child: Text(
+                "Assignments",
+                style: TextStyle(
+                    color: mainAppColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15),
+              ),
+            ),
+          );
+
+          menuList.add(
+            PopupMenuItem(
+              value: 'Exams',
+              height: 30,
+              child: Text(
+                "Exams",
+                style: TextStyle(
+                    color: mainAppColor,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15),
+              ),
+            ),
+          );
+
+          return menuList;
+        });
   }
 }
