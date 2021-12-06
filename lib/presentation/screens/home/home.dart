@@ -18,7 +18,9 @@ class Home extends StatelessWidget {
             : HomeLandscape(
                 studentId: studentId,
               );
-      })),
+      })
+      )
+      ,
     );
   }
 }

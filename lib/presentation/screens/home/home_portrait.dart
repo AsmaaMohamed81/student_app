@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/subject_item_portrait.dart';
+import 'package:student_app/presentation/widgets/app_drawer/app_drawer.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/app_colors.dart';
@@ -21,6 +22,7 @@ class HomePortrait extends StatefulWidget {
 
 class _HomePortraitState extends State<HomePortrait> {
   int _currentDot = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final CarouselController _carouselController = CarouselController();
 
   @override
@@ -32,22 +34,20 @@ class _HomePortraitState extends State<HomePortrait> {
 
   @override
   Widget build(BuildContext context) {
-    return NetworkIndicator(
-      child: PageContainer(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
+    final appBar =  AppBar(
             title: Padding(
               padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
               child: Text(AppLocalizations.of(context)!.translate('home')!),
             ),
             backgroundColor: mainAppColor,
             elevation: 0,
-            leading: GestureDetector(
-                child: const Icon(
+            leading:IconButton(
+                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+                icon: const Icon(
               Icons.menu,
               color: Colors.white,
-            )),
+            ))
+,
             actions: [
               IconButton(
                 icon: const Icon(Icons.notifications_outlined),
@@ -62,7 +62,14 @@ class _HomePortraitState extends State<HomePortrait> {
                 onPressed: () {},
               ),
             ],
-          ),
+          );
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          key: _scaffoldKey,
+          drawer: const AppDrawer(),
+          resizeToAvoidBottomInset: false,
+          appBar:appBar,
           body: BlocConsumer<HomeCubit, HomeState>(
             listener: (context, state) {},
             builder: (context, state) {
