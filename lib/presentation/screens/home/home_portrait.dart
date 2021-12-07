@@ -5,6 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/subject_item_portrait.dart';
+import 'package:student_app/presentation/screens/home/widgets/assignment_slider.dart';
+import 'package:student_app/presentation/screens/home/widgets/daily_lecture_slider.dart';
+import 'package:student_app/presentation/screens/home/widgets/exam_slider.dart';
 import 'package:student_app/presentation/widgets/app_drawer/app_drawer.dart';
 import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
@@ -21,9 +24,7 @@ class HomePortrait extends StatefulWidget {
 }
 
 class _HomePortraitState extends State<HomePortrait> {
-  int _currentDot = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final CarouselController _carouselController = CarouselController();
 
   @override
   void initState() {
@@ -32,56 +33,7 @@ class _HomePortraitState extends State<HomePortrait> {
         .getStudentDashboard(studentId: '${widget.studentId}');
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final appBar =  AppBar(
-            title: Padding(
-              padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
-              child: Text(AppLocalizations.of(context)!.translate('home')!),
-            ),
-            backgroundColor: mainAppColor,
-            elevation: 0,
-            leading:IconButton(
-                onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-                icon: const Icon(
-              Icons.menu,
-              color: Colors.white,
-            ))
-,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.share),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
-              ),
-            ],
-          );
-    return NetworkIndicator(
-      child: PageContainer(
-        child: Scaffold(
-          key: _scaffoldKey,
-          drawer: const AppDrawer(),
-          resizeToAvoidBottomInset: false,
-          appBar:appBar,
-          body: BlocConsumer<HomeCubit, HomeState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return _buildBodyItem(state);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildBodyItem(HomeState state) {
+  Widget _buildBodyItem(HomeState state) {
     if (state is HomeLoadingState) {
       return Center(
         child: CircularProgressIndicator(color: mainAppColor),
@@ -337,9 +289,9 @@ class _HomePortraitState extends State<HomePortrait> {
               ),
               Row(
                 children: [
-                  _buildDailyLectureCarouselSlider(state),
-                  _buildAssignmentCarouselSlider(state),
-                  _buildExamsCarouselSlider(state),
+                  DailyLectureSlider(studentDashboardState: state),
+                  AssignmentSlider(studentDashboardState: state),
+                  ExamSlider(studentDashboardState: state),
                 ],
               ),
               SizedBox(
@@ -355,438 +307,49 @@ class _HomePortraitState extends State<HomePortrait> {
     return Center(child: Text(state.toString()));
   }
 
-  Widget _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
-    final List<Widget> assignmentSliders = state.studentDashboard.assignments!
-        .map((assignment) =>
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              assignment.assignmentComeSoon == false
-                  ? assignment.assignmentFinished == true
-                      ? const SizedBox()
-                      : Align(
-                          alignment: Alignment.topRight,
-                          child: Image.asset(
-                            "assets/images/comesoon.png",
-                            height: 25.h,
-                            width: 25.h,
-                            fit: BoxFit.fill,
-                          ))
-                  : Align(
-                      alignment: Alignment.topRight,
-                      child: Image.asset(
-                        "assets/images/comesoon.png",
-                        height: 25.h,
-                        width: 25.h,
-                        fit: BoxFit.fill,
-                      )),
-              Row(
-                children: [
-                  Container(
-                    height: 30.h,
-                    width: 5.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(3.r),
-                        bottomRight: Radius.circular(3.r),
-                      ),
-                      color: assignment.subjectColor != null
-                          ? HexColor("${assignment.subjectColor}")
-                          : HexColor("#8B0000"),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        assignment.materialName.toString(),
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: HexColor("#0F0A39")),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        DateFormat('EEE dd/MM/yyyy')
-                            .format(assignment.assignmentDueDate!),
-                        style: TextStyle(
-                            fontSize: 10.sp, color: HexColor("#0F0A39")),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                height: 20.h,
-                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.r),
-                  color: assignment.subjectColor != null
-                      ? HexColor("${assignment.subjectColor}")
-                      : HexColor("#8B0000"),
-                ),
-                child: Text(
-                  DateFormat('kk:mm a').format(assignment.assignmentDueDate!),
-                  style: TextStyle(fontSize: 10.sp, color: Colors.white),
-                ),
-              ),
-            ]))
-        .toList();
-
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
-          margin: EdgeInsets.symmetric(horizontal: 10.w),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.r),
-                bottomRight: Radius.circular(20.r),
-                topRight: Radius.circular(5.r),
-                bottomLeft: Radius.circular(5.r),
-              ),
-              color: HexColor("#FFF7D6"),
-              border: Border.all(color: mainAppColor, width: .5)),
-          height: 110.h,
-          width: 100.w,
-          child: Column(
-            children: [
-              CarouselSlider(
-                carouselController: _carouselController,
-                options: CarouselOptions(
-                    height: 90.h,
-                    autoPlay: true,
-                    viewportFraction: 1,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _currentDot = index;
-                      });
-                    }),
-                items: assignmentSliders,
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      state.studentDashboard.assignments!.asMap().entries.map(
-                    (entry) {
-                      return GestureDetector(
-                        onTap: () =>
-                            _carouselController.animateToPage(entry.key),
-                        child: Container(
-                          width: 7.0.w,
-                          height: 7.0.h,
-                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      _currentDot == entry.key ? 0.9 : 0.4)),
-                        ),
-                      );
-                    },
-                  ).toList()),
-            ],
-          ),
+  @override
+  Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Padding(
+        padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
+        child: Text(AppLocalizations.of(context)!.translate('home')!),
+      ),
+      backgroundColor: mainAppColor,
+      elevation: 0,
+      leading: IconButton(
+          onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          )),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.notifications_outlined),
+          onPressed: () {},
         ),
-        Container(
-            color: HexColor("#FFF7D6"),
-            margin: EdgeInsets.fromLTRB(10.w, 0, 40.w, 0),
-            child: Text(
-              AppLocalizations.of(context)!.translate("assignment")!,
-              style: TextStyle(fontSize: 10.sp),
-            ))
+        IconButton(
+          icon: const Icon(Icons.share),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {},
+        ),
       ],
     );
-  }
-
-  Widget _buildDailyLectureCarouselSlider(StudentDashboardSuccess state) {
-    final List<Widget> examstSliders = state.studentDashboard.dailyLectures!
-        .map((dailyLectures) =>
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Row(
-                children: [
-                  SizedBox(
-                    height: 25.h,
-                    width: 25.h,
-                    child: Image.network(
-                        "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        dailyLectures.isBreakTime!
-                            ? AppLocalizations.of(context)!.translate("break")!
-                            : dailyLectures.subjectName.toString(),
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.bold,
-                            color: HexColor("#01064E")),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Divider(
-                indent: 1,
-                thickness: 2,
-                height: 10.h,
-                color: Colors.black,
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Row(
-                children: [
-                  Text(
-                    (dailyLectures.fromTime!),
-                    style:
-                        TextStyle(fontSize: 10.sp, color: HexColor('#01064E')),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Container(
-                    height: 20.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: dailyLectures.subjectColor != null
-                          ? HexColor("${dailyLectures.subjectColor}")
-                          : HexColor("#8B0000"),
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context)!.translate("join")!,
-                      style: TextStyle(fontSize: 12.sp, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ]))
-        .toList();
-
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 7.h),
-          margin: EdgeInsets.symmetric(horizontal: 10.w),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.r),
-                bottomRight: Radius.circular(20.r),
-                topRight: Radius.circular(5.r),
-                bottomLeft: Radius.circular(5.r),
-              ),
-              color: HexColor("#EFF7FF"),
-              border: Border.all(color: mainAppColor, width: .5.w)),
-          height: 110.h,
-          width: 100.w,
-          child: Column(
-            children: [
-              CarouselSlider(
-                  options: CarouselOptions(
-                    height: 90.0.h,
-                    autoPlay: true,
-                    viewportFraction: 1,
-                  ),
-                  items: examstSliders),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      state.studentDashboard.dailyLectures!.asMap().entries.map(
-                    (entry) {
-                      return GestureDetector(
-                        onTap: () =>
-                            _carouselController.animateToPage(entry.key),
-                        child: Container(
-                          width: 4.0.w,
-                          height: 4.0.h,
-                          margin: EdgeInsets.symmetric(horizontal: 2.0.w),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      _currentDot == entry.key ? 0.9 : 0.4)),
-                        ),
-                      );
-                    },
-                  ).toList()),
-            ],
-          ),
-        ),
-        Container(
-            color: HexColor("#EFF7FF"),
-            margin: EdgeInsets.fromLTRB(10.w, 0, 40.w, 0),
-            child: Text(
-              AppLocalizations.of(context)!.translate("daily_lecture")!,
-              style: TextStyle(fontSize: 10.sp),
-            ))
-      ],
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+            key: _scaffoldKey,
+            drawer: const AppDrawer(),
+            resizeToAvoidBottomInset: false,
+            appBar: appBar,
+            body: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                return _buildBodyItem(state);
+              },
+            )),
+      ),
     );
   }
-
-  Widget _buildExamsCarouselSlider(StudentDashboardSuccess state) {
-    final List<Widget> examstSliders = state.studentDashboard.exams!
-        .map((exam) =>
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              exam.examComeSoon == false
-                  ? exam.examFinished == true
-                      ? const SizedBox()
-                      : Align(
-                          alignment: Alignment.topRight,
-                          child: Image.asset(
-                            "assets/images/comesoon.png",
-                            height: 25.h,
-                            width: 25.h,
-                            fit: BoxFit.fill,
-                          ))
-                  : Align(
-                      alignment: Alignment.topRight,
-                      child: Image.asset(
-                        "assets/images/comesoon.png",
-                        height: 25.h,
-                        width: 25.h,
-                        fit: BoxFit.fill,
-                      )),
-              Row(
-                children: [
-                  Container(
-                    height: 30.h,
-                    width: 5.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(3.r),
-                          bottomRight: Radius.circular(3.r)),
-                      color: exam.subjectColor != null
-                          ? HexColor("${exam.subjectColor}")
-                          : HexColor("#00C3DE"),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        exam.courseName.toString(),
-                        style: TextStyle(
-                            fontSize: 12.sp, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 3.h,
-                      ),
-                      Text(
-                        DateFormat('EEE dd/MM/yyyy').format(exam.createdDate!),
-                        style: TextStyle(fontSize: 10.sp),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              Container(
-                height: 20.h,
-                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.r),
-                  color: exam.subjectColor != null
-                      ? HexColor("${exam.subjectColor}")
-                      : HexColor("#00C3DE"),
-                ),
-                child: Text(
-                  DateFormat('kk:mm a').format(exam.createdDate!),
-                  style: TextStyle(fontSize: 10.sp, color: Colors.white),
-                ),
-              ),
-            ]))
-        .toList();
-
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 7.w),
-          margin: EdgeInsets.symmetric(horizontal: 10.w),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.r),
-                bottomRight: Radius.circular(20.r),
-                topRight: Radius.circular(5.r),
-                bottomLeft: Radius.circular(5.r),
-              ),
-              color: HexColor("#C7E1FB"),
-              border: Border.all(color: mainAppColor, width: .5.w)),
-          height: 110.h,
-          width: 100.w,
-          child: Column(
-            children: [
-              CarouselSlider(
-                  options: CarouselOptions(
-                    height: 90.0.h,
-                    autoPlay: true,
-                    viewportFraction: 1,
-                  ),
-                  items: examstSliders),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: state.studentDashboard.exams!.asMap().entries.map(
-                    (entry) {
-                      return GestureDetector(
-                        onTap: () =>
-                            _carouselController.animateToPage(entry.key),
-                        child: Container(
-                          width: 7.0.w,
-                          height: 7.0.h,
-                          margin: EdgeInsets.symmetric(horizontal: 4.0.w),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      _currentDot == entry.key ? 0.9 : 0.4)),
-                        ),
-                      );
-                    },
-                  ).toList()),
-            ],
-          ),
-        ),
-        Container(
-            color: HexColor("#C7E1FB"),
-            margin: const EdgeInsets.fromLTRB(10, 0, 40, 0),
-            child: Text(
-              AppLocalizations.of(context)!.translate("exams")!,
-              style: TextStyle(fontSize: 10.sp),
-            ))
-      ],
-    );
-  }
-
-
 }
