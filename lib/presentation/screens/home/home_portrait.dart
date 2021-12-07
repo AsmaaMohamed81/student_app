@@ -30,51 +30,7 @@ class _HomePortraitState extends State<HomePortrait> {
         .getStudentDashboard(studentId: '${widget.studentId}');
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return NetworkIndicator(
-      child: PageContainer(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            title: Padding(
-              padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
-              child: Text(AppLocalizations.of(context)!.translate('home')!),
-            ),
-            backgroundColor: mainAppColor,
-            elevation: 0,
-            leading: GestureDetector(
-                child: const Icon(
-              Icons.menu,
-              color: Colors.white,
-            )),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.notifications_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.share),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          body: BlocConsumer<HomeCubit, HomeState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return _buildBodyItem(state);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildBodyItem(HomeState state) {
+  Widget _buildBodyItem(HomeState state) {
     if (state is HomeLoadingState) {
       return Center(
         child: CircularProgressIndicator(color: mainAppColor),
@@ -345,9 +301,10 @@ class _HomePortraitState extends State<HomePortrait> {
     } else if (state is StudentDashboardFailure) {
       return Center(child: Text(state.message));
     }
+    return Center(child: Text(state.toString()));
   }
 
-  _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
+  Widget _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> assignmentSliders = state.studentDashboard.assignments!
         .map((assignment) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -502,7 +459,7 @@ class _HomePortraitState extends State<HomePortrait> {
     );
   }
 
-  _buildDailyLectureCarouselSlider(StudentDashboardSuccess state) {
+  Widget _buildDailyLectureCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> examstSliders = state.studentDashboard.dailyLectures!
         .map((dailyLectures) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -637,7 +594,7 @@ class _HomePortraitState extends State<HomePortrait> {
     );
   }
 
-  _buildExamsCarouselSlider(StudentDashboardSuccess state) {
+  Widget _buildExamsCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> examstSliders = state.studentDashboard.exams!
         .map((exam) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -777,6 +734,50 @@ class _HomePortraitState extends State<HomePortrait> {
               style: TextStyle(fontSize: 10.sp),
             ))
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return NetworkIndicator(
+      child: PageContainer(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Padding(
+              padding: EdgeInsets.fromLTRB(0, 5.h, 0, 0),
+              child: Text(AppLocalizations.of(context)!.translate('home')!),
+            ),
+            backgroundColor: mainAppColor,
+            elevation: 0,
+            leading: GestureDetector(
+                child: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            )),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.notifications_outlined),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.share),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {},
+              ),
+            ],
+          ),
+          body: BlocConsumer<HomeCubit, HomeState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return _buildBodyItem(state);
+            },
+          ),
+        ),
+      ),
     );
   }
 }
