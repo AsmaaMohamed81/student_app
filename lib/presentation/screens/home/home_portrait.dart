@@ -352,9 +352,10 @@ class _HomePortraitState extends State<HomePortrait> {
     } else if (state is StudentDashboardFailure) {
       return Center(child: Text(state.message));
     }
+    return Center(child: Text(state.toString()));
   }
 
-  _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
+  Widget _buildAssignmentCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> assignmentSliders = state.studentDashboard.assignments!
         .map((assignment) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -509,7 +510,7 @@ class _HomePortraitState extends State<HomePortrait> {
     );
   }
 
-  _buildDailyLectureCarouselSlider(StudentDashboardSuccess state) {
+  Widget _buildDailyLectureCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> examstSliders = state.studentDashboard.dailyLectures!
         .map((dailyLectures) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -644,7 +645,7 @@ class _HomePortraitState extends State<HomePortrait> {
     );
   }
 
-  _buildExamsCarouselSlider(StudentDashboardSuccess state) {
+  Widget _buildExamsCarouselSlider(StudentDashboardSuccess state) {
     final List<Widget> examstSliders = state.studentDashboard.exams!
         .map((exam) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -786,4 +787,6 @@ class _HomePortraitState extends State<HomePortrait> {
       ],
     );
   }
+
+
 }
