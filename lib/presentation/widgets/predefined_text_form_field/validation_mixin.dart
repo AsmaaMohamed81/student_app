@@ -73,7 +73,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
           .translate('user_name_validation_sample');
     } else if (!isLength(userName, 8, 30)) {
       return AppLocalizations.of(context)!
-          .translate('user_name_valodation_length');
+          .translate('user_name_validation_length');
     }
     return null;
   }

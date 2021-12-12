@@ -48,6 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                 child: Image.asset(
                   'assets/images/login_bg.png',
                   height: 130.h,
+                  fit: BoxFit.fill,
                 ),
               ),
               SizedBox(
@@ -69,8 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               Row(
                 children: [
                   SizedBox(
-                    height:  orientation == Orientation.portrait ?
-                    70.h : 100.h,
+                    height: orientation == Orientation.portrait ? 70.h : 100.h,
                     width: 180.w,
                     child: PredefinedTextFormField(
                       validationFunction: validateFirstName,
@@ -83,8 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                     ),
                   ),
                   SizedBox(
-                   height:  orientation == Orientation.portrait ?
-                    70.h : 100.h,
+                    height: orientation == Orientation.portrait ? 70.h : 100.h,
                     width: 180.w,
                     child: PredefinedTextFormField(
                       validationFunction: validateLastName,
@@ -106,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(
-                height:orientation == Orientation.portrait ? 10.h : 20.h,
+                height: orientation == Orientation.portrait ? 10.h : 20.h,
               ),
               PredefinedTextFormField(
                 inputData: TextInputType.emailAddress,
@@ -156,7 +155,6 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
                 height: 15.h,
               ),
               !context.watch<SignUpCubit>().isLoading
-             
                   ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       child: DefaultButton(
@@ -197,106 +195,106 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
               Container(
                 margin: EdgeInsets.symmetric(vertical: 15.h),
                 child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: 0.25.sw,
-                    height: orientation == Orientation.portrait
-                              ? 28.h : 50.h,
-                    decoration: BoxDecoration(
-                        color: const Color(0xff3C5A99),
-                        borderRadius: BorderRadius.circular((10))),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.facebook,
-                          color: Colors.white,
-                          size: orientation == Orientation.portrait
-                              ? 15.h
-                              : 30.h,
-                        ),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Text(
-                          'Facebook',
-                          style: TextStyle(
-                            color: Colors.white,fontSize:
-                            orientation == Orientation.portrait
-                              ?  9.sp : 20.sp
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: orientation == Orientation.portrait ? 28.h : 50.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff3C5A99),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.facebook,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 15.h
+                                : 30.h,
                           ),
-                        )
-                      ],
-                    ),
-                  ), Container(
-                    alignment: Alignment.center,
-                    width: 0.25.sw,
-                          height: orientation == Orientation.portrait
-                              ? 28.h : 50.h,
-                    decoration: BoxDecoration(
-                        color: const Color(0xffF95341),
-                        borderRadius: BorderRadius.circular((10))),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.google,
-                          color: Colors.white,
-                          size: orientation == Orientation.portrait
-                              ? 12.h
-                              : 30.h,
-                        ),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Text(
-                          'Google',
-                          style: TextStyle(
-                            color: Colors.white,fontSize:   orientation == Orientation.portrait
-                              ?  9.sp : 20.sp
+                          SizedBox(
+                            width: 7.w,
                           ),
-                        )
-                      ],
+                          Text(
+                            'Facebook',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: orientation == Orientation.portrait
+                                    ? 9.sp
+                                    : 20.sp),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                   Container(
-                    alignment: Alignment.center,
-                    width: 0.25.sw,
-                        height: orientation == Orientation.portrait
-                              ? 28.h : 50.h,
-                    decoration: BoxDecoration(
-                        color: const Color(0xff0491FF),
-                        borderRadius: BorderRadius.circular((10))),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.windows,
-                          color: Colors.white,
-                          size: orientation == Orientation.portrait
-                              ? 15.h
-                              : 30.h,
-                        ),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Text(
-                          'Microsoft',
-                          style: TextStyle(
-                            color: Colors.white,fontSize:   orientation == Orientation.portrait
-                              ?  9.sp : 20.sp
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: orientation == Orientation.portrait ? 28.h : 50.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xffF95341),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.google,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 12.h
+                                : 30.h,
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: 7.w,
+                          ),
+                          Text(
+                            'Google',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: orientation == Orientation.portrait
+                                    ? 9.sp
+                                    : 20.sp),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 0.25.sw,
+                      height: orientation == Orientation.portrait ? 28.h : 50.h,
+                      decoration: BoxDecoration(
+                          color: const Color(0xff0491FF),
+                          borderRadius: BorderRadius.circular((10))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.windows,
+                            color: Colors.white,
+                            size: orientation == Orientation.portrait
+                                ? 15.h
+                                : 30.h,
+                          ),
+                          SizedBox(
+                            width: 7.w,
+                          ),
+                          Text(
+                            'Microsoft',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: orientation == Orientation.portrait
+                                    ? 9.sp
+                                    : 20.sp),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               Container(
                 alignment: Alignment.center,
@@ -352,7 +350,7 @@ class _SignUpScreenState extends State<SignUpScreen> with ValidationMixin {
     return NetworkIndicator(
       child: PageContainer(
         child: Scaffold(
-      resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: true,
           body: BlocConsumer<SignUpCubit, SignUpState>(
             listener: (context, state) {
               if (state is SignUpSucccess) {

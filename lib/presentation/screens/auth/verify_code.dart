@@ -308,7 +308,8 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen>
                 Navigator.pushNamed(context, newPasswordRoute,
                     arguments: widget.email);
               } else if (state is VerifyCodeFailure) {
-                Commons.showError(context, state.message);
+                Commons.showError(
+                    context, "Please enter correct code. Try again.");
               } else if (state is ResendingCodeSuccess) {
                 Commons.showToast(context, message: state.message);
                 _initTimerAnimationController();

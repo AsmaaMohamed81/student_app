@@ -66,6 +66,8 @@ flutter:
     - assets/images/backhome.png
     - assets/images/profile_picture.png
     - assets/images/close.png
+    - assets/images/overdue.png
+    - assets/images/coffee_break.png
 
 
 

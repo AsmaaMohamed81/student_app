@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:student_app/business_logic/cubits/home/home_cubit.dart';
-import 'package:student_app/data/models/student_dashboard.dart';
 import 'package:student_app/locale/app_localizations.dart';
 import 'package:student_app/presentation/screens/home/widgets/subject_item.dart';
 import 'package:student_app/presentation/screens/home/widgets/assignment_slider.dart';

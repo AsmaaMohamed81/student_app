@@ -26,7 +26,7 @@ class AssignmentSlider extends StatelessWidget {
                       : Align(
                           alignment: Alignment.topRight,
                           child: Image.asset(
-                            "assets/images/comesoon.png",
+                            "assets/images/overdue.png",
                             height: MediaQuery.of(context).orientation ==
                                     Orientation.portrait
                                 ? 25.h

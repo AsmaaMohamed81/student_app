@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                 child: Image.asset(
                   'assets/images/login_bg.png',
                   height: 150.h,
+                  fit: BoxFit.fill,
                 ),
               ),
               SizedBox(
