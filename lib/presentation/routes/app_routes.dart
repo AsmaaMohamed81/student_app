@@ -31,10 +31,11 @@ class AppRoutes {
                     if (loginState is Authenticated) {
                       return BlocProvider(
                           create: (_) => di.sl<HomeCubit>(),
-                          child: Home(studentId: loginState.user.mainRoleId));
+                          child: HomeScreen(
+                              studentId: loginState.user.mainRoleId));
                     } else if (loginState is UnAuthenticated) {
                       return const ChoosingLoginOrSignUpScreen();
-                    } 
+                    }
                     return const ChoosingLoginOrSignUpScreen();
                   },
                 ));

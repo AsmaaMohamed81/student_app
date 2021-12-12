@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class DailyLectureSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     int _currentDot = 0;
     final CarouselController _carouselController = CarouselController();
-    final List<Widget> examstSliders = studentDashboardState
+    final List<Widget> dailyLecturetSliders = studentDashboardState
         .studentDashboard.dailyLectures!
         .map((dailyLectures) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -33,8 +34,9 @@ class DailyLectureSlider extends StatelessWidget {
                             Orientation.portrait
                         ? 25.h
                         : 70.h,
-                    child: Image.network(
-                        "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
+                    child: CachedNetworkImage(
+                        imageUrl:
+                            "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
                   ),
                   SizedBox(
                     width: 5.w,
@@ -83,6 +85,7 @@ class DailyLectureSlider extends StatelessWidget {
                     width: 5.w,
                   ),
                   Container(
+                    alignment: Alignment.center,
                     height: MediaQuery.of(context).orientation ==
                             Orientation.portrait
                         ? 20.h
@@ -100,7 +103,7 @@ class DailyLectureSlider extends StatelessWidget {
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).orientation ==
                                   Orientation.portrait
-                              ? 15.h
+                              ? 12.h
                               : 35.h,
                           color: Colors.white),
                     ),
@@ -140,7 +143,7 @@ class DailyLectureSlider extends StatelessWidget {
                     autoPlay: true,
                     viewportFraction: 1,
                   ),
-                  items: examstSliders),
+                  items: dailyLecturetSliders),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: studentDashboardState

@@ -47,53 +47,12 @@ flutter:
   assets:
     - lang/en.json
     - lang/ar.json
-    - assets/images/bg.png
     - assets/images/login_bg.png
     - assets/images/splash_bg.png
-    - assets/images/intro_bg.png
     - assets/images/welcome_bg.png
-    - assets/images/Rectangle.png
     - assets/images/home.png
-    - assets/images/person.png
     - assets/images/log_out.png
-    - assets/images/bg.png
     - assets/images/logo.png
-    - assets/images/intro_bg.png
-    - assets/images/Rectangle.png
-    - assets/images/home.png
-    - assets/images/person.png
-    - assets/images/menu.png
-    - assets/images/educational_semesters.png
-    - assets/images/educational_classes.png
-    - assets/images/educational_materials.png
-    - assets/images/teachers_info.png
-    - assets/images/students_requests.png
-    - assets/images/students_info.png
-    - assets/images/icon_educational_classes.png
-    - assets/images/icon_educational_material.png
-    - assets/images/icon_teachers_info.png
-    - assets/images/students_requests_icon.png
-    - assets/images/students_info_icon.png
-    - assets/images/reports.png
-    - assets/images/review_lectures.png
-    - assets/images/teacher.png
-    - assets/images/back.png
-    - assets/images/alrwad.jpg
-    - assets/images/upload.png
-    - assets/images/student.png
-    - assets/images/icon_excel.png
-    - assets/images/icon_add.png
-    - assets/images/material.png
-    - assets/images/filter.png
-    - assets/images/back.jpg
-    - assets/images/mail.png
-    - assets/images/backhome.png
-    - assets/images/schedule.png
-    - assets/images/flame_training.png
-    - assets/images/calendar.png
-    - assets/images/profile_picture.png
-    - assets/images/close.png
-    - assets/images/headset.png
     - assets/images/calendar_menu.png
     - assets/images/message.png
     - assets/images/notification.png
@@ -101,4 +60,15 @@ flutter:
     - assets/images/headset.png
     - assets/images/setting.png
     - assets/images/comesoon.png
+    - assets/images/schedule.png
+    - assets/images/calendar.png
+    - assets/images/flame_training.png
+    - assets/images/backhome.png
+    - assets/images/profile_picture.png
+    - assets/images/close.png
+
+
+
+
+
 

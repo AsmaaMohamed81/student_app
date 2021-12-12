@@ -69,6 +69,7 @@
   "join":"JOIN",
   "assignment":"Assignment",
   "exams":"Exams",
-  "break":"Break"
+  "break":"Break",
+  "content":"Content"
 
 }

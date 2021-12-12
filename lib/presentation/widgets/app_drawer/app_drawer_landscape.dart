@@ -179,7 +179,7 @@ class AppDrawerLandscape extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                      top: 170.h,
+                    top: 170.h,
                     left: 120.w,
                     child: Row(
                       children: [
@@ -189,7 +189,7 @@ class AppDrawerLandscape extends StatelessWidget {
                           AppLocalizations.of(context)!.translate('account')!,
                           style: TextStyle(
                               color: Colors.white,
-                            fontSize: 25.sp,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.w600),
                         )
                       ],
@@ -197,7 +197,7 @@ class AppDrawerLandscape extends StatelessWidget {
                   ),
                   Positioned(
                     top: 350.h,
-                      left: 125.w,
+                    left: 125.w,
                     child: Row(
                       children: [
                         Image.asset('assets/images/headset.png'),
@@ -207,7 +207,7 @@ class AppDrawerLandscape extends StatelessWidget {
                               .translate('live_support')!,
                           style: TextStyle(
                               color: Colors.white,
-                           fontSize: 25.sp,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.w600),
                         )
                       ],
@@ -215,23 +215,23 @@ class AppDrawerLandscape extends StatelessWidget {
                   ),
                   Positioned(
                     top: 550.h,
-                      left: 125.w,
+                    left: 125.w,
                     child: Row(
                       children: [
                         Image.asset('assets/images/setting.png'),
-                       SizedBox(width: 10.w),
+                        SizedBox(width: 10.w),
                         Text(
                           AppLocalizations.of(context)!.translate('settings')!,
-                           style: TextStyle(
+                          style: TextStyle(
                               color: Colors.white,
-                           fontSize: 25.sp,
+                              fontSize: 25.sp,
                               fontWeight: FontWeight.w600),
                         )
                       ],
                     ),
                   ),
                   Positioned(
-                    width: 1.sw,
+                      width: 1.sw,
                       bottom: 0,
                       child: Row(
                         children: [
@@ -265,7 +265,7 @@ class AppDrawerLandscape extends StatelessWidget {
                                           .translate('log_out')!,
                                       style: TextStyle(
                                           color: Colors.white,
-                                           fontSize: 25.sp,
+                                          fontSize: 25.sp,
                                           fontWeight: FontWeight.w600),
                                     ),
                                   ],

@@ -51,9 +51,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
-                      fontSize: orientation == Orientation.portrait
-                          ? 25.sp
-                          : 50.sp),
+                      fontSize:
+                          orientation == Orientation.portrait ? 25.sp : 50.sp),
                 ),
               ),
               SizedBox(
@@ -72,8 +71,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
               PredefinedTextFormField(
                 controller: _passwordController,
                 validationFunction: validatePasswordForLogin,
-                hintTxt: AppLocalizations.of(context)!
-                    .translate("enter_password")!,
+                hintTxt:
+                    AppLocalizations.of(context)!.translate("enter_password")!,
                 isPassword: true,
                 maxLines: 1,
               ),
@@ -105,11 +104,9 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                       child: DefaultButton(
                           btnLblStyle: orientation == Orientation.portrait
                               ? Theme.of(context).textTheme.button
-                              : TextStyle(
-                                  color: Colors.white, fontSize: 30.sp),
-                          height: orientation == Orientation.portrait
-                              ? 45.h
-                              : 70.h,
+                              : TextStyle(color: Colors.white, fontSize: 30.sp),
+                          height:
+                              orientation == Orientation.portrait ? 45.h : 70.h,
                           borderColor: mainAppColor,
                           horizontalMarginIsEnabled: true,
                           btnLbl: AppLocalizations.of(context)!
@@ -121,8 +118,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                                   emailController: _emailController)),
                     )
                   : Center(
-                      child: SpinKitFadingCircle(
-                          size: 45.h, color: mainAppColor),
+                      child:
+                          SpinKitFadingCircle(size: 45.h, color: mainAppColor),
                     ),
               SizedBox(
                 height: 25.h,
@@ -141,8 +138,7 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                   Container(
                     alignment: Alignment.center,
                     width: 0.25.sw,
-                    height: orientation == Orientation.portrait
-                              ? 28.h : 50.h,
+                    height: orientation == Orientation.portrait ? 28.h : 50.h,
                     decoration: BoxDecoration(
                         color: const Color(0xff3C5A99),
                         borderRadius: BorderRadius.circular((10))),
@@ -153,9 +149,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         Icon(
                           Icons.facebook,
                           color: Colors.white,
-                          size: orientation == Orientation.portrait
-                              ? 15.h
-                              : 30.h,
+                          size:
+                              orientation == Orientation.portrait ? 15.h : 30.h,
                         ),
                         SizedBox(
                           width: 7.w,
@@ -163,18 +158,18 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         Text(
                           'Facebook',
                           style: TextStyle(
-                            color: Colors.white,fontSize:
-                            orientation == Orientation.portrait
-                              ?  9.sp : 20.sp
-                          ),
+                              color: Colors.white,
+                              fontSize: orientation == Orientation.portrait
+                                  ? 9.sp
+                                  : 20.sp),
                         )
                       ],
                     ),
-                  ), Container(
+                  ),
+                  Container(
                     alignment: Alignment.center,
                     width: 0.25.sw,
-                          height: orientation == Orientation.portrait
-                              ? 28.h : 50.h,
+                    height: orientation == Orientation.portrait ? 28.h : 50.h,
                     decoration: BoxDecoration(
                         color: const Color(0xffF95341),
                         borderRadius: BorderRadius.circular((10))),
@@ -185,9 +180,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         Icon(
                           FontAwesomeIcons.google,
                           color: Colors.white,
-                          size: orientation == Orientation.portrait
-                              ? 12.h
-                              : 30.h,
+                          size:
+                              orientation == Orientation.portrait ? 12.h : 30.h,
                         ),
                         SizedBox(
                           width: 7.w,
@@ -195,18 +189,18 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         Text(
                           'Google',
                           style: TextStyle(
-                            color: Colors.white,fontSize:   orientation == Orientation.portrait
-                              ?  9.sp : 20.sp
-                          ),
+                              color: Colors.white,
+                              fontSize: orientation == Orientation.portrait
+                                  ? 9.sp
+                                  : 20.sp),
                         )
                       ],
                     ),
                   ),
-                   Container(
+                  Container(
                     alignment: Alignment.center,
                     width: 0.25.sw,
-                        height: orientation == Orientation.portrait
-                              ? 28.h : 50.h,
+                    height: orientation == Orientation.portrait ? 28.h : 50.h,
                     decoration: BoxDecoration(
                         color: const Color(0xff0491FF),
                         borderRadius: BorderRadius.circular((10))),
@@ -217,9 +211,8 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         Icon(
                           FontAwesomeIcons.windows,
                           color: Colors.white,
-                          size: orientation == Orientation.portrait
-                              ? 15.h
-                              : 30.h,
+                          size:
+                              orientation == Orientation.portrait ? 15.h : 30.h,
                         ),
                         SizedBox(
                           width: 7.w,
@@ -227,9 +220,10 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
                         Text(
                           'Microsoft',
                           style: TextStyle(
-                            color: Colors.white,fontSize:   orientation == Orientation.portrait
-                              ?  9.sp : 20.sp
-                          ),
+                              color: Colors.white,
+                              fontSize: orientation == Orientation.portrait
+                                  ? 9.sp
+                                  : 20.sp),
                         )
                       ],
                     ),
@@ -305,8 +299,13 @@ class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
           body: BlocConsumer<LoginCubit, LoginState>(
             listener: (context, state) {
               if (state is Authenticated) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    homeRoute, (Route<dynamic> route) => false);
+                if (state.user.mainRoleType == "Student") {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      homeRoute, (Route<dynamic> route) => false);
+                } else {
+                  Commons.showError(
+                      context, "The user name or password is wrong");
+                }
               } else if (state is UnAuthenticated) {
                 Commons.showError(context, state.message);
               }

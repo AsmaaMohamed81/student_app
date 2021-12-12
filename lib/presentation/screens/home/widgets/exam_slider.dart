@@ -109,11 +109,12 @@ class ExamSlider extends StatelessWidget {
                 height: 10.h,
               ),
               Container(
+                alignment: Alignment.center,
                 height:
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? 20.h
                         : 40.h,
-                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
+                width: 0.13.sw,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.r),
                   color: exam.subjectColor != null
