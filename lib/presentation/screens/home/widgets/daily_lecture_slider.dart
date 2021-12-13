@@ -19,34 +19,14 @@ class DailyLectureSlider extends StatelessWidget {
     final CarouselController _carouselController = CarouselController();
     final List<Widget> dailyLecturetSliders = studentDashboardState
         .studentDashboard.dailyLectures!
-        .map((dailyLectures) =>
-            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Row(
+        .map((dailyLectures) => dailyLectures.isBreakTime!
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 25.h
-                        : 70.h,
-                    width: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 25.h
-                        : 70.h,
-                    child: CachedNetworkImage(
-                        imageUrl:
-                            "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
                     children: [
                       Text(
-                        dailyLectures.isBreakTime!
-                            ? AppLocalizations.of(context)!.translate("break")!
-                            : dailyLectures.subjectName.toString(),
+                        AppLocalizations.of(context)!.translate("break")!,
                         style: TextStyle(
                             fontSize: MediaQuery.of(context).orientation ==
                                     Orientation.portrait
@@ -55,60 +35,132 @@ class DailyLectureSlider extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: HexColor("#01064E")),
                       ),
+                      SizedBox(
+                        width: 5.w,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? 20.h
+                            : 40.h,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.w, vertical: 3.h),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: dailyLectures.subjectColor != null
+                              ? HexColor("${dailyLectures.subjectColor}")
+                              : HexColor("#8B0000"),
+                        ),
+                        child: Text(
+                          dailyLectures.fromTime!,
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? 10.h
+                                  : 35.h,
+                              color: Colors.white),
+                        ),
+                      ),
                     ],
                   ),
+                  Image.asset(
+                    "assets/images/coffee_break.png",
+                    height: 50.h,
+                    width: 50.w,
+                  )
                 ],
-              ),
-              Divider(
-                indent: 1,
-                thickness: 2,
-                height: 10.h,
-                color: Colors.black,
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Row(
-                children: [
-                  Text(
-                    (dailyLectures.fromTime!),
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? 10.sp
-                            : 30.sp,
-                        color: HexColor('#01064E')),
-                  ),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 20.h
-                        : 40.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: dailyLectures.subjectColor != null
-                          ? HexColor("${dailyLectures.subjectColor}")
-                          : HexColor("#8B0000"),
+              )
+            : Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? 25.h
+                          : 70.h,
+                      width: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? 25.h
+                          : 70.h,
+                      child: CachedNetworkImage(
+                          imageUrl:
+                              "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
                     ),
-                    child: Text(
-                      AppLocalizations.of(context)!.translate("join")!,
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          dailyLectures.isBreakTime!
+                              ? AppLocalizations.of(context)!
+                                  .translate("break")!
+                              : dailyLectures.subjectName.toString(),
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? 15.sp
+                                  : 40.sp,
+                              fontWeight: FontWeight.bold,
+                              color: HexColor("#01064E")),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  indent: 1,
+                  thickness: 2,
+                  height: 10.h,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      (dailyLectures.fromTime!),
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).orientation ==
                                   Orientation.portrait
-                              ? 12.h
-                              : 35.h,
-                          color: Colors.white),
+                              ? 10.sp
+                              : 30.sp,
+                          color: HexColor('#01064E')),
                     ),
-                  ),
-                ],
-              ),
-            ]))
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? 20.h
+                          : 40.h,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 9.w, vertical: 3.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: dailyLectures.subjectColor != null
+                            ? HexColor("${dailyLectures.subjectColor}")
+                            : HexColor("#8B0000"),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.translate("join")!,
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).orientation ==
+                                    Orientation.portrait
+                                ? 12.h
+                                : 35.h,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ]))
         .toList();
 
     return Stack(
@@ -130,47 +182,54 @@ class DailyLectureSlider extends StatelessWidget {
               ? 110.h
               : 300.h,
           width: 100.w,
-          child: Column(
-            children: [
-              CarouselSlider(
-                  options: CarouselOptions(
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 90.h
-                        : 250.h,
-                    autoPlay: true,
-                    viewportFraction: 1,
-                  ),
-                  items: dailyLecturetSliders),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: studentDashboardState
-                      .studentDashboard.dailyLectures!
-                      .asMap()
-                      .entries
-                      .map(
-                    (entry) {
-                      return GestureDetector(
-                        onTap: () =>
-                            _carouselController.animateToPage(entry.key),
-                        child: Container(
-                          width: 4.0.w,
-                          height: 4.0.h,
-                          margin: EdgeInsets.symmetric(horizontal: 2.0.w),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      _currentDot == entry.key ? 0.9 : 0.4)),
+          child: studentDashboardState.studentDashboard.dailyLectures!.isEmpty
+              ? Image.asset(
+                  "assets/images/weekend.png",
+                  height: 40.h,
+                  width: 40.h,
+                )
+              : Column(
+                  children: [
+                    CarouselSlider(
+                        options: CarouselOptions(
+                          height: MediaQuery.of(context).orientation ==
+                                  Orientation.portrait
+                              ? 90.h
+                              : 250.h,
+                          autoPlay: true,
+                          viewportFraction: 1,
                         ),
-                      );
-                    },
-                  ).toList()),
-            ],
-          ),
+                        items: dailyLecturetSliders),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: studentDashboardState
+                            .studentDashboard.dailyLectures!
+                            .asMap()
+                            .entries
+                            .map(
+                          (entry) {
+                            return GestureDetector(
+                              onTap: () =>
+                                  _carouselController.animateToPage(entry.key),
+                              child: Container(
+                                width: 4.0.w,
+                                height: 4.0.h,
+                                margin: EdgeInsets.symmetric(horizontal: 2.0.w),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: (Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.black)
+                                        .withOpacity(_currentDot == entry.key
+                                            ? 0.9
+                                            : 0.4)),
+                              ),
+                            );
+                          },
+                        ).toList()),
+                  ],
+                ),
         ),
         Container(
             color: HexColor("#EFF7FF"),

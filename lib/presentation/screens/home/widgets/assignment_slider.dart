@@ -21,7 +21,7 @@ class AssignmentSlider extends StatelessWidget {
         .map((assignment) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               assignment.assignmentComeSoon == false
-                  ? assignment.assignmentFinished == true
+                  ? assignment.assignmentFinished == false
                       ? const SizedBox()
                       : Align(
                           alignment: Alignment.topRight,
@@ -33,7 +33,7 @@ class AssignmentSlider extends StatelessWidget {
                                 : 70.h,
                             width: MediaQuery.of(context).orientation ==
                                     Orientation.portrait
-                                ? 25.h
+                                ? 40.h
                                 : 70.h,
                             fit: BoxFit.fill,
                           ))

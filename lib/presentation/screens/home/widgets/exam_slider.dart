@@ -22,19 +22,19 @@ class ExamSlider extends StatelessWidget {
         .map((exam) =>
             Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               exam.examComeSoon == false
-                  ? exam.examFinished == true
+                  ? exam.examFinished == false
                       ? const SizedBox()
                       : Align(
                           alignment: Alignment.topRight,
                           child: Image.asset(
-                            "assets/images/comesoon.png",
+                            "assets/images/overdue.png",
                             height: MediaQuery.of(context).orientation ==
                                     Orientation.portrait
                                 ? 25.h
                                 : 70.h,
                             width: MediaQuery.of(context).orientation ==
                                     Orientation.portrait
-                                ? 25.h
+                                ? 40.h
                                 : 70.h,
                             fit: BoxFit.fill,
                           ))
