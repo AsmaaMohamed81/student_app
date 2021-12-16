@@ -84,8 +84,18 @@ class DailyLectureSlider extends StatelessWidget {
                           ? 25.h
                           : 70.h,
                       child: CachedNetworkImage(
-                          imageUrl:
-                              "https://img2.arabpng.com/20180328/suq/kisspng-color-wheel-switch-computer-icons-color-5abbe67ac38b23.441536901522263674801.jpg"),
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              Center(
+                                child: CircularProgressIndicator(
+                                    value: progress.progress,
+                                    color: mainAppColor),
+                              ),
+                          height: 110,
+                          width: 100,
+                          fit: BoxFit.cover,
+                          imageUrl: dailyLectures.subjectImage!,
+                          errorWidget: (context, url, error) =>
+                              Image.asset("assets/images/material_img.png")),
                     ),
                     SizedBox(
                       width: 5.w,
