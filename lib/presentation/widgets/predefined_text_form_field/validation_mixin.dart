@@ -59,8 +59,7 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
 
   String? validateUserName(String? userName) {
     String patternForOnlyDigits = r'^[0-9]';
-    String userNamePattern =
-        r'^(?![_.])(?![0-9])(?!.*?[!@#\$&*~])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$';
+    String userNamePattern = r'^[a-zA-Z0-9._]*$';
     RegExp regexOfStartWithDigit = RegExp(patternForOnlyDigits);
     RegExp userNameRegex = RegExp(userNamePattern);
     if (userName!.trim().isEmpty) {
@@ -69,6 +68,9 @@ mixin ValidationMixin<T extends StatefulWidget> on State<T> {
     } else if (userName.startsWith(regexOfStartWithDigit)) {
       return AppLocalizations.of(context)!.translate('user_name_validation');
     } else if (!userNameRegex.hasMatch(userName)) {
+      return AppLocalizations.of(context)!
+          .translate('user_name_validation_sample');
+    } else if (userName.contains("..")) {
       return AppLocalizations.of(context)!
           .translate('user_name_validation_sample');
     } else if (!isLength(userName, 8, 30)) {
