@@ -13,6 +13,7 @@ import 'package:student_app/presentation/widgets/network_indicator.dart';
 import 'package:student_app/presentation/widgets/page_container.dart';
 import 'package:student_app/utils/app_colors.dart';
 import 'package:student_app/utils/hex_color.dart';
+import 'package:student_app/utils/strings.dart';
 
 class HomeScreenPortrait extends StatefulWidget {
   final int? studentId;
@@ -187,14 +188,20 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                             ),
                             Column(
                               children: [
-                                CircleAvatar(
-                                  backgroundColor: HexColor("#EDFDFF"),
-                                  radius: 40.r,
-                                  child: Image.asset(
-                                    "assets/images/calendar.png",
-                                    height: 75.h,
-                                    width: 75.h,
-                                    fit: BoxFit.cover,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, missedLecturesScreen);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: HexColor("#EDFDFF"),
+                                    radius: 40.r,
+                                    child: Image.asset(
+                                      "assets/images/calendar.png",
+                                      height: 75.h,
+                                      width: 75.h,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -212,14 +219,20 @@ class _HomeScreenPortraitState extends State<HomeScreenPortrait> {
                             ),
                             Column(
                               children: [
-                                CircleAvatar(
-                                  backgroundColor: HexColor("#FFF7D6"),
-                                  radius: 40.r,
-                                  child: Image.asset(
-                                    "assets/images/schedule.png",
-                                    height: 45.h,
-                                    width: 45.h,
-                                    fit: BoxFit.cover,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, missedLecturesScreen);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: HexColor("#FFF7D6"),
+                                    radius: 40.r,
+                                    child: Image.asset(
+                                      "assets/images/schedule.png",
+                                      height: 45.h,
+                                      width: 45.h,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(

@@ -14,6 +14,7 @@ import 'package:student_app/presentation/screens/auth/new_password.dart';
 import 'package:student_app/presentation/screens/auth/verify_code.dart';
 import 'package:student_app/presentation/screens/home/home.dart';
 import 'package:student_app/presentation/screens/intro_screen.dart';
+import 'package:student_app/presentation/screens/missed_lectures/missed_lectures.dart';
 import 'package:student_app/presentation/screens/splash_screen.dart';
 import 'package:student_app/utils/strings.dart';
 import 'package:student_app/utils/injection_container.dart' as di;
@@ -72,6 +73,8 @@ class AppRoutes {
                 child: NewPassWordScreen(
                   email: email,
                 )));
+      case missedLecturesScreen:
+        return MaterialPageRoute(builder: (_) => const MissedLecturesScreen());
       default:
         return null;
     }
